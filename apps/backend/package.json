@@ -1,0 +1,8 @@
+{
+    "name": "backend",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "uv run fastapi dev --port 8080",
+        "start": "uv run fastapi run --port 8080"
+    }
+}
