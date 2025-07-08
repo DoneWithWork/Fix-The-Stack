@@ -8,6 +8,7 @@ export const server = createEnv({
         CLERK_WEBHOOK_SIGNING_SECRET: z.string().min(1),
         ENCRYPTION_KEY: z.string().min(1),
         DATABASE_URL: z.string().url(),
+        RESEND_API_KEY: z.string().min(1)
     },
 
     experimental__runtimeEnv: process.env
