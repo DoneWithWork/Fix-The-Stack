@@ -5,6 +5,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { checkRole } from "@/lib/roles";
 import { cookies } from "next/headers";
 import { ReactNode, Suspense } from "react";
+import "react-select-search/style.css";
 
 export default async function UserDashboardLayout({
   children,
@@ -27,7 +28,7 @@ export default async function UserDashboardLayout({
         </CookieLayout>
       </Suspense>
 
-      <main className="flex-1 h-screen overflow-auto">{children}</main>
+      <main className="flex-1 h-screen ">{children}</main>
     </SidebarProvider>
   );
 }

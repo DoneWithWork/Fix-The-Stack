@@ -1,4 +1,4 @@
-import { ApiKey } from "@prisma/index";
+import { ApiKey, Prisma } from "@prisma/index";
 
 
 export type ProjectType = {
@@ -42,3 +42,37 @@ export type DevicesByProjectType = {
 
 }
 export type ProjectTypeData = DevicesByProjectType
+
+export type DeviceWithStream = Prisma.DeviceGetPayload<{
+    include: { dataStreams: true };
+}>;
+
+export type ComparisonOperators = "==" | ">" | "<" | ">=" | "<=";
+export type Operators = "AND" | "OR";
+export type ConditionNode = {
+    id: string;
+    type: "condition";
+    field: string;
+    operator: ComparisonOperators;
+    value: string;
+};
+export type GroupNode = {
+    id: string;
+    type: "group";
+    children: RuleNode[];
+    operator: Operators;
+};
+export type RuleNode = GroupNode | ConditionNode;
+
+export type RuleGroupProps = {
+    group: GroupNode;
+    onAddCondition: (id: string) => void;
+    onAddGroup: (id: string) => void;
+    onDeleteCondition: (id: string) => void;
+    devices: flattenDevices[];
+};
+export type flattenDevices = {
+    id: string;
+    name: string;
+    value: string;
+};

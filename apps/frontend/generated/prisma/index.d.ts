@@ -43,6 +43,31 @@ export type DataStream = $Result.DefaultSelection<Prisma.$DataStreamPayload>
  * 
  */
 export type DataPoint = $Result.DefaultSelection<Prisma.$DataPointPayload>
+/**
+ * Model Rule
+ * 
+ */
+export type Rule = $Result.DefaultSelection<Prisma.$RulePayload>
+/**
+ * Model Action
+ * 
+ */
+export type Action = $Result.DefaultSelection<Prisma.$ActionPayload>
+/**
+ * Model EmailAction
+ * 
+ */
+export type EmailAction = $Result.DefaultSelection<Prisma.$EmailActionPayload>
+/**
+ * Model TelegramAction
+ * 
+ */
+export type TelegramAction = $Result.DefaultSelection<Prisma.$TelegramActionPayload>
+/**
+ * Model WebhookAction
+ * 
+ */
+export type WebhookAction = $Result.DefaultSelection<Prisma.$WebhookActionPayload>
 
 /**
  * Enums
@@ -65,6 +90,23 @@ export const DeviceType: {
 
 export type DeviceType = (typeof DeviceType)[keyof typeof DeviceType]
 
+
+export const ActionType: {
+  EMAIL: 'EMAIL',
+  TELEGRAM: 'TELEGRAM',
+  WEBHOOK: 'WEBHOOK'
+};
+
+export type ActionType = (typeof ActionType)[keyof typeof ActionType]
+
+
+export const LogicalOperator: {
+  AND: 'AND',
+  OR: 'OR'
+};
+
+export type LogicalOperator = (typeof LogicalOperator)[keyof typeof LogicalOperator]
+
 }
 
 export type ApiKeyType = $Enums.ApiKeyType
@@ -74,6 +116,14 @@ export const ApiKeyType: typeof $Enums.ApiKeyType
 export type DeviceType = $Enums.DeviceType
 
 export const DeviceType: typeof $Enums.DeviceType
+
+export type ActionType = $Enums.ActionType
+
+export const ActionType: typeof $Enums.ActionType
+
+export type LogicalOperator = $Enums.LogicalOperator
+
+export const LogicalOperator: typeof $Enums.LogicalOperator
 
 /**
  * ##  Prisma Client ʲˢ
@@ -259,6 +309,56 @@ export class PrismaClient<
     * ```
     */
   get dataPoint(): Prisma.DataPointDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rule`: Exposes CRUD operations for the **Rule** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Rules
+    * const rules = await prisma.rule.findMany()
+    * ```
+    */
+  get rule(): Prisma.RuleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.action`: Exposes CRUD operations for the **Action** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Actions
+    * const actions = await prisma.action.findMany()
+    * ```
+    */
+  get action(): Prisma.ActionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.emailAction`: Exposes CRUD operations for the **EmailAction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EmailActions
+    * const emailActions = await prisma.emailAction.findMany()
+    * ```
+    */
+  get emailAction(): Prisma.EmailActionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.telegramAction`: Exposes CRUD operations for the **TelegramAction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TelegramActions
+    * const telegramActions = await prisma.telegramAction.findMany()
+    * ```
+    */
+  get telegramAction(): Prisma.TelegramActionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.webhookAction`: Exposes CRUD operations for the **WebhookAction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WebhookActions
+    * const webhookActions = await prisma.webhookAction.findMany()
+    * ```
+    */
+  get webhookAction(): Prisma.WebhookActionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -704,7 +804,12 @@ export namespace Prisma {
     Project: 'Project',
     Device: 'Device',
     DataStream: 'DataStream',
-    DataPoint: 'DataPoint'
+    DataPoint: 'DataPoint',
+    Rule: 'Rule',
+    Action: 'Action',
+    EmailAction: 'EmailAction',
+    TelegramAction: 'TelegramAction',
+    WebhookAction: 'WebhookAction'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -723,7 +828,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "apiKey" | "project" | "device" | "dataStream" | "dataPoint"
+      modelProps: "user" | "apiKey" | "project" | "device" | "dataStream" | "dataPoint" | "rule" | "action" | "emailAction" | "telegramAction" | "webhookAction"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1171,6 +1276,376 @@ export namespace Prisma {
           }
         }
       }
+      Rule: {
+        payload: Prisma.$RulePayload<ExtArgs>
+        fields: Prisma.RuleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RuleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RulePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RuleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RulePayload>
+          }
+          findFirst: {
+            args: Prisma.RuleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RulePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RuleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RulePayload>
+          }
+          findMany: {
+            args: Prisma.RuleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RulePayload>[]
+          }
+          create: {
+            args: Prisma.RuleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RulePayload>
+          }
+          createMany: {
+            args: Prisma.RuleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RuleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RulePayload>[]
+          }
+          delete: {
+            args: Prisma.RuleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RulePayload>
+          }
+          update: {
+            args: Prisma.RuleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RulePayload>
+          }
+          deleteMany: {
+            args: Prisma.RuleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RuleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RuleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RulePayload>[]
+          }
+          upsert: {
+            args: Prisma.RuleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RulePayload>
+          }
+          aggregate: {
+            args: Prisma.RuleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRule>
+          }
+          groupBy: {
+            args: Prisma.RuleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RuleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RuleCountArgs<ExtArgs>
+            result: $Utils.Optional<RuleCountAggregateOutputType> | number
+          }
+        }
+      }
+      Action: {
+        payload: Prisma.$ActionPayload<ExtArgs>
+        fields: Prisma.ActionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ActionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ActionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActionPayload>
+          }
+          findFirst: {
+            args: Prisma.ActionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ActionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActionPayload>
+          }
+          findMany: {
+            args: Prisma.ActionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActionPayload>[]
+          }
+          create: {
+            args: Prisma.ActionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActionPayload>
+          }
+          createMany: {
+            args: Prisma.ActionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ActionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActionPayload>[]
+          }
+          delete: {
+            args: Prisma.ActionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActionPayload>
+          }
+          update: {
+            args: Prisma.ActionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActionPayload>
+          }
+          deleteMany: {
+            args: Prisma.ActionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ActionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ActionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActionPayload>[]
+          }
+          upsert: {
+            args: Prisma.ActionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActionPayload>
+          }
+          aggregate: {
+            args: Prisma.ActionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAction>
+          }
+          groupBy: {
+            args: Prisma.ActionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ActionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ActionCountArgs<ExtArgs>
+            result: $Utils.Optional<ActionCountAggregateOutputType> | number
+          }
+        }
+      }
+      EmailAction: {
+        payload: Prisma.$EmailActionPayload<ExtArgs>
+        fields: Prisma.EmailActionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EmailActionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailActionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EmailActionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailActionPayload>
+          }
+          findFirst: {
+            args: Prisma.EmailActionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailActionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EmailActionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailActionPayload>
+          }
+          findMany: {
+            args: Prisma.EmailActionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailActionPayload>[]
+          }
+          create: {
+            args: Prisma.EmailActionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailActionPayload>
+          }
+          createMany: {
+            args: Prisma.EmailActionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EmailActionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailActionPayload>[]
+          }
+          delete: {
+            args: Prisma.EmailActionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailActionPayload>
+          }
+          update: {
+            args: Prisma.EmailActionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailActionPayload>
+          }
+          deleteMany: {
+            args: Prisma.EmailActionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EmailActionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EmailActionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailActionPayload>[]
+          }
+          upsert: {
+            args: Prisma.EmailActionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailActionPayload>
+          }
+          aggregate: {
+            args: Prisma.EmailActionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEmailAction>
+          }
+          groupBy: {
+            args: Prisma.EmailActionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EmailActionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EmailActionCountArgs<ExtArgs>
+            result: $Utils.Optional<EmailActionCountAggregateOutputType> | number
+          }
+        }
+      }
+      TelegramAction: {
+        payload: Prisma.$TelegramActionPayload<ExtArgs>
+        fields: Prisma.TelegramActionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TelegramActionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramActionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TelegramActionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramActionPayload>
+          }
+          findFirst: {
+            args: Prisma.TelegramActionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramActionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TelegramActionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramActionPayload>
+          }
+          findMany: {
+            args: Prisma.TelegramActionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramActionPayload>[]
+          }
+          create: {
+            args: Prisma.TelegramActionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramActionPayload>
+          }
+          createMany: {
+            args: Prisma.TelegramActionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TelegramActionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramActionPayload>[]
+          }
+          delete: {
+            args: Prisma.TelegramActionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramActionPayload>
+          }
+          update: {
+            args: Prisma.TelegramActionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramActionPayload>
+          }
+          deleteMany: {
+            args: Prisma.TelegramActionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TelegramActionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TelegramActionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramActionPayload>[]
+          }
+          upsert: {
+            args: Prisma.TelegramActionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TelegramActionPayload>
+          }
+          aggregate: {
+            args: Prisma.TelegramActionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTelegramAction>
+          }
+          groupBy: {
+            args: Prisma.TelegramActionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TelegramActionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TelegramActionCountArgs<ExtArgs>
+            result: $Utils.Optional<TelegramActionCountAggregateOutputType> | number
+          }
+        }
+      }
+      WebhookAction: {
+        payload: Prisma.$WebhookActionPayload<ExtArgs>
+        fields: Prisma.WebhookActionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WebhookActionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookActionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WebhookActionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookActionPayload>
+          }
+          findFirst: {
+            args: Prisma.WebhookActionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookActionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WebhookActionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookActionPayload>
+          }
+          findMany: {
+            args: Prisma.WebhookActionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookActionPayload>[]
+          }
+          create: {
+            args: Prisma.WebhookActionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookActionPayload>
+          }
+          createMany: {
+            args: Prisma.WebhookActionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WebhookActionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookActionPayload>[]
+          }
+          delete: {
+            args: Prisma.WebhookActionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookActionPayload>
+          }
+          update: {
+            args: Prisma.WebhookActionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookActionPayload>
+          }
+          deleteMany: {
+            args: Prisma.WebhookActionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WebhookActionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.WebhookActionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookActionPayload>[]
+          }
+          upsert: {
+            args: Prisma.WebhookActionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebhookActionPayload>
+          }
+          aggregate: {
+            args: Prisma.WebhookActionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWebhookAction>
+          }
+          groupBy: {
+            args: Prisma.WebhookActionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WebhookActionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WebhookActionCountArgs<ExtArgs>
+            result: $Utils.Optional<WebhookActionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1261,6 +1736,11 @@ export namespace Prisma {
     device?: DeviceOmit
     dataStream?: DataStreamOmit
     dataPoint?: DataPointOmit
+    rule?: RuleOmit
+    action?: ActionOmit
+    emailAction?: EmailActionOmit
+    telegramAction?: TelegramActionOmit
+    webhookAction?: WebhookActionOmit
   }
 
   /* Types for Logging */
@@ -1357,11 +1837,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     api_keys: number
     projects: number
+    rules: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     api_keys?: boolean | UserCountOutputTypeCountApi_keysArgs
     projects?: boolean | UserCountOutputTypeCountProjectsArgs
+    rules?: boolean | UserCountOutputTypeCountRulesArgs
   }
 
   // Custom InputTypes
@@ -1387,6 +1869,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountProjectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProjectWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RuleWhereInput
   }
 
 
@@ -1480,6 +1969,37 @@ export namespace Prisma {
    */
   export type DataStreamCountOutputTypeCountDataPointsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DataPointWhereInput
+  }
+
+
+  /**
+   * Count Type RuleCountOutputType
+   */
+
+  export type RuleCountOutputType = {
+    actions: number
+  }
+
+  export type RuleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    actions?: boolean | RuleCountOutputTypeCountActionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RuleCountOutputType without action
+   */
+  export type RuleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RuleCountOutputType
+     */
+    select?: RuleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RuleCountOutputType without action
+   */
+  export type RuleCountOutputTypeCountActionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ActionWhereInput
   }
 
 
@@ -1669,6 +2189,7 @@ export namespace Prisma {
     updatedAt?: boolean
     api_keys?: boolean | User$api_keysArgs<ExtArgs>
     projects?: boolean | User$projectsArgs<ExtArgs>
+    rules?: boolean | User$rulesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1706,6 +2227,7 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     api_keys?: boolean | User$api_keysArgs<ExtArgs>
     projects?: boolean | User$projectsArgs<ExtArgs>
+    rules?: boolean | User$rulesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1716,6 +2238,7 @@ export namespace Prisma {
     objects: {
       api_keys: Prisma.$ApiKeyPayload<ExtArgs>[]
       projects: Prisma.$ProjectPayload<ExtArgs>[]
+      rules: Prisma.$RulePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2121,6 +2644,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     api_keys<T extends User$api_keysArgs<ExtArgs> = {}>(args?: Subset<T, User$api_keysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     projects<T extends User$projectsArgs<ExtArgs> = {}>(args?: Subset<T, User$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    rules<T extends User$rulesArgs<ExtArgs> = {}>(args?: Subset<T, User$rulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2590,6 +3114,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ProjectScalarFieldEnum | ProjectScalarFieldEnum[]
+  }
+
+  /**
+   * User.rules
+   */
+  export type User$rulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rule
+     */
+    select?: RuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rule
+     */
+    omit?: RuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RuleInclude<ExtArgs> | null
+    where?: RuleWhereInput
+    orderBy?: RuleOrderByWithRelationInput | RuleOrderByWithRelationInput[]
+    cursor?: RuleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RuleScalarFieldEnum | RuleScalarFieldEnum[]
   }
 
   /**
@@ -8096,6 +8644,5467 @@ export namespace Prisma {
 
 
   /**
+   * Model Rule
+   */
+
+  export type AggregateRule = {
+    _count: RuleCountAggregateOutputType | null
+    _avg: RuleAvgAggregateOutputType | null
+    _sum: RuleSumAggregateOutputType | null
+    _min: RuleMinAggregateOutputType | null
+    _max: RuleMaxAggregateOutputType | null
+  }
+
+  export type RuleAvgAggregateOutputType = {
+    attempts: number | null
+  }
+
+  export type RuleSumAggregateOutputType = {
+    attempts: number | null
+  }
+
+  export type RuleMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    active: boolean | null
+    attempts: number | null
+    userId: string | null
+  }
+
+  export type RuleMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    active: boolean | null
+    attempts: number | null
+    userId: string | null
+  }
+
+  export type RuleCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    active: number
+    attempts: number
+    userId: number
+    _all: number
+  }
+
+
+  export type RuleAvgAggregateInputType = {
+    attempts?: true
+  }
+
+  export type RuleSumAggregateInputType = {
+    attempts?: true
+  }
+
+  export type RuleMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+    attempts?: true
+    userId?: true
+  }
+
+  export type RuleMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+    attempts?: true
+    userId?: true
+  }
+
+  export type RuleCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    active?: true
+    attempts?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type RuleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Rule to aggregate.
+     */
+    where?: RuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Rules to fetch.
+     */
+    orderBy?: RuleOrderByWithRelationInput | RuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Rules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Rules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Rules
+    **/
+    _count?: true | RuleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RuleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RuleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RuleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RuleMaxAggregateInputType
+  }
+
+  export type GetRuleAggregateType<T extends RuleAggregateArgs> = {
+        [P in keyof T & keyof AggregateRule]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRule[P]>
+      : GetScalarType<T[P], AggregateRule[P]>
+  }
+
+
+
+
+  export type RuleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RuleWhereInput
+    orderBy?: RuleOrderByWithAggregationInput | RuleOrderByWithAggregationInput[]
+    by: RuleScalarFieldEnum[] | RuleScalarFieldEnum
+    having?: RuleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RuleCountAggregateInputType | true
+    _avg?: RuleAvgAggregateInputType
+    _sum?: RuleSumAggregateInputType
+    _min?: RuleMinAggregateInputType
+    _max?: RuleMaxAggregateInputType
+  }
+
+  export type RuleGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    createdAt: Date
+    updatedAt: Date
+    active: boolean
+    attempts: number
+    userId: string | null
+    _count: RuleCountAggregateOutputType | null
+    _avg: RuleAvgAggregateOutputType | null
+    _sum: RuleSumAggregateOutputType | null
+    _min: RuleMinAggregateOutputType | null
+    _max: RuleMaxAggregateOutputType | null
+  }
+
+  type GetRuleGroupByPayload<T extends RuleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RuleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RuleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RuleGroupByOutputType[P]>
+            : GetScalarType<T[P], RuleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RuleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+    attempts?: boolean
+    userId?: boolean
+    actions?: boolean | Rule$actionsArgs<ExtArgs>
+    User?: boolean | Rule$UserArgs<ExtArgs>
+    _count?: boolean | RuleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rule"]>
+
+  export type RuleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+    attempts?: boolean
+    userId?: boolean
+    User?: boolean | Rule$UserArgs<ExtArgs>
+  }, ExtArgs["result"]["rule"]>
+
+  export type RuleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+    attempts?: boolean
+    userId?: boolean
+    User?: boolean | Rule$UserArgs<ExtArgs>
+  }, ExtArgs["result"]["rule"]>
+
+  export type RuleSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    active?: boolean
+    attempts?: boolean
+    userId?: boolean
+  }
+
+  export type RuleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt" | "active" | "attempts" | "userId", ExtArgs["result"]["rule"]>
+  export type RuleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    actions?: boolean | Rule$actionsArgs<ExtArgs>
+    User?: boolean | Rule$UserArgs<ExtArgs>
+    _count?: boolean | RuleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type RuleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | Rule$UserArgs<ExtArgs>
+  }
+  export type RuleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | Rule$UserArgs<ExtArgs>
+  }
+
+  export type $RulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Rule"
+    objects: {
+      actions: Prisma.$ActionPayload<ExtArgs>[]
+      User: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      createdAt: Date
+      updatedAt: Date
+      active: boolean
+      attempts: number
+      userId: string | null
+    }, ExtArgs["result"]["rule"]>
+    composites: {}
+  }
+
+  type RuleGetPayload<S extends boolean | null | undefined | RuleDefaultArgs> = $Result.GetResult<Prisma.$RulePayload, S>
+
+  type RuleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RuleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RuleCountAggregateInputType | true
+    }
+
+  export interface RuleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Rule'], meta: { name: 'Rule' } }
+    /**
+     * Find zero or one Rule that matches the filter.
+     * @param {RuleFindUniqueArgs} args - Arguments to find a Rule
+     * @example
+     * // Get one Rule
+     * const rule = await prisma.rule.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RuleFindUniqueArgs>(args: SelectSubset<T, RuleFindUniqueArgs<ExtArgs>>): Prisma__RuleClient<$Result.GetResult<Prisma.$RulePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Rule that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RuleFindUniqueOrThrowArgs} args - Arguments to find a Rule
+     * @example
+     * // Get one Rule
+     * const rule = await prisma.rule.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RuleFindUniqueOrThrowArgs>(args: SelectSubset<T, RuleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RuleClient<$Result.GetResult<Prisma.$RulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Rule that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RuleFindFirstArgs} args - Arguments to find a Rule
+     * @example
+     * // Get one Rule
+     * const rule = await prisma.rule.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RuleFindFirstArgs>(args?: SelectSubset<T, RuleFindFirstArgs<ExtArgs>>): Prisma__RuleClient<$Result.GetResult<Prisma.$RulePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Rule that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RuleFindFirstOrThrowArgs} args - Arguments to find a Rule
+     * @example
+     * // Get one Rule
+     * const rule = await prisma.rule.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RuleFindFirstOrThrowArgs>(args?: SelectSubset<T, RuleFindFirstOrThrowArgs<ExtArgs>>): Prisma__RuleClient<$Result.GetResult<Prisma.$RulePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Rules that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RuleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Rules
+     * const rules = await prisma.rule.findMany()
+     * 
+     * // Get first 10 Rules
+     * const rules = await prisma.rule.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const ruleWithIdOnly = await prisma.rule.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RuleFindManyArgs>(args?: SelectSubset<T, RuleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Rule.
+     * @param {RuleCreateArgs} args - Arguments to create a Rule.
+     * @example
+     * // Create one Rule
+     * const Rule = await prisma.rule.create({
+     *   data: {
+     *     // ... data to create a Rule
+     *   }
+     * })
+     * 
+     */
+    create<T extends RuleCreateArgs>(args: SelectSubset<T, RuleCreateArgs<ExtArgs>>): Prisma__RuleClient<$Result.GetResult<Prisma.$RulePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Rules.
+     * @param {RuleCreateManyArgs} args - Arguments to create many Rules.
+     * @example
+     * // Create many Rules
+     * const rule = await prisma.rule.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RuleCreateManyArgs>(args?: SelectSubset<T, RuleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Rules and returns the data saved in the database.
+     * @param {RuleCreateManyAndReturnArgs} args - Arguments to create many Rules.
+     * @example
+     * // Create many Rules
+     * const rule = await prisma.rule.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Rules and only return the `id`
+     * const ruleWithIdOnly = await prisma.rule.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RuleCreateManyAndReturnArgs>(args?: SelectSubset<T, RuleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RulePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Rule.
+     * @param {RuleDeleteArgs} args - Arguments to delete one Rule.
+     * @example
+     * // Delete one Rule
+     * const Rule = await prisma.rule.delete({
+     *   where: {
+     *     // ... filter to delete one Rule
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RuleDeleteArgs>(args: SelectSubset<T, RuleDeleteArgs<ExtArgs>>): Prisma__RuleClient<$Result.GetResult<Prisma.$RulePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Rule.
+     * @param {RuleUpdateArgs} args - Arguments to update one Rule.
+     * @example
+     * // Update one Rule
+     * const rule = await prisma.rule.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RuleUpdateArgs>(args: SelectSubset<T, RuleUpdateArgs<ExtArgs>>): Prisma__RuleClient<$Result.GetResult<Prisma.$RulePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Rules.
+     * @param {RuleDeleteManyArgs} args - Arguments to filter Rules to delete.
+     * @example
+     * // Delete a few Rules
+     * const { count } = await prisma.rule.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RuleDeleteManyArgs>(args?: SelectSubset<T, RuleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Rules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RuleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Rules
+     * const rule = await prisma.rule.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RuleUpdateManyArgs>(args: SelectSubset<T, RuleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Rules and returns the data updated in the database.
+     * @param {RuleUpdateManyAndReturnArgs} args - Arguments to update many Rules.
+     * @example
+     * // Update many Rules
+     * const rule = await prisma.rule.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Rules and only return the `id`
+     * const ruleWithIdOnly = await prisma.rule.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RuleUpdateManyAndReturnArgs>(args: SelectSubset<T, RuleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RulePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Rule.
+     * @param {RuleUpsertArgs} args - Arguments to update or create a Rule.
+     * @example
+     * // Update or create a Rule
+     * const rule = await prisma.rule.upsert({
+     *   create: {
+     *     // ... data to create a Rule
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Rule we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RuleUpsertArgs>(args: SelectSubset<T, RuleUpsertArgs<ExtArgs>>): Prisma__RuleClient<$Result.GetResult<Prisma.$RulePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Rules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RuleCountArgs} args - Arguments to filter Rules to count.
+     * @example
+     * // Count the number of Rules
+     * const count = await prisma.rule.count({
+     *   where: {
+     *     // ... the filter for the Rules we want to count
+     *   }
+     * })
+    **/
+    count<T extends RuleCountArgs>(
+      args?: Subset<T, RuleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RuleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Rule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RuleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RuleAggregateArgs>(args: Subset<T, RuleAggregateArgs>): Prisma.PrismaPromise<GetRuleAggregateType<T>>
+
+    /**
+     * Group by Rule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RuleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RuleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RuleGroupByArgs['orderBy'] }
+        : { orderBy?: RuleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RuleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRuleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Rule model
+   */
+  readonly fields: RuleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Rule.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RuleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    actions<T extends Rule$actionsArgs<ExtArgs> = {}>(args?: Subset<T, Rule$actionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    User<T extends Rule$UserArgs<ExtArgs> = {}>(args?: Subset<T, Rule$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Rule model
+   */
+  interface RuleFieldRefs {
+    readonly id: FieldRef<"Rule", 'String'>
+    readonly name: FieldRef<"Rule", 'String'>
+    readonly description: FieldRef<"Rule", 'String'>
+    readonly createdAt: FieldRef<"Rule", 'DateTime'>
+    readonly updatedAt: FieldRef<"Rule", 'DateTime'>
+    readonly active: FieldRef<"Rule", 'Boolean'>
+    readonly attempts: FieldRef<"Rule", 'Int'>
+    readonly userId: FieldRef<"Rule", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Rule findUnique
+   */
+  export type RuleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rule
+     */
+    select?: RuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rule
+     */
+    omit?: RuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RuleInclude<ExtArgs> | null
+    /**
+     * Filter, which Rule to fetch.
+     */
+    where: RuleWhereUniqueInput
+  }
+
+  /**
+   * Rule findUniqueOrThrow
+   */
+  export type RuleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rule
+     */
+    select?: RuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rule
+     */
+    omit?: RuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RuleInclude<ExtArgs> | null
+    /**
+     * Filter, which Rule to fetch.
+     */
+    where: RuleWhereUniqueInput
+  }
+
+  /**
+   * Rule findFirst
+   */
+  export type RuleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rule
+     */
+    select?: RuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rule
+     */
+    omit?: RuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RuleInclude<ExtArgs> | null
+    /**
+     * Filter, which Rule to fetch.
+     */
+    where?: RuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Rules to fetch.
+     */
+    orderBy?: RuleOrderByWithRelationInput | RuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Rules.
+     */
+    cursor?: RuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Rules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Rules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Rules.
+     */
+    distinct?: RuleScalarFieldEnum | RuleScalarFieldEnum[]
+  }
+
+  /**
+   * Rule findFirstOrThrow
+   */
+  export type RuleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rule
+     */
+    select?: RuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rule
+     */
+    omit?: RuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RuleInclude<ExtArgs> | null
+    /**
+     * Filter, which Rule to fetch.
+     */
+    where?: RuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Rules to fetch.
+     */
+    orderBy?: RuleOrderByWithRelationInput | RuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Rules.
+     */
+    cursor?: RuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Rules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Rules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Rules.
+     */
+    distinct?: RuleScalarFieldEnum | RuleScalarFieldEnum[]
+  }
+
+  /**
+   * Rule findMany
+   */
+  export type RuleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rule
+     */
+    select?: RuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rule
+     */
+    omit?: RuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RuleInclude<ExtArgs> | null
+    /**
+     * Filter, which Rules to fetch.
+     */
+    where?: RuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Rules to fetch.
+     */
+    orderBy?: RuleOrderByWithRelationInput | RuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Rules.
+     */
+    cursor?: RuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Rules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Rules.
+     */
+    skip?: number
+    distinct?: RuleScalarFieldEnum | RuleScalarFieldEnum[]
+  }
+
+  /**
+   * Rule create
+   */
+  export type RuleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rule
+     */
+    select?: RuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rule
+     */
+    omit?: RuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RuleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Rule.
+     */
+    data: XOR<RuleCreateInput, RuleUncheckedCreateInput>
+  }
+
+  /**
+   * Rule createMany
+   */
+  export type RuleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Rules.
+     */
+    data: RuleCreateManyInput | RuleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Rule createManyAndReturn
+   */
+  export type RuleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rule
+     */
+    select?: RuleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rule
+     */
+    omit?: RuleOmit<ExtArgs> | null
+    /**
+     * The data used to create many Rules.
+     */
+    data: RuleCreateManyInput | RuleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RuleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Rule update
+   */
+  export type RuleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rule
+     */
+    select?: RuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rule
+     */
+    omit?: RuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RuleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Rule.
+     */
+    data: XOR<RuleUpdateInput, RuleUncheckedUpdateInput>
+    /**
+     * Choose, which Rule to update.
+     */
+    where: RuleWhereUniqueInput
+  }
+
+  /**
+   * Rule updateMany
+   */
+  export type RuleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Rules.
+     */
+    data: XOR<RuleUpdateManyMutationInput, RuleUncheckedUpdateManyInput>
+    /**
+     * Filter which Rules to update
+     */
+    where?: RuleWhereInput
+    /**
+     * Limit how many Rules to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Rule updateManyAndReturn
+   */
+  export type RuleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rule
+     */
+    select?: RuleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rule
+     */
+    omit?: RuleOmit<ExtArgs> | null
+    /**
+     * The data used to update Rules.
+     */
+    data: XOR<RuleUpdateManyMutationInput, RuleUncheckedUpdateManyInput>
+    /**
+     * Filter which Rules to update
+     */
+    where?: RuleWhereInput
+    /**
+     * Limit how many Rules to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RuleIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Rule upsert
+   */
+  export type RuleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rule
+     */
+    select?: RuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rule
+     */
+    omit?: RuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RuleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Rule to update in case it exists.
+     */
+    where: RuleWhereUniqueInput
+    /**
+     * In case the Rule found by the `where` argument doesn't exist, create a new Rule with this data.
+     */
+    create: XOR<RuleCreateInput, RuleUncheckedCreateInput>
+    /**
+     * In case the Rule was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RuleUpdateInput, RuleUncheckedUpdateInput>
+  }
+
+  /**
+   * Rule delete
+   */
+  export type RuleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rule
+     */
+    select?: RuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rule
+     */
+    omit?: RuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RuleInclude<ExtArgs> | null
+    /**
+     * Filter which Rule to delete.
+     */
+    where: RuleWhereUniqueInput
+  }
+
+  /**
+   * Rule deleteMany
+   */
+  export type RuleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Rules to delete
+     */
+    where?: RuleWhereInput
+    /**
+     * Limit how many Rules to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Rule.actions
+   */
+  export type Rule$actionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Action
+     */
+    select?: ActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Action
+     */
+    omit?: ActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActionInclude<ExtArgs> | null
+    where?: ActionWhereInput
+    orderBy?: ActionOrderByWithRelationInput | ActionOrderByWithRelationInput[]
+    cursor?: ActionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ActionScalarFieldEnum | ActionScalarFieldEnum[]
+  }
+
+  /**
+   * Rule.User
+   */
+  export type Rule$UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Rule without action
+   */
+  export type RuleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rule
+     */
+    select?: RuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rule
+     */
+    omit?: RuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RuleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Action
+   */
+
+  export type AggregateAction = {
+    _count: ActionCountAggregateOutputType | null
+    _min: ActionMinAggregateOutputType | null
+    _max: ActionMaxAggregateOutputType | null
+  }
+
+  export type ActionMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    type: $Enums.ActionType | null
+    active: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    ruleId: string | null
+  }
+
+  export type ActionMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    type: $Enums.ActionType | null
+    active: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    ruleId: string | null
+  }
+
+  export type ActionCountAggregateOutputType = {
+    id: number
+    name: number
+    type: number
+    active: number
+    createdAt: number
+    updatedAt: number
+    ruleId: number
+    _all: number
+  }
+
+
+  export type ActionMinAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+    ruleId?: true
+  }
+
+  export type ActionMaxAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+    ruleId?: true
+  }
+
+  export type ActionCountAggregateInputType = {
+    id?: true
+    name?: true
+    type?: true
+    active?: true
+    createdAt?: true
+    updatedAt?: true
+    ruleId?: true
+    _all?: true
+  }
+
+  export type ActionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Action to aggregate.
+     */
+    where?: ActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Actions to fetch.
+     */
+    orderBy?: ActionOrderByWithRelationInput | ActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Actions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Actions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Actions
+    **/
+    _count?: true | ActionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ActionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ActionMaxAggregateInputType
+  }
+
+  export type GetActionAggregateType<T extends ActionAggregateArgs> = {
+        [P in keyof T & keyof AggregateAction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAction[P]>
+      : GetScalarType<T[P], AggregateAction[P]>
+  }
+
+
+
+
+  export type ActionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ActionWhereInput
+    orderBy?: ActionOrderByWithAggregationInput | ActionOrderByWithAggregationInput[]
+    by: ActionScalarFieldEnum[] | ActionScalarFieldEnum
+    having?: ActionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ActionCountAggregateInputType | true
+    _min?: ActionMinAggregateInputType
+    _max?: ActionMaxAggregateInputType
+  }
+
+  export type ActionGroupByOutputType = {
+    id: string
+    name: string
+    type: $Enums.ActionType
+    active: boolean
+    createdAt: Date
+    updatedAt: Date
+    ruleId: string | null
+    _count: ActionCountAggregateOutputType | null
+    _min: ActionMinAggregateOutputType | null
+    _max: ActionMaxAggregateOutputType | null
+  }
+
+  type GetActionGroupByPayload<T extends ActionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ActionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ActionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ActionGroupByOutputType[P]>
+            : GetScalarType<T[P], ActionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ActionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    ruleId?: boolean
+    Rule?: boolean | Action$RuleArgs<ExtArgs>
+    emailAction?: boolean | Action$emailActionArgs<ExtArgs>
+    telegramAction?: boolean | Action$telegramActionArgs<ExtArgs>
+    webhookAction?: boolean | Action$webhookActionArgs<ExtArgs>
+  }, ExtArgs["result"]["action"]>
+
+  export type ActionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    ruleId?: boolean
+    Rule?: boolean | Action$RuleArgs<ExtArgs>
+  }, ExtArgs["result"]["action"]>
+
+  export type ActionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    ruleId?: boolean
+    Rule?: boolean | Action$RuleArgs<ExtArgs>
+  }, ExtArgs["result"]["action"]>
+
+  export type ActionSelectScalar = {
+    id?: boolean
+    name?: boolean
+    type?: boolean
+    active?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    ruleId?: boolean
+  }
+
+  export type ActionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "active" | "createdAt" | "updatedAt" | "ruleId", ExtArgs["result"]["action"]>
+  export type ActionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Rule?: boolean | Action$RuleArgs<ExtArgs>
+    emailAction?: boolean | Action$emailActionArgs<ExtArgs>
+    telegramAction?: boolean | Action$telegramActionArgs<ExtArgs>
+    webhookAction?: boolean | Action$webhookActionArgs<ExtArgs>
+  }
+  export type ActionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Rule?: boolean | Action$RuleArgs<ExtArgs>
+  }
+  export type ActionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Rule?: boolean | Action$RuleArgs<ExtArgs>
+  }
+
+  export type $ActionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Action"
+    objects: {
+      Rule: Prisma.$RulePayload<ExtArgs> | null
+      emailAction: Prisma.$EmailActionPayload<ExtArgs> | null
+      telegramAction: Prisma.$TelegramActionPayload<ExtArgs> | null
+      webhookAction: Prisma.$WebhookActionPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      type: $Enums.ActionType
+      active: boolean
+      createdAt: Date
+      updatedAt: Date
+      ruleId: string | null
+    }, ExtArgs["result"]["action"]>
+    composites: {}
+  }
+
+  type ActionGetPayload<S extends boolean | null | undefined | ActionDefaultArgs> = $Result.GetResult<Prisma.$ActionPayload, S>
+
+  type ActionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ActionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ActionCountAggregateInputType | true
+    }
+
+  export interface ActionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Action'], meta: { name: 'Action' } }
+    /**
+     * Find zero or one Action that matches the filter.
+     * @param {ActionFindUniqueArgs} args - Arguments to find a Action
+     * @example
+     * // Get one Action
+     * const action = await prisma.action.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ActionFindUniqueArgs>(args: SelectSubset<T, ActionFindUniqueArgs<ExtArgs>>): Prisma__ActionClient<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Action that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ActionFindUniqueOrThrowArgs} args - Arguments to find a Action
+     * @example
+     * // Get one Action
+     * const action = await prisma.action.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ActionFindUniqueOrThrowArgs>(args: SelectSubset<T, ActionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ActionClient<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Action that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActionFindFirstArgs} args - Arguments to find a Action
+     * @example
+     * // Get one Action
+     * const action = await prisma.action.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ActionFindFirstArgs>(args?: SelectSubset<T, ActionFindFirstArgs<ExtArgs>>): Prisma__ActionClient<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Action that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActionFindFirstOrThrowArgs} args - Arguments to find a Action
+     * @example
+     * // Get one Action
+     * const action = await prisma.action.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ActionFindFirstOrThrowArgs>(args?: SelectSubset<T, ActionFindFirstOrThrowArgs<ExtArgs>>): Prisma__ActionClient<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Actions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Actions
+     * const actions = await prisma.action.findMany()
+     * 
+     * // Get first 10 Actions
+     * const actions = await prisma.action.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const actionWithIdOnly = await prisma.action.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ActionFindManyArgs>(args?: SelectSubset<T, ActionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Action.
+     * @param {ActionCreateArgs} args - Arguments to create a Action.
+     * @example
+     * // Create one Action
+     * const Action = await prisma.action.create({
+     *   data: {
+     *     // ... data to create a Action
+     *   }
+     * })
+     * 
+     */
+    create<T extends ActionCreateArgs>(args: SelectSubset<T, ActionCreateArgs<ExtArgs>>): Prisma__ActionClient<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Actions.
+     * @param {ActionCreateManyArgs} args - Arguments to create many Actions.
+     * @example
+     * // Create many Actions
+     * const action = await prisma.action.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ActionCreateManyArgs>(args?: SelectSubset<T, ActionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Actions and returns the data saved in the database.
+     * @param {ActionCreateManyAndReturnArgs} args - Arguments to create many Actions.
+     * @example
+     * // Create many Actions
+     * const action = await prisma.action.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Actions and only return the `id`
+     * const actionWithIdOnly = await prisma.action.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ActionCreateManyAndReturnArgs>(args?: SelectSubset<T, ActionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Action.
+     * @param {ActionDeleteArgs} args - Arguments to delete one Action.
+     * @example
+     * // Delete one Action
+     * const Action = await prisma.action.delete({
+     *   where: {
+     *     // ... filter to delete one Action
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ActionDeleteArgs>(args: SelectSubset<T, ActionDeleteArgs<ExtArgs>>): Prisma__ActionClient<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Action.
+     * @param {ActionUpdateArgs} args - Arguments to update one Action.
+     * @example
+     * // Update one Action
+     * const action = await prisma.action.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ActionUpdateArgs>(args: SelectSubset<T, ActionUpdateArgs<ExtArgs>>): Prisma__ActionClient<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Actions.
+     * @param {ActionDeleteManyArgs} args - Arguments to filter Actions to delete.
+     * @example
+     * // Delete a few Actions
+     * const { count } = await prisma.action.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ActionDeleteManyArgs>(args?: SelectSubset<T, ActionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Actions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Actions
+     * const action = await prisma.action.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ActionUpdateManyArgs>(args: SelectSubset<T, ActionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Actions and returns the data updated in the database.
+     * @param {ActionUpdateManyAndReturnArgs} args - Arguments to update many Actions.
+     * @example
+     * // Update many Actions
+     * const action = await prisma.action.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Actions and only return the `id`
+     * const actionWithIdOnly = await prisma.action.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ActionUpdateManyAndReturnArgs>(args: SelectSubset<T, ActionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Action.
+     * @param {ActionUpsertArgs} args - Arguments to update or create a Action.
+     * @example
+     * // Update or create a Action
+     * const action = await prisma.action.upsert({
+     *   create: {
+     *     // ... data to create a Action
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Action we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ActionUpsertArgs>(args: SelectSubset<T, ActionUpsertArgs<ExtArgs>>): Prisma__ActionClient<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Actions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActionCountArgs} args - Arguments to filter Actions to count.
+     * @example
+     * // Count the number of Actions
+     * const count = await prisma.action.count({
+     *   where: {
+     *     // ... the filter for the Actions we want to count
+     *   }
+     * })
+    **/
+    count<T extends ActionCountArgs>(
+      args?: Subset<T, ActionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ActionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Action.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ActionAggregateArgs>(args: Subset<T, ActionAggregateArgs>): Prisma.PrismaPromise<GetActionAggregateType<T>>
+
+    /**
+     * Group by Action.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ActionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ActionGroupByArgs['orderBy'] }
+        : { orderBy?: ActionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ActionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetActionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Action model
+   */
+  readonly fields: ActionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Action.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ActionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    Rule<T extends Action$RuleArgs<ExtArgs> = {}>(args?: Subset<T, Action$RuleArgs<ExtArgs>>): Prisma__RuleClient<$Result.GetResult<Prisma.$RulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    emailAction<T extends Action$emailActionArgs<ExtArgs> = {}>(args?: Subset<T, Action$emailActionArgs<ExtArgs>>): Prisma__EmailActionClient<$Result.GetResult<Prisma.$EmailActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    telegramAction<T extends Action$telegramActionArgs<ExtArgs> = {}>(args?: Subset<T, Action$telegramActionArgs<ExtArgs>>): Prisma__TelegramActionClient<$Result.GetResult<Prisma.$TelegramActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    webhookAction<T extends Action$webhookActionArgs<ExtArgs> = {}>(args?: Subset<T, Action$webhookActionArgs<ExtArgs>>): Prisma__WebhookActionClient<$Result.GetResult<Prisma.$WebhookActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Action model
+   */
+  interface ActionFieldRefs {
+    readonly id: FieldRef<"Action", 'String'>
+    readonly name: FieldRef<"Action", 'String'>
+    readonly type: FieldRef<"Action", 'ActionType'>
+    readonly active: FieldRef<"Action", 'Boolean'>
+    readonly createdAt: FieldRef<"Action", 'DateTime'>
+    readonly updatedAt: FieldRef<"Action", 'DateTime'>
+    readonly ruleId: FieldRef<"Action", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Action findUnique
+   */
+  export type ActionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Action
+     */
+    select?: ActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Action
+     */
+    omit?: ActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActionInclude<ExtArgs> | null
+    /**
+     * Filter, which Action to fetch.
+     */
+    where: ActionWhereUniqueInput
+  }
+
+  /**
+   * Action findUniqueOrThrow
+   */
+  export type ActionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Action
+     */
+    select?: ActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Action
+     */
+    omit?: ActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActionInclude<ExtArgs> | null
+    /**
+     * Filter, which Action to fetch.
+     */
+    where: ActionWhereUniqueInput
+  }
+
+  /**
+   * Action findFirst
+   */
+  export type ActionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Action
+     */
+    select?: ActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Action
+     */
+    omit?: ActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActionInclude<ExtArgs> | null
+    /**
+     * Filter, which Action to fetch.
+     */
+    where?: ActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Actions to fetch.
+     */
+    orderBy?: ActionOrderByWithRelationInput | ActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Actions.
+     */
+    cursor?: ActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Actions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Actions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Actions.
+     */
+    distinct?: ActionScalarFieldEnum | ActionScalarFieldEnum[]
+  }
+
+  /**
+   * Action findFirstOrThrow
+   */
+  export type ActionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Action
+     */
+    select?: ActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Action
+     */
+    omit?: ActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActionInclude<ExtArgs> | null
+    /**
+     * Filter, which Action to fetch.
+     */
+    where?: ActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Actions to fetch.
+     */
+    orderBy?: ActionOrderByWithRelationInput | ActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Actions.
+     */
+    cursor?: ActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Actions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Actions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Actions.
+     */
+    distinct?: ActionScalarFieldEnum | ActionScalarFieldEnum[]
+  }
+
+  /**
+   * Action findMany
+   */
+  export type ActionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Action
+     */
+    select?: ActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Action
+     */
+    omit?: ActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActionInclude<ExtArgs> | null
+    /**
+     * Filter, which Actions to fetch.
+     */
+    where?: ActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Actions to fetch.
+     */
+    orderBy?: ActionOrderByWithRelationInput | ActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Actions.
+     */
+    cursor?: ActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Actions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Actions.
+     */
+    skip?: number
+    distinct?: ActionScalarFieldEnum | ActionScalarFieldEnum[]
+  }
+
+  /**
+   * Action create
+   */
+  export type ActionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Action
+     */
+    select?: ActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Action
+     */
+    omit?: ActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Action.
+     */
+    data: XOR<ActionCreateInput, ActionUncheckedCreateInput>
+  }
+
+  /**
+   * Action createMany
+   */
+  export type ActionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Actions.
+     */
+    data: ActionCreateManyInput | ActionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Action createManyAndReturn
+   */
+  export type ActionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Action
+     */
+    select?: ActionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Action
+     */
+    omit?: ActionOmit<ExtArgs> | null
+    /**
+     * The data used to create many Actions.
+     */
+    data: ActionCreateManyInput | ActionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Action update
+   */
+  export type ActionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Action
+     */
+    select?: ActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Action
+     */
+    omit?: ActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Action.
+     */
+    data: XOR<ActionUpdateInput, ActionUncheckedUpdateInput>
+    /**
+     * Choose, which Action to update.
+     */
+    where: ActionWhereUniqueInput
+  }
+
+  /**
+   * Action updateMany
+   */
+  export type ActionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Actions.
+     */
+    data: XOR<ActionUpdateManyMutationInput, ActionUncheckedUpdateManyInput>
+    /**
+     * Filter which Actions to update
+     */
+    where?: ActionWhereInput
+    /**
+     * Limit how many Actions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Action updateManyAndReturn
+   */
+  export type ActionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Action
+     */
+    select?: ActionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Action
+     */
+    omit?: ActionOmit<ExtArgs> | null
+    /**
+     * The data used to update Actions.
+     */
+    data: XOR<ActionUpdateManyMutationInput, ActionUncheckedUpdateManyInput>
+    /**
+     * Filter which Actions to update
+     */
+    where?: ActionWhereInput
+    /**
+     * Limit how many Actions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Action upsert
+   */
+  export type ActionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Action
+     */
+    select?: ActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Action
+     */
+    omit?: ActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Action to update in case it exists.
+     */
+    where: ActionWhereUniqueInput
+    /**
+     * In case the Action found by the `where` argument doesn't exist, create a new Action with this data.
+     */
+    create: XOR<ActionCreateInput, ActionUncheckedCreateInput>
+    /**
+     * In case the Action was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ActionUpdateInput, ActionUncheckedUpdateInput>
+  }
+
+  /**
+   * Action delete
+   */
+  export type ActionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Action
+     */
+    select?: ActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Action
+     */
+    omit?: ActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActionInclude<ExtArgs> | null
+    /**
+     * Filter which Action to delete.
+     */
+    where: ActionWhereUniqueInput
+  }
+
+  /**
+   * Action deleteMany
+   */
+  export type ActionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Actions to delete
+     */
+    where?: ActionWhereInput
+    /**
+     * Limit how many Actions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Action.Rule
+   */
+  export type Action$RuleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rule
+     */
+    select?: RuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rule
+     */
+    omit?: RuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RuleInclude<ExtArgs> | null
+    where?: RuleWhereInput
+  }
+
+  /**
+   * Action.emailAction
+   */
+  export type Action$emailActionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailAction
+     */
+    select?: EmailActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailAction
+     */
+    omit?: EmailActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailActionInclude<ExtArgs> | null
+    where?: EmailActionWhereInput
+  }
+
+  /**
+   * Action.telegramAction
+   */
+  export type Action$telegramActionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramAction
+     */
+    select?: TelegramActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramAction
+     */
+    omit?: TelegramActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramActionInclude<ExtArgs> | null
+    where?: TelegramActionWhereInput
+  }
+
+  /**
+   * Action.webhookAction
+   */
+  export type Action$webhookActionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookAction
+     */
+    select?: WebhookActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookAction
+     */
+    omit?: WebhookActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookActionInclude<ExtArgs> | null
+    where?: WebhookActionWhereInput
+  }
+
+  /**
+   * Action without action
+   */
+  export type ActionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Action
+     */
+    select?: ActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Action
+     */
+    omit?: ActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EmailAction
+   */
+
+  export type AggregateEmailAction = {
+    _count: EmailActionCountAggregateOutputType | null
+    _min: EmailActionMinAggregateOutputType | null
+    _max: EmailActionMaxAggregateOutputType | null
+  }
+
+  export type EmailActionMinAggregateOutputType = {
+    id: string | null
+    content: string | null
+    actionId: string | null
+  }
+
+  export type EmailActionMaxAggregateOutputType = {
+    id: string | null
+    content: string | null
+    actionId: string | null
+  }
+
+  export type EmailActionCountAggregateOutputType = {
+    id: number
+    content: number
+    actionId: number
+    _all: number
+  }
+
+
+  export type EmailActionMinAggregateInputType = {
+    id?: true
+    content?: true
+    actionId?: true
+  }
+
+  export type EmailActionMaxAggregateInputType = {
+    id?: true
+    content?: true
+    actionId?: true
+  }
+
+  export type EmailActionCountAggregateInputType = {
+    id?: true
+    content?: true
+    actionId?: true
+    _all?: true
+  }
+
+  export type EmailActionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmailAction to aggregate.
+     */
+    where?: EmailActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmailActions to fetch.
+     */
+    orderBy?: EmailActionOrderByWithRelationInput | EmailActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EmailActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmailActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmailActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EmailActions
+    **/
+    _count?: true | EmailActionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EmailActionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EmailActionMaxAggregateInputType
+  }
+
+  export type GetEmailActionAggregateType<T extends EmailActionAggregateArgs> = {
+        [P in keyof T & keyof AggregateEmailAction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEmailAction[P]>
+      : GetScalarType<T[P], AggregateEmailAction[P]>
+  }
+
+
+
+
+  export type EmailActionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmailActionWhereInput
+    orderBy?: EmailActionOrderByWithAggregationInput | EmailActionOrderByWithAggregationInput[]
+    by: EmailActionScalarFieldEnum[] | EmailActionScalarFieldEnum
+    having?: EmailActionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EmailActionCountAggregateInputType | true
+    _min?: EmailActionMinAggregateInputType
+    _max?: EmailActionMaxAggregateInputType
+  }
+
+  export type EmailActionGroupByOutputType = {
+    id: string
+    content: string
+    actionId: string
+    _count: EmailActionCountAggregateOutputType | null
+    _min: EmailActionMinAggregateOutputType | null
+    _max: EmailActionMaxAggregateOutputType | null
+  }
+
+  type GetEmailActionGroupByPayload<T extends EmailActionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EmailActionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EmailActionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EmailActionGroupByOutputType[P]>
+            : GetScalarType<T[P], EmailActionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EmailActionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    actionId?: boolean
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["emailAction"]>
+
+  export type EmailActionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    actionId?: boolean
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["emailAction"]>
+
+  export type EmailActionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    actionId?: boolean
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["emailAction"]>
+
+  export type EmailActionSelectScalar = {
+    id?: boolean
+    content?: boolean
+    actionId?: boolean
+  }
+
+  export type EmailActionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "actionId", ExtArgs["result"]["emailAction"]>
+  export type EmailActionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }
+  export type EmailActionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }
+  export type EmailActionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }
+
+  export type $EmailActionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EmailAction"
+    objects: {
+      action: Prisma.$ActionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      content: string
+      actionId: string
+    }, ExtArgs["result"]["emailAction"]>
+    composites: {}
+  }
+
+  type EmailActionGetPayload<S extends boolean | null | undefined | EmailActionDefaultArgs> = $Result.GetResult<Prisma.$EmailActionPayload, S>
+
+  type EmailActionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EmailActionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EmailActionCountAggregateInputType | true
+    }
+
+  export interface EmailActionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EmailAction'], meta: { name: 'EmailAction' } }
+    /**
+     * Find zero or one EmailAction that matches the filter.
+     * @param {EmailActionFindUniqueArgs} args - Arguments to find a EmailAction
+     * @example
+     * // Get one EmailAction
+     * const emailAction = await prisma.emailAction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EmailActionFindUniqueArgs>(args: SelectSubset<T, EmailActionFindUniqueArgs<ExtArgs>>): Prisma__EmailActionClient<$Result.GetResult<Prisma.$EmailActionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EmailAction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EmailActionFindUniqueOrThrowArgs} args - Arguments to find a EmailAction
+     * @example
+     * // Get one EmailAction
+     * const emailAction = await prisma.emailAction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EmailActionFindUniqueOrThrowArgs>(args: SelectSubset<T, EmailActionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EmailActionClient<$Result.GetResult<Prisma.$EmailActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EmailAction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailActionFindFirstArgs} args - Arguments to find a EmailAction
+     * @example
+     * // Get one EmailAction
+     * const emailAction = await prisma.emailAction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EmailActionFindFirstArgs>(args?: SelectSubset<T, EmailActionFindFirstArgs<ExtArgs>>): Prisma__EmailActionClient<$Result.GetResult<Prisma.$EmailActionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EmailAction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailActionFindFirstOrThrowArgs} args - Arguments to find a EmailAction
+     * @example
+     * // Get one EmailAction
+     * const emailAction = await prisma.emailAction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EmailActionFindFirstOrThrowArgs>(args?: SelectSubset<T, EmailActionFindFirstOrThrowArgs<ExtArgs>>): Prisma__EmailActionClient<$Result.GetResult<Prisma.$EmailActionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EmailActions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailActionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EmailActions
+     * const emailActions = await prisma.emailAction.findMany()
+     * 
+     * // Get first 10 EmailActions
+     * const emailActions = await prisma.emailAction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const emailActionWithIdOnly = await prisma.emailAction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EmailActionFindManyArgs>(args?: SelectSubset<T, EmailActionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EmailAction.
+     * @param {EmailActionCreateArgs} args - Arguments to create a EmailAction.
+     * @example
+     * // Create one EmailAction
+     * const EmailAction = await prisma.emailAction.create({
+     *   data: {
+     *     // ... data to create a EmailAction
+     *   }
+     * })
+     * 
+     */
+    create<T extends EmailActionCreateArgs>(args: SelectSubset<T, EmailActionCreateArgs<ExtArgs>>): Prisma__EmailActionClient<$Result.GetResult<Prisma.$EmailActionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EmailActions.
+     * @param {EmailActionCreateManyArgs} args - Arguments to create many EmailActions.
+     * @example
+     * // Create many EmailActions
+     * const emailAction = await prisma.emailAction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EmailActionCreateManyArgs>(args?: SelectSubset<T, EmailActionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EmailActions and returns the data saved in the database.
+     * @param {EmailActionCreateManyAndReturnArgs} args - Arguments to create many EmailActions.
+     * @example
+     * // Create many EmailActions
+     * const emailAction = await prisma.emailAction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EmailActions and only return the `id`
+     * const emailActionWithIdOnly = await prisma.emailAction.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EmailActionCreateManyAndReturnArgs>(args?: SelectSubset<T, EmailActionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailActionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EmailAction.
+     * @param {EmailActionDeleteArgs} args - Arguments to delete one EmailAction.
+     * @example
+     * // Delete one EmailAction
+     * const EmailAction = await prisma.emailAction.delete({
+     *   where: {
+     *     // ... filter to delete one EmailAction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EmailActionDeleteArgs>(args: SelectSubset<T, EmailActionDeleteArgs<ExtArgs>>): Prisma__EmailActionClient<$Result.GetResult<Prisma.$EmailActionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EmailAction.
+     * @param {EmailActionUpdateArgs} args - Arguments to update one EmailAction.
+     * @example
+     * // Update one EmailAction
+     * const emailAction = await prisma.emailAction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EmailActionUpdateArgs>(args: SelectSubset<T, EmailActionUpdateArgs<ExtArgs>>): Prisma__EmailActionClient<$Result.GetResult<Prisma.$EmailActionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EmailActions.
+     * @param {EmailActionDeleteManyArgs} args - Arguments to filter EmailActions to delete.
+     * @example
+     * // Delete a few EmailActions
+     * const { count } = await prisma.emailAction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EmailActionDeleteManyArgs>(args?: SelectSubset<T, EmailActionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmailActions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailActionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EmailActions
+     * const emailAction = await prisma.emailAction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EmailActionUpdateManyArgs>(args: SelectSubset<T, EmailActionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmailActions and returns the data updated in the database.
+     * @param {EmailActionUpdateManyAndReturnArgs} args - Arguments to update many EmailActions.
+     * @example
+     * // Update many EmailActions
+     * const emailAction = await prisma.emailAction.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EmailActions and only return the `id`
+     * const emailActionWithIdOnly = await prisma.emailAction.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EmailActionUpdateManyAndReturnArgs>(args: SelectSubset<T, EmailActionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailActionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EmailAction.
+     * @param {EmailActionUpsertArgs} args - Arguments to update or create a EmailAction.
+     * @example
+     * // Update or create a EmailAction
+     * const emailAction = await prisma.emailAction.upsert({
+     *   create: {
+     *     // ... data to create a EmailAction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EmailAction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EmailActionUpsertArgs>(args: SelectSubset<T, EmailActionUpsertArgs<ExtArgs>>): Prisma__EmailActionClient<$Result.GetResult<Prisma.$EmailActionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EmailActions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailActionCountArgs} args - Arguments to filter EmailActions to count.
+     * @example
+     * // Count the number of EmailActions
+     * const count = await prisma.emailAction.count({
+     *   where: {
+     *     // ... the filter for the EmailActions we want to count
+     *   }
+     * })
+    **/
+    count<T extends EmailActionCountArgs>(
+      args?: Subset<T, EmailActionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EmailActionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EmailAction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailActionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EmailActionAggregateArgs>(args: Subset<T, EmailActionAggregateArgs>): Prisma.PrismaPromise<GetEmailActionAggregateType<T>>
+
+    /**
+     * Group by EmailAction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailActionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EmailActionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EmailActionGroupByArgs['orderBy'] }
+        : { orderBy?: EmailActionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EmailActionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmailActionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EmailAction model
+   */
+  readonly fields: EmailActionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EmailAction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EmailActionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    action<T extends ActionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ActionDefaultArgs<ExtArgs>>): Prisma__ActionClient<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EmailAction model
+   */
+  interface EmailActionFieldRefs {
+    readonly id: FieldRef<"EmailAction", 'String'>
+    readonly content: FieldRef<"EmailAction", 'String'>
+    readonly actionId: FieldRef<"EmailAction", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EmailAction findUnique
+   */
+  export type EmailActionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailAction
+     */
+    select?: EmailActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailAction
+     */
+    omit?: EmailActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailActionInclude<ExtArgs> | null
+    /**
+     * Filter, which EmailAction to fetch.
+     */
+    where: EmailActionWhereUniqueInput
+  }
+
+  /**
+   * EmailAction findUniqueOrThrow
+   */
+  export type EmailActionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailAction
+     */
+    select?: EmailActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailAction
+     */
+    omit?: EmailActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailActionInclude<ExtArgs> | null
+    /**
+     * Filter, which EmailAction to fetch.
+     */
+    where: EmailActionWhereUniqueInput
+  }
+
+  /**
+   * EmailAction findFirst
+   */
+  export type EmailActionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailAction
+     */
+    select?: EmailActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailAction
+     */
+    omit?: EmailActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailActionInclude<ExtArgs> | null
+    /**
+     * Filter, which EmailAction to fetch.
+     */
+    where?: EmailActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmailActions to fetch.
+     */
+    orderBy?: EmailActionOrderByWithRelationInput | EmailActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmailActions.
+     */
+    cursor?: EmailActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmailActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmailActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmailActions.
+     */
+    distinct?: EmailActionScalarFieldEnum | EmailActionScalarFieldEnum[]
+  }
+
+  /**
+   * EmailAction findFirstOrThrow
+   */
+  export type EmailActionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailAction
+     */
+    select?: EmailActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailAction
+     */
+    omit?: EmailActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailActionInclude<ExtArgs> | null
+    /**
+     * Filter, which EmailAction to fetch.
+     */
+    where?: EmailActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmailActions to fetch.
+     */
+    orderBy?: EmailActionOrderByWithRelationInput | EmailActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmailActions.
+     */
+    cursor?: EmailActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmailActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmailActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmailActions.
+     */
+    distinct?: EmailActionScalarFieldEnum | EmailActionScalarFieldEnum[]
+  }
+
+  /**
+   * EmailAction findMany
+   */
+  export type EmailActionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailAction
+     */
+    select?: EmailActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailAction
+     */
+    omit?: EmailActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailActionInclude<ExtArgs> | null
+    /**
+     * Filter, which EmailActions to fetch.
+     */
+    where?: EmailActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmailActions to fetch.
+     */
+    orderBy?: EmailActionOrderByWithRelationInput | EmailActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EmailActions.
+     */
+    cursor?: EmailActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmailActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmailActions.
+     */
+    skip?: number
+    distinct?: EmailActionScalarFieldEnum | EmailActionScalarFieldEnum[]
+  }
+
+  /**
+   * EmailAction create
+   */
+  export type EmailActionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailAction
+     */
+    select?: EmailActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailAction
+     */
+    omit?: EmailActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailActionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EmailAction.
+     */
+    data: XOR<EmailActionCreateInput, EmailActionUncheckedCreateInput>
+  }
+
+  /**
+   * EmailAction createMany
+   */
+  export type EmailActionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EmailActions.
+     */
+    data: EmailActionCreateManyInput | EmailActionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EmailAction createManyAndReturn
+   */
+  export type EmailActionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailAction
+     */
+    select?: EmailActionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailAction
+     */
+    omit?: EmailActionOmit<ExtArgs> | null
+    /**
+     * The data used to create many EmailActions.
+     */
+    data: EmailActionCreateManyInput | EmailActionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailActionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmailAction update
+   */
+  export type EmailActionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailAction
+     */
+    select?: EmailActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailAction
+     */
+    omit?: EmailActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailActionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EmailAction.
+     */
+    data: XOR<EmailActionUpdateInput, EmailActionUncheckedUpdateInput>
+    /**
+     * Choose, which EmailAction to update.
+     */
+    where: EmailActionWhereUniqueInput
+  }
+
+  /**
+   * EmailAction updateMany
+   */
+  export type EmailActionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EmailActions.
+     */
+    data: XOR<EmailActionUpdateManyMutationInput, EmailActionUncheckedUpdateManyInput>
+    /**
+     * Filter which EmailActions to update
+     */
+    where?: EmailActionWhereInput
+    /**
+     * Limit how many EmailActions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmailAction updateManyAndReturn
+   */
+  export type EmailActionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailAction
+     */
+    select?: EmailActionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailAction
+     */
+    omit?: EmailActionOmit<ExtArgs> | null
+    /**
+     * The data used to update EmailActions.
+     */
+    data: XOR<EmailActionUpdateManyMutationInput, EmailActionUncheckedUpdateManyInput>
+    /**
+     * Filter which EmailActions to update
+     */
+    where?: EmailActionWhereInput
+    /**
+     * Limit how many EmailActions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailActionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmailAction upsert
+   */
+  export type EmailActionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailAction
+     */
+    select?: EmailActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailAction
+     */
+    omit?: EmailActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailActionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EmailAction to update in case it exists.
+     */
+    where: EmailActionWhereUniqueInput
+    /**
+     * In case the EmailAction found by the `where` argument doesn't exist, create a new EmailAction with this data.
+     */
+    create: XOR<EmailActionCreateInput, EmailActionUncheckedCreateInput>
+    /**
+     * In case the EmailAction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EmailActionUpdateInput, EmailActionUncheckedUpdateInput>
+  }
+
+  /**
+   * EmailAction delete
+   */
+  export type EmailActionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailAction
+     */
+    select?: EmailActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailAction
+     */
+    omit?: EmailActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailActionInclude<ExtArgs> | null
+    /**
+     * Filter which EmailAction to delete.
+     */
+    where: EmailActionWhereUniqueInput
+  }
+
+  /**
+   * EmailAction deleteMany
+   */
+  export type EmailActionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmailActions to delete
+     */
+    where?: EmailActionWhereInput
+    /**
+     * Limit how many EmailActions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmailAction without action
+   */
+  export type EmailActionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailAction
+     */
+    select?: EmailActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailAction
+     */
+    omit?: EmailActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailActionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TelegramAction
+   */
+
+  export type AggregateTelegramAction = {
+    _count: TelegramActionCountAggregateOutputType | null
+    _min: TelegramActionMinAggregateOutputType | null
+    _max: TelegramActionMaxAggregateOutputType | null
+  }
+
+  export type TelegramActionMinAggregateOutputType = {
+    id: string | null
+    chatId: string | null
+    actionId: string | null
+  }
+
+  export type TelegramActionMaxAggregateOutputType = {
+    id: string | null
+    chatId: string | null
+    actionId: string | null
+  }
+
+  export type TelegramActionCountAggregateOutputType = {
+    id: number
+    chatId: number
+    actionId: number
+    _all: number
+  }
+
+
+  export type TelegramActionMinAggregateInputType = {
+    id?: true
+    chatId?: true
+    actionId?: true
+  }
+
+  export type TelegramActionMaxAggregateInputType = {
+    id?: true
+    chatId?: true
+    actionId?: true
+  }
+
+  export type TelegramActionCountAggregateInputType = {
+    id?: true
+    chatId?: true
+    actionId?: true
+    _all?: true
+  }
+
+  export type TelegramActionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TelegramAction to aggregate.
+     */
+    where?: TelegramActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TelegramActions to fetch.
+     */
+    orderBy?: TelegramActionOrderByWithRelationInput | TelegramActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TelegramActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TelegramActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TelegramActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TelegramActions
+    **/
+    _count?: true | TelegramActionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TelegramActionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TelegramActionMaxAggregateInputType
+  }
+
+  export type GetTelegramActionAggregateType<T extends TelegramActionAggregateArgs> = {
+        [P in keyof T & keyof AggregateTelegramAction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTelegramAction[P]>
+      : GetScalarType<T[P], AggregateTelegramAction[P]>
+  }
+
+
+
+
+  export type TelegramActionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TelegramActionWhereInput
+    orderBy?: TelegramActionOrderByWithAggregationInput | TelegramActionOrderByWithAggregationInput[]
+    by: TelegramActionScalarFieldEnum[] | TelegramActionScalarFieldEnum
+    having?: TelegramActionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TelegramActionCountAggregateInputType | true
+    _min?: TelegramActionMinAggregateInputType
+    _max?: TelegramActionMaxAggregateInputType
+  }
+
+  export type TelegramActionGroupByOutputType = {
+    id: string
+    chatId: string
+    actionId: string
+    _count: TelegramActionCountAggregateOutputType | null
+    _min: TelegramActionMinAggregateOutputType | null
+    _max: TelegramActionMaxAggregateOutputType | null
+  }
+
+  type GetTelegramActionGroupByPayload<T extends TelegramActionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TelegramActionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TelegramActionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TelegramActionGroupByOutputType[P]>
+            : GetScalarType<T[P], TelegramActionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TelegramActionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    chatId?: boolean
+    actionId?: boolean
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["telegramAction"]>
+
+  export type TelegramActionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    chatId?: boolean
+    actionId?: boolean
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["telegramAction"]>
+
+  export type TelegramActionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    chatId?: boolean
+    actionId?: boolean
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["telegramAction"]>
+
+  export type TelegramActionSelectScalar = {
+    id?: boolean
+    chatId?: boolean
+    actionId?: boolean
+  }
+
+  export type TelegramActionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "chatId" | "actionId", ExtArgs["result"]["telegramAction"]>
+  export type TelegramActionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }
+  export type TelegramActionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }
+  export type TelegramActionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }
+
+  export type $TelegramActionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TelegramAction"
+    objects: {
+      action: Prisma.$ActionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      chatId: string
+      actionId: string
+    }, ExtArgs["result"]["telegramAction"]>
+    composites: {}
+  }
+
+  type TelegramActionGetPayload<S extends boolean | null | undefined | TelegramActionDefaultArgs> = $Result.GetResult<Prisma.$TelegramActionPayload, S>
+
+  type TelegramActionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TelegramActionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TelegramActionCountAggregateInputType | true
+    }
+
+  export interface TelegramActionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TelegramAction'], meta: { name: 'TelegramAction' } }
+    /**
+     * Find zero or one TelegramAction that matches the filter.
+     * @param {TelegramActionFindUniqueArgs} args - Arguments to find a TelegramAction
+     * @example
+     * // Get one TelegramAction
+     * const telegramAction = await prisma.telegramAction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TelegramActionFindUniqueArgs>(args: SelectSubset<T, TelegramActionFindUniqueArgs<ExtArgs>>): Prisma__TelegramActionClient<$Result.GetResult<Prisma.$TelegramActionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TelegramAction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TelegramActionFindUniqueOrThrowArgs} args - Arguments to find a TelegramAction
+     * @example
+     * // Get one TelegramAction
+     * const telegramAction = await prisma.telegramAction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TelegramActionFindUniqueOrThrowArgs>(args: SelectSubset<T, TelegramActionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TelegramActionClient<$Result.GetResult<Prisma.$TelegramActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TelegramAction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramActionFindFirstArgs} args - Arguments to find a TelegramAction
+     * @example
+     * // Get one TelegramAction
+     * const telegramAction = await prisma.telegramAction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TelegramActionFindFirstArgs>(args?: SelectSubset<T, TelegramActionFindFirstArgs<ExtArgs>>): Prisma__TelegramActionClient<$Result.GetResult<Prisma.$TelegramActionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TelegramAction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramActionFindFirstOrThrowArgs} args - Arguments to find a TelegramAction
+     * @example
+     * // Get one TelegramAction
+     * const telegramAction = await prisma.telegramAction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TelegramActionFindFirstOrThrowArgs>(args?: SelectSubset<T, TelegramActionFindFirstOrThrowArgs<ExtArgs>>): Prisma__TelegramActionClient<$Result.GetResult<Prisma.$TelegramActionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TelegramActions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramActionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TelegramActions
+     * const telegramActions = await prisma.telegramAction.findMany()
+     * 
+     * // Get first 10 TelegramActions
+     * const telegramActions = await prisma.telegramAction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const telegramActionWithIdOnly = await prisma.telegramAction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TelegramActionFindManyArgs>(args?: SelectSubset<T, TelegramActionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TelegramActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TelegramAction.
+     * @param {TelegramActionCreateArgs} args - Arguments to create a TelegramAction.
+     * @example
+     * // Create one TelegramAction
+     * const TelegramAction = await prisma.telegramAction.create({
+     *   data: {
+     *     // ... data to create a TelegramAction
+     *   }
+     * })
+     * 
+     */
+    create<T extends TelegramActionCreateArgs>(args: SelectSubset<T, TelegramActionCreateArgs<ExtArgs>>): Prisma__TelegramActionClient<$Result.GetResult<Prisma.$TelegramActionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TelegramActions.
+     * @param {TelegramActionCreateManyArgs} args - Arguments to create many TelegramActions.
+     * @example
+     * // Create many TelegramActions
+     * const telegramAction = await prisma.telegramAction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TelegramActionCreateManyArgs>(args?: SelectSubset<T, TelegramActionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TelegramActions and returns the data saved in the database.
+     * @param {TelegramActionCreateManyAndReturnArgs} args - Arguments to create many TelegramActions.
+     * @example
+     * // Create many TelegramActions
+     * const telegramAction = await prisma.telegramAction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TelegramActions and only return the `id`
+     * const telegramActionWithIdOnly = await prisma.telegramAction.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TelegramActionCreateManyAndReturnArgs>(args?: SelectSubset<T, TelegramActionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TelegramActionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TelegramAction.
+     * @param {TelegramActionDeleteArgs} args - Arguments to delete one TelegramAction.
+     * @example
+     * // Delete one TelegramAction
+     * const TelegramAction = await prisma.telegramAction.delete({
+     *   where: {
+     *     // ... filter to delete one TelegramAction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TelegramActionDeleteArgs>(args: SelectSubset<T, TelegramActionDeleteArgs<ExtArgs>>): Prisma__TelegramActionClient<$Result.GetResult<Prisma.$TelegramActionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TelegramAction.
+     * @param {TelegramActionUpdateArgs} args - Arguments to update one TelegramAction.
+     * @example
+     * // Update one TelegramAction
+     * const telegramAction = await prisma.telegramAction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TelegramActionUpdateArgs>(args: SelectSubset<T, TelegramActionUpdateArgs<ExtArgs>>): Prisma__TelegramActionClient<$Result.GetResult<Prisma.$TelegramActionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TelegramActions.
+     * @param {TelegramActionDeleteManyArgs} args - Arguments to filter TelegramActions to delete.
+     * @example
+     * // Delete a few TelegramActions
+     * const { count } = await prisma.telegramAction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TelegramActionDeleteManyArgs>(args?: SelectSubset<T, TelegramActionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TelegramActions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramActionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TelegramActions
+     * const telegramAction = await prisma.telegramAction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TelegramActionUpdateManyArgs>(args: SelectSubset<T, TelegramActionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TelegramActions and returns the data updated in the database.
+     * @param {TelegramActionUpdateManyAndReturnArgs} args - Arguments to update many TelegramActions.
+     * @example
+     * // Update many TelegramActions
+     * const telegramAction = await prisma.telegramAction.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TelegramActions and only return the `id`
+     * const telegramActionWithIdOnly = await prisma.telegramAction.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TelegramActionUpdateManyAndReturnArgs>(args: SelectSubset<T, TelegramActionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TelegramActionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TelegramAction.
+     * @param {TelegramActionUpsertArgs} args - Arguments to update or create a TelegramAction.
+     * @example
+     * // Update or create a TelegramAction
+     * const telegramAction = await prisma.telegramAction.upsert({
+     *   create: {
+     *     // ... data to create a TelegramAction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TelegramAction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TelegramActionUpsertArgs>(args: SelectSubset<T, TelegramActionUpsertArgs<ExtArgs>>): Prisma__TelegramActionClient<$Result.GetResult<Prisma.$TelegramActionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TelegramActions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramActionCountArgs} args - Arguments to filter TelegramActions to count.
+     * @example
+     * // Count the number of TelegramActions
+     * const count = await prisma.telegramAction.count({
+     *   where: {
+     *     // ... the filter for the TelegramActions we want to count
+     *   }
+     * })
+    **/
+    count<T extends TelegramActionCountArgs>(
+      args?: Subset<T, TelegramActionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TelegramActionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TelegramAction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramActionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TelegramActionAggregateArgs>(args: Subset<T, TelegramActionAggregateArgs>): Prisma.PrismaPromise<GetTelegramActionAggregateType<T>>
+
+    /**
+     * Group by TelegramAction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TelegramActionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TelegramActionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TelegramActionGroupByArgs['orderBy'] }
+        : { orderBy?: TelegramActionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TelegramActionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTelegramActionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TelegramAction model
+   */
+  readonly fields: TelegramActionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TelegramAction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TelegramActionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    action<T extends ActionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ActionDefaultArgs<ExtArgs>>): Prisma__ActionClient<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TelegramAction model
+   */
+  interface TelegramActionFieldRefs {
+    readonly id: FieldRef<"TelegramAction", 'String'>
+    readonly chatId: FieldRef<"TelegramAction", 'String'>
+    readonly actionId: FieldRef<"TelegramAction", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TelegramAction findUnique
+   */
+  export type TelegramActionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramAction
+     */
+    select?: TelegramActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramAction
+     */
+    omit?: TelegramActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramActionInclude<ExtArgs> | null
+    /**
+     * Filter, which TelegramAction to fetch.
+     */
+    where: TelegramActionWhereUniqueInput
+  }
+
+  /**
+   * TelegramAction findUniqueOrThrow
+   */
+  export type TelegramActionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramAction
+     */
+    select?: TelegramActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramAction
+     */
+    omit?: TelegramActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramActionInclude<ExtArgs> | null
+    /**
+     * Filter, which TelegramAction to fetch.
+     */
+    where: TelegramActionWhereUniqueInput
+  }
+
+  /**
+   * TelegramAction findFirst
+   */
+  export type TelegramActionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramAction
+     */
+    select?: TelegramActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramAction
+     */
+    omit?: TelegramActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramActionInclude<ExtArgs> | null
+    /**
+     * Filter, which TelegramAction to fetch.
+     */
+    where?: TelegramActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TelegramActions to fetch.
+     */
+    orderBy?: TelegramActionOrderByWithRelationInput | TelegramActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TelegramActions.
+     */
+    cursor?: TelegramActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TelegramActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TelegramActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TelegramActions.
+     */
+    distinct?: TelegramActionScalarFieldEnum | TelegramActionScalarFieldEnum[]
+  }
+
+  /**
+   * TelegramAction findFirstOrThrow
+   */
+  export type TelegramActionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramAction
+     */
+    select?: TelegramActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramAction
+     */
+    omit?: TelegramActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramActionInclude<ExtArgs> | null
+    /**
+     * Filter, which TelegramAction to fetch.
+     */
+    where?: TelegramActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TelegramActions to fetch.
+     */
+    orderBy?: TelegramActionOrderByWithRelationInput | TelegramActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TelegramActions.
+     */
+    cursor?: TelegramActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TelegramActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TelegramActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TelegramActions.
+     */
+    distinct?: TelegramActionScalarFieldEnum | TelegramActionScalarFieldEnum[]
+  }
+
+  /**
+   * TelegramAction findMany
+   */
+  export type TelegramActionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramAction
+     */
+    select?: TelegramActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramAction
+     */
+    omit?: TelegramActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramActionInclude<ExtArgs> | null
+    /**
+     * Filter, which TelegramActions to fetch.
+     */
+    where?: TelegramActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TelegramActions to fetch.
+     */
+    orderBy?: TelegramActionOrderByWithRelationInput | TelegramActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TelegramActions.
+     */
+    cursor?: TelegramActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TelegramActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TelegramActions.
+     */
+    skip?: number
+    distinct?: TelegramActionScalarFieldEnum | TelegramActionScalarFieldEnum[]
+  }
+
+  /**
+   * TelegramAction create
+   */
+  export type TelegramActionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramAction
+     */
+    select?: TelegramActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramAction
+     */
+    omit?: TelegramActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramActionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TelegramAction.
+     */
+    data: XOR<TelegramActionCreateInput, TelegramActionUncheckedCreateInput>
+  }
+
+  /**
+   * TelegramAction createMany
+   */
+  export type TelegramActionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TelegramActions.
+     */
+    data: TelegramActionCreateManyInput | TelegramActionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TelegramAction createManyAndReturn
+   */
+  export type TelegramActionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramAction
+     */
+    select?: TelegramActionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramAction
+     */
+    omit?: TelegramActionOmit<ExtArgs> | null
+    /**
+     * The data used to create many TelegramActions.
+     */
+    data: TelegramActionCreateManyInput | TelegramActionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramActionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TelegramAction update
+   */
+  export type TelegramActionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramAction
+     */
+    select?: TelegramActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramAction
+     */
+    omit?: TelegramActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramActionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TelegramAction.
+     */
+    data: XOR<TelegramActionUpdateInput, TelegramActionUncheckedUpdateInput>
+    /**
+     * Choose, which TelegramAction to update.
+     */
+    where: TelegramActionWhereUniqueInput
+  }
+
+  /**
+   * TelegramAction updateMany
+   */
+  export type TelegramActionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TelegramActions.
+     */
+    data: XOR<TelegramActionUpdateManyMutationInput, TelegramActionUncheckedUpdateManyInput>
+    /**
+     * Filter which TelegramActions to update
+     */
+    where?: TelegramActionWhereInput
+    /**
+     * Limit how many TelegramActions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TelegramAction updateManyAndReturn
+   */
+  export type TelegramActionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramAction
+     */
+    select?: TelegramActionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramAction
+     */
+    omit?: TelegramActionOmit<ExtArgs> | null
+    /**
+     * The data used to update TelegramActions.
+     */
+    data: XOR<TelegramActionUpdateManyMutationInput, TelegramActionUncheckedUpdateManyInput>
+    /**
+     * Filter which TelegramActions to update
+     */
+    where?: TelegramActionWhereInput
+    /**
+     * Limit how many TelegramActions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramActionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TelegramAction upsert
+   */
+  export type TelegramActionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramAction
+     */
+    select?: TelegramActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramAction
+     */
+    omit?: TelegramActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramActionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TelegramAction to update in case it exists.
+     */
+    where: TelegramActionWhereUniqueInput
+    /**
+     * In case the TelegramAction found by the `where` argument doesn't exist, create a new TelegramAction with this data.
+     */
+    create: XOR<TelegramActionCreateInput, TelegramActionUncheckedCreateInput>
+    /**
+     * In case the TelegramAction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TelegramActionUpdateInput, TelegramActionUncheckedUpdateInput>
+  }
+
+  /**
+   * TelegramAction delete
+   */
+  export type TelegramActionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramAction
+     */
+    select?: TelegramActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramAction
+     */
+    omit?: TelegramActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramActionInclude<ExtArgs> | null
+    /**
+     * Filter which TelegramAction to delete.
+     */
+    where: TelegramActionWhereUniqueInput
+  }
+
+  /**
+   * TelegramAction deleteMany
+   */
+  export type TelegramActionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TelegramActions to delete
+     */
+    where?: TelegramActionWhereInput
+    /**
+     * Limit how many TelegramActions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TelegramAction without action
+   */
+  export type TelegramActionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TelegramAction
+     */
+    select?: TelegramActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TelegramAction
+     */
+    omit?: TelegramActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TelegramActionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model WebhookAction
+   */
+
+  export type AggregateWebhookAction = {
+    _count: WebhookActionCountAggregateOutputType | null
+    _min: WebhookActionMinAggregateOutputType | null
+    _max: WebhookActionMaxAggregateOutputType | null
+  }
+
+  export type WebhookActionMinAggregateOutputType = {
+    id: string | null
+    url: string | null
+    payload: string | null
+    actionId: string | null
+  }
+
+  export type WebhookActionMaxAggregateOutputType = {
+    id: string | null
+    url: string | null
+    payload: string | null
+    actionId: string | null
+  }
+
+  export type WebhookActionCountAggregateOutputType = {
+    id: number
+    url: number
+    payload: number
+    actionId: number
+    _all: number
+  }
+
+
+  export type WebhookActionMinAggregateInputType = {
+    id?: true
+    url?: true
+    payload?: true
+    actionId?: true
+  }
+
+  export type WebhookActionMaxAggregateInputType = {
+    id?: true
+    url?: true
+    payload?: true
+    actionId?: true
+  }
+
+  export type WebhookActionCountAggregateInputType = {
+    id?: true
+    url?: true
+    payload?: true
+    actionId?: true
+    _all?: true
+  }
+
+  export type WebhookActionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WebhookAction to aggregate.
+     */
+    where?: WebhookActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebhookActions to fetch.
+     */
+    orderBy?: WebhookActionOrderByWithRelationInput | WebhookActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WebhookActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebhookActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebhookActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WebhookActions
+    **/
+    _count?: true | WebhookActionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WebhookActionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WebhookActionMaxAggregateInputType
+  }
+
+  export type GetWebhookActionAggregateType<T extends WebhookActionAggregateArgs> = {
+        [P in keyof T & keyof AggregateWebhookAction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWebhookAction[P]>
+      : GetScalarType<T[P], AggregateWebhookAction[P]>
+  }
+
+
+
+
+  export type WebhookActionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WebhookActionWhereInput
+    orderBy?: WebhookActionOrderByWithAggregationInput | WebhookActionOrderByWithAggregationInput[]
+    by: WebhookActionScalarFieldEnum[] | WebhookActionScalarFieldEnum
+    having?: WebhookActionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WebhookActionCountAggregateInputType | true
+    _min?: WebhookActionMinAggregateInputType
+    _max?: WebhookActionMaxAggregateInputType
+  }
+
+  export type WebhookActionGroupByOutputType = {
+    id: string
+    url: string
+    payload: string
+    actionId: string
+    _count: WebhookActionCountAggregateOutputType | null
+    _min: WebhookActionMinAggregateOutputType | null
+    _max: WebhookActionMaxAggregateOutputType | null
+  }
+
+  type GetWebhookActionGroupByPayload<T extends WebhookActionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WebhookActionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WebhookActionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WebhookActionGroupByOutputType[P]>
+            : GetScalarType<T[P], WebhookActionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WebhookActionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    payload?: boolean
+    actionId?: boolean
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["webhookAction"]>
+
+  export type WebhookActionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    payload?: boolean
+    actionId?: boolean
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["webhookAction"]>
+
+  export type WebhookActionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    payload?: boolean
+    actionId?: boolean
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["webhookAction"]>
+
+  export type WebhookActionSelectScalar = {
+    id?: boolean
+    url?: boolean
+    payload?: boolean
+    actionId?: boolean
+  }
+
+  export type WebhookActionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "payload" | "actionId", ExtArgs["result"]["webhookAction"]>
+  export type WebhookActionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }
+  export type WebhookActionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }
+  export type WebhookActionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    action?: boolean | ActionDefaultArgs<ExtArgs>
+  }
+
+  export type $WebhookActionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WebhookAction"
+    objects: {
+      action: Prisma.$ActionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      url: string
+      payload: string
+      actionId: string
+    }, ExtArgs["result"]["webhookAction"]>
+    composites: {}
+  }
+
+  type WebhookActionGetPayload<S extends boolean | null | undefined | WebhookActionDefaultArgs> = $Result.GetResult<Prisma.$WebhookActionPayload, S>
+
+  type WebhookActionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WebhookActionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WebhookActionCountAggregateInputType | true
+    }
+
+  export interface WebhookActionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WebhookAction'], meta: { name: 'WebhookAction' } }
+    /**
+     * Find zero or one WebhookAction that matches the filter.
+     * @param {WebhookActionFindUniqueArgs} args - Arguments to find a WebhookAction
+     * @example
+     * // Get one WebhookAction
+     * const webhookAction = await prisma.webhookAction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WebhookActionFindUniqueArgs>(args: SelectSubset<T, WebhookActionFindUniqueArgs<ExtArgs>>): Prisma__WebhookActionClient<$Result.GetResult<Prisma.$WebhookActionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WebhookAction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WebhookActionFindUniqueOrThrowArgs} args - Arguments to find a WebhookAction
+     * @example
+     * // Get one WebhookAction
+     * const webhookAction = await prisma.webhookAction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WebhookActionFindUniqueOrThrowArgs>(args: SelectSubset<T, WebhookActionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WebhookActionClient<$Result.GetResult<Prisma.$WebhookActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WebhookAction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookActionFindFirstArgs} args - Arguments to find a WebhookAction
+     * @example
+     * // Get one WebhookAction
+     * const webhookAction = await prisma.webhookAction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WebhookActionFindFirstArgs>(args?: SelectSubset<T, WebhookActionFindFirstArgs<ExtArgs>>): Prisma__WebhookActionClient<$Result.GetResult<Prisma.$WebhookActionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WebhookAction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookActionFindFirstOrThrowArgs} args - Arguments to find a WebhookAction
+     * @example
+     * // Get one WebhookAction
+     * const webhookAction = await prisma.webhookAction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WebhookActionFindFirstOrThrowArgs>(args?: SelectSubset<T, WebhookActionFindFirstOrThrowArgs<ExtArgs>>): Prisma__WebhookActionClient<$Result.GetResult<Prisma.$WebhookActionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WebhookActions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookActionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WebhookActions
+     * const webhookActions = await prisma.webhookAction.findMany()
+     * 
+     * // Get first 10 WebhookActions
+     * const webhookActions = await prisma.webhookAction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const webhookActionWithIdOnly = await prisma.webhookAction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WebhookActionFindManyArgs>(args?: SelectSubset<T, WebhookActionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WebhookAction.
+     * @param {WebhookActionCreateArgs} args - Arguments to create a WebhookAction.
+     * @example
+     * // Create one WebhookAction
+     * const WebhookAction = await prisma.webhookAction.create({
+     *   data: {
+     *     // ... data to create a WebhookAction
+     *   }
+     * })
+     * 
+     */
+    create<T extends WebhookActionCreateArgs>(args: SelectSubset<T, WebhookActionCreateArgs<ExtArgs>>): Prisma__WebhookActionClient<$Result.GetResult<Prisma.$WebhookActionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WebhookActions.
+     * @param {WebhookActionCreateManyArgs} args - Arguments to create many WebhookActions.
+     * @example
+     * // Create many WebhookActions
+     * const webhookAction = await prisma.webhookAction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WebhookActionCreateManyArgs>(args?: SelectSubset<T, WebhookActionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many WebhookActions and returns the data saved in the database.
+     * @param {WebhookActionCreateManyAndReturnArgs} args - Arguments to create many WebhookActions.
+     * @example
+     * // Create many WebhookActions
+     * const webhookAction = await prisma.webhookAction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many WebhookActions and only return the `id`
+     * const webhookActionWithIdOnly = await prisma.webhookAction.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends WebhookActionCreateManyAndReturnArgs>(args?: SelectSubset<T, WebhookActionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookActionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a WebhookAction.
+     * @param {WebhookActionDeleteArgs} args - Arguments to delete one WebhookAction.
+     * @example
+     * // Delete one WebhookAction
+     * const WebhookAction = await prisma.webhookAction.delete({
+     *   where: {
+     *     // ... filter to delete one WebhookAction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WebhookActionDeleteArgs>(args: SelectSubset<T, WebhookActionDeleteArgs<ExtArgs>>): Prisma__WebhookActionClient<$Result.GetResult<Prisma.$WebhookActionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WebhookAction.
+     * @param {WebhookActionUpdateArgs} args - Arguments to update one WebhookAction.
+     * @example
+     * // Update one WebhookAction
+     * const webhookAction = await prisma.webhookAction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WebhookActionUpdateArgs>(args: SelectSubset<T, WebhookActionUpdateArgs<ExtArgs>>): Prisma__WebhookActionClient<$Result.GetResult<Prisma.$WebhookActionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WebhookActions.
+     * @param {WebhookActionDeleteManyArgs} args - Arguments to filter WebhookActions to delete.
+     * @example
+     * // Delete a few WebhookActions
+     * const { count } = await prisma.webhookAction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WebhookActionDeleteManyArgs>(args?: SelectSubset<T, WebhookActionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WebhookActions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookActionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WebhookActions
+     * const webhookAction = await prisma.webhookAction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WebhookActionUpdateManyArgs>(args: SelectSubset<T, WebhookActionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WebhookActions and returns the data updated in the database.
+     * @param {WebhookActionUpdateManyAndReturnArgs} args - Arguments to update many WebhookActions.
+     * @example
+     * // Update many WebhookActions
+     * const webhookAction = await prisma.webhookAction.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more WebhookActions and only return the `id`
+     * const webhookActionWithIdOnly = await prisma.webhookAction.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends WebhookActionUpdateManyAndReturnArgs>(args: SelectSubset<T, WebhookActionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookActionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one WebhookAction.
+     * @param {WebhookActionUpsertArgs} args - Arguments to update or create a WebhookAction.
+     * @example
+     * // Update or create a WebhookAction
+     * const webhookAction = await prisma.webhookAction.upsert({
+     *   create: {
+     *     // ... data to create a WebhookAction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WebhookAction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WebhookActionUpsertArgs>(args: SelectSubset<T, WebhookActionUpsertArgs<ExtArgs>>): Prisma__WebhookActionClient<$Result.GetResult<Prisma.$WebhookActionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of WebhookActions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookActionCountArgs} args - Arguments to filter WebhookActions to count.
+     * @example
+     * // Count the number of WebhookActions
+     * const count = await prisma.webhookAction.count({
+     *   where: {
+     *     // ... the filter for the WebhookActions we want to count
+     *   }
+     * })
+    **/
+    count<T extends WebhookActionCountArgs>(
+      args?: Subset<T, WebhookActionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WebhookActionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WebhookAction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookActionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WebhookActionAggregateArgs>(args: Subset<T, WebhookActionAggregateArgs>): Prisma.PrismaPromise<GetWebhookActionAggregateType<T>>
+
+    /**
+     * Group by WebhookAction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebhookActionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WebhookActionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WebhookActionGroupByArgs['orderBy'] }
+        : { orderBy?: WebhookActionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WebhookActionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWebhookActionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WebhookAction model
+   */
+  readonly fields: WebhookActionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WebhookAction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WebhookActionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    action<T extends ActionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ActionDefaultArgs<ExtArgs>>): Prisma__ActionClient<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WebhookAction model
+   */
+  interface WebhookActionFieldRefs {
+    readonly id: FieldRef<"WebhookAction", 'String'>
+    readonly url: FieldRef<"WebhookAction", 'String'>
+    readonly payload: FieldRef<"WebhookAction", 'String'>
+    readonly actionId: FieldRef<"WebhookAction", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WebhookAction findUnique
+   */
+  export type WebhookActionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookAction
+     */
+    select?: WebhookActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookAction
+     */
+    omit?: WebhookActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookActionInclude<ExtArgs> | null
+    /**
+     * Filter, which WebhookAction to fetch.
+     */
+    where: WebhookActionWhereUniqueInput
+  }
+
+  /**
+   * WebhookAction findUniqueOrThrow
+   */
+  export type WebhookActionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookAction
+     */
+    select?: WebhookActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookAction
+     */
+    omit?: WebhookActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookActionInclude<ExtArgs> | null
+    /**
+     * Filter, which WebhookAction to fetch.
+     */
+    where: WebhookActionWhereUniqueInput
+  }
+
+  /**
+   * WebhookAction findFirst
+   */
+  export type WebhookActionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookAction
+     */
+    select?: WebhookActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookAction
+     */
+    omit?: WebhookActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookActionInclude<ExtArgs> | null
+    /**
+     * Filter, which WebhookAction to fetch.
+     */
+    where?: WebhookActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebhookActions to fetch.
+     */
+    orderBy?: WebhookActionOrderByWithRelationInput | WebhookActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WebhookActions.
+     */
+    cursor?: WebhookActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebhookActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebhookActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WebhookActions.
+     */
+    distinct?: WebhookActionScalarFieldEnum | WebhookActionScalarFieldEnum[]
+  }
+
+  /**
+   * WebhookAction findFirstOrThrow
+   */
+  export type WebhookActionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookAction
+     */
+    select?: WebhookActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookAction
+     */
+    omit?: WebhookActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookActionInclude<ExtArgs> | null
+    /**
+     * Filter, which WebhookAction to fetch.
+     */
+    where?: WebhookActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebhookActions to fetch.
+     */
+    orderBy?: WebhookActionOrderByWithRelationInput | WebhookActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WebhookActions.
+     */
+    cursor?: WebhookActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebhookActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebhookActions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WebhookActions.
+     */
+    distinct?: WebhookActionScalarFieldEnum | WebhookActionScalarFieldEnum[]
+  }
+
+  /**
+   * WebhookAction findMany
+   */
+  export type WebhookActionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookAction
+     */
+    select?: WebhookActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookAction
+     */
+    omit?: WebhookActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookActionInclude<ExtArgs> | null
+    /**
+     * Filter, which WebhookActions to fetch.
+     */
+    where?: WebhookActionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebhookActions to fetch.
+     */
+    orderBy?: WebhookActionOrderByWithRelationInput | WebhookActionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WebhookActions.
+     */
+    cursor?: WebhookActionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebhookActions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebhookActions.
+     */
+    skip?: number
+    distinct?: WebhookActionScalarFieldEnum | WebhookActionScalarFieldEnum[]
+  }
+
+  /**
+   * WebhookAction create
+   */
+  export type WebhookActionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookAction
+     */
+    select?: WebhookActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookAction
+     */
+    omit?: WebhookActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookActionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a WebhookAction.
+     */
+    data: XOR<WebhookActionCreateInput, WebhookActionUncheckedCreateInput>
+  }
+
+  /**
+   * WebhookAction createMany
+   */
+  export type WebhookActionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WebhookActions.
+     */
+    data: WebhookActionCreateManyInput | WebhookActionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WebhookAction createManyAndReturn
+   */
+  export type WebhookActionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookAction
+     */
+    select?: WebhookActionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookAction
+     */
+    omit?: WebhookActionOmit<ExtArgs> | null
+    /**
+     * The data used to create many WebhookActions.
+     */
+    data: WebhookActionCreateManyInput | WebhookActionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookActionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WebhookAction update
+   */
+  export type WebhookActionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookAction
+     */
+    select?: WebhookActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookAction
+     */
+    omit?: WebhookActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookActionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a WebhookAction.
+     */
+    data: XOR<WebhookActionUpdateInput, WebhookActionUncheckedUpdateInput>
+    /**
+     * Choose, which WebhookAction to update.
+     */
+    where: WebhookActionWhereUniqueInput
+  }
+
+  /**
+   * WebhookAction updateMany
+   */
+  export type WebhookActionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WebhookActions.
+     */
+    data: XOR<WebhookActionUpdateManyMutationInput, WebhookActionUncheckedUpdateManyInput>
+    /**
+     * Filter which WebhookActions to update
+     */
+    where?: WebhookActionWhereInput
+    /**
+     * Limit how many WebhookActions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WebhookAction updateManyAndReturn
+   */
+  export type WebhookActionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookAction
+     */
+    select?: WebhookActionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookAction
+     */
+    omit?: WebhookActionOmit<ExtArgs> | null
+    /**
+     * The data used to update WebhookActions.
+     */
+    data: XOR<WebhookActionUpdateManyMutationInput, WebhookActionUncheckedUpdateManyInput>
+    /**
+     * Filter which WebhookActions to update
+     */
+    where?: WebhookActionWhereInput
+    /**
+     * Limit how many WebhookActions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookActionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WebhookAction upsert
+   */
+  export type WebhookActionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookAction
+     */
+    select?: WebhookActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookAction
+     */
+    omit?: WebhookActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookActionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the WebhookAction to update in case it exists.
+     */
+    where: WebhookActionWhereUniqueInput
+    /**
+     * In case the WebhookAction found by the `where` argument doesn't exist, create a new WebhookAction with this data.
+     */
+    create: XOR<WebhookActionCreateInput, WebhookActionUncheckedCreateInput>
+    /**
+     * In case the WebhookAction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WebhookActionUpdateInput, WebhookActionUncheckedUpdateInput>
+  }
+
+  /**
+   * WebhookAction delete
+   */
+  export type WebhookActionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookAction
+     */
+    select?: WebhookActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookAction
+     */
+    omit?: WebhookActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookActionInclude<ExtArgs> | null
+    /**
+     * Filter which WebhookAction to delete.
+     */
+    where: WebhookActionWhereUniqueInput
+  }
+
+  /**
+   * WebhookAction deleteMany
+   */
+  export type WebhookActionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WebhookActions to delete
+     */
+    where?: WebhookActionWhereInput
+    /**
+     * Limit how many WebhookActions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WebhookAction without action
+   */
+  export type WebhookActionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebhookAction
+     */
+    select?: WebhookActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebhookAction
+     */
+    omit?: WebhookActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebhookActionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8185,6 +14194,61 @@ export namespace Prisma {
   export type DataPointScalarFieldEnum = (typeof DataPointScalarFieldEnum)[keyof typeof DataPointScalarFieldEnum]
 
 
+  export const RuleScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    active: 'active',
+    attempts: 'attempts',
+    userId: 'userId'
+  };
+
+  export type RuleScalarFieldEnum = (typeof RuleScalarFieldEnum)[keyof typeof RuleScalarFieldEnum]
+
+
+  export const ActionScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    type: 'type',
+    active: 'active',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    ruleId: 'ruleId'
+  };
+
+  export type ActionScalarFieldEnum = (typeof ActionScalarFieldEnum)[keyof typeof ActionScalarFieldEnum]
+
+
+  export const EmailActionScalarFieldEnum: {
+    id: 'id',
+    content: 'content',
+    actionId: 'actionId'
+  };
+
+  export type EmailActionScalarFieldEnum = (typeof EmailActionScalarFieldEnum)[keyof typeof EmailActionScalarFieldEnum]
+
+
+  export const TelegramActionScalarFieldEnum: {
+    id: 'id',
+    chatId: 'chatId',
+    actionId: 'actionId'
+  };
+
+  export type TelegramActionScalarFieldEnum = (typeof TelegramActionScalarFieldEnum)[keyof typeof TelegramActionScalarFieldEnum]
+
+
+  export const WebhookActionScalarFieldEnum: {
+    id: 'id',
+    url: 'url',
+    payload: 'payload',
+    actionId: 'actionId'
+  };
+
+  export type WebhookActionScalarFieldEnum = (typeof WebhookActionScalarFieldEnum)[keyof typeof WebhookActionScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -8199,6 +14263,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -8263,6 +14335,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -8273,6 +14352,34 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ActionType'
+   */
+  export type EnumActionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActionType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ActionType[]'
+   */
+  export type ListEnumActionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActionType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -8292,6 +14399,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     api_keys?: ApiKeyListRelationFilter
     projects?: ProjectListRelationFilter
+    rules?: RuleListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -8304,6 +14412,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     api_keys?: ApiKeyOrderByRelationAggregateInput
     projects?: ProjectOrderByRelationAggregateInput
+    rules?: RuleOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -8319,6 +14428,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     api_keys?: ApiKeyListRelationFilter
     projects?: ProjectListRelationFilter
+    rules?: RuleListRelationFilter
   }, "id">
 
   export type UserOrderByWithAggregationInput = {
@@ -8671,6 +14781,295 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"DataPoint"> | Date | string
   }
 
+  export type RuleWhereInput = {
+    AND?: RuleWhereInput | RuleWhereInput[]
+    OR?: RuleWhereInput[]
+    NOT?: RuleWhereInput | RuleWhereInput[]
+    id?: StringFilter<"Rule"> | string
+    name?: StringFilter<"Rule"> | string
+    description?: StringNullableFilter<"Rule"> | string | null
+    createdAt?: DateTimeFilter<"Rule"> | Date | string
+    updatedAt?: DateTimeFilter<"Rule"> | Date | string
+    active?: BoolFilter<"Rule"> | boolean
+    attempts?: IntFilter<"Rule"> | number
+    userId?: StringNullableFilter<"Rule"> | string | null
+    actions?: ActionListRelationFilter
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type RuleOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    attempts?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    actions?: ActionOrderByRelationAggregateInput
+    User?: UserOrderByWithRelationInput
+  }
+
+  export type RuleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RuleWhereInput | RuleWhereInput[]
+    OR?: RuleWhereInput[]
+    NOT?: RuleWhereInput | RuleWhereInput[]
+    name?: StringFilter<"Rule"> | string
+    description?: StringNullableFilter<"Rule"> | string | null
+    createdAt?: DateTimeFilter<"Rule"> | Date | string
+    updatedAt?: DateTimeFilter<"Rule"> | Date | string
+    active?: BoolFilter<"Rule"> | boolean
+    attempts?: IntFilter<"Rule"> | number
+    userId?: StringNullableFilter<"Rule"> | string | null
+    actions?: ActionListRelationFilter
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type RuleOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    attempts?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    _count?: RuleCountOrderByAggregateInput
+    _avg?: RuleAvgOrderByAggregateInput
+    _max?: RuleMaxOrderByAggregateInput
+    _min?: RuleMinOrderByAggregateInput
+    _sum?: RuleSumOrderByAggregateInput
+  }
+
+  export type RuleScalarWhereWithAggregatesInput = {
+    AND?: RuleScalarWhereWithAggregatesInput | RuleScalarWhereWithAggregatesInput[]
+    OR?: RuleScalarWhereWithAggregatesInput[]
+    NOT?: RuleScalarWhereWithAggregatesInput | RuleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Rule"> | string
+    name?: StringWithAggregatesFilter<"Rule"> | string
+    description?: StringNullableWithAggregatesFilter<"Rule"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Rule"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Rule"> | Date | string
+    active?: BoolWithAggregatesFilter<"Rule"> | boolean
+    attempts?: IntWithAggregatesFilter<"Rule"> | number
+    userId?: StringNullableWithAggregatesFilter<"Rule"> | string | null
+  }
+
+  export type ActionWhereInput = {
+    AND?: ActionWhereInput | ActionWhereInput[]
+    OR?: ActionWhereInput[]
+    NOT?: ActionWhereInput | ActionWhereInput[]
+    id?: StringFilter<"Action"> | string
+    name?: StringFilter<"Action"> | string
+    type?: EnumActionTypeFilter<"Action"> | $Enums.ActionType
+    active?: BoolFilter<"Action"> | boolean
+    createdAt?: DateTimeFilter<"Action"> | Date | string
+    updatedAt?: DateTimeFilter<"Action"> | Date | string
+    ruleId?: StringNullableFilter<"Action"> | string | null
+    Rule?: XOR<RuleNullableScalarRelationFilter, RuleWhereInput> | null
+    emailAction?: XOR<EmailActionNullableScalarRelationFilter, EmailActionWhereInput> | null
+    telegramAction?: XOR<TelegramActionNullableScalarRelationFilter, TelegramActionWhereInput> | null
+    webhookAction?: XOR<WebhookActionNullableScalarRelationFilter, WebhookActionWhereInput> | null
+  }
+
+  export type ActionOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    ruleId?: SortOrderInput | SortOrder
+    Rule?: RuleOrderByWithRelationInput
+    emailAction?: EmailActionOrderByWithRelationInput
+    telegramAction?: TelegramActionOrderByWithRelationInput
+    webhookAction?: WebhookActionOrderByWithRelationInput
+  }
+
+  export type ActionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ActionWhereInput | ActionWhereInput[]
+    OR?: ActionWhereInput[]
+    NOT?: ActionWhereInput | ActionWhereInput[]
+    name?: StringFilter<"Action"> | string
+    type?: EnumActionTypeFilter<"Action"> | $Enums.ActionType
+    active?: BoolFilter<"Action"> | boolean
+    createdAt?: DateTimeFilter<"Action"> | Date | string
+    updatedAt?: DateTimeFilter<"Action"> | Date | string
+    ruleId?: StringNullableFilter<"Action"> | string | null
+    Rule?: XOR<RuleNullableScalarRelationFilter, RuleWhereInput> | null
+    emailAction?: XOR<EmailActionNullableScalarRelationFilter, EmailActionWhereInput> | null
+    telegramAction?: XOR<TelegramActionNullableScalarRelationFilter, TelegramActionWhereInput> | null
+    webhookAction?: XOR<WebhookActionNullableScalarRelationFilter, WebhookActionWhereInput> | null
+  }, "id">
+
+  export type ActionOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    ruleId?: SortOrderInput | SortOrder
+    _count?: ActionCountOrderByAggregateInput
+    _max?: ActionMaxOrderByAggregateInput
+    _min?: ActionMinOrderByAggregateInput
+  }
+
+  export type ActionScalarWhereWithAggregatesInput = {
+    AND?: ActionScalarWhereWithAggregatesInput | ActionScalarWhereWithAggregatesInput[]
+    OR?: ActionScalarWhereWithAggregatesInput[]
+    NOT?: ActionScalarWhereWithAggregatesInput | ActionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Action"> | string
+    name?: StringWithAggregatesFilter<"Action"> | string
+    type?: EnumActionTypeWithAggregatesFilter<"Action"> | $Enums.ActionType
+    active?: BoolWithAggregatesFilter<"Action"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Action"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Action"> | Date | string
+    ruleId?: StringNullableWithAggregatesFilter<"Action"> | string | null
+  }
+
+  export type EmailActionWhereInput = {
+    AND?: EmailActionWhereInput | EmailActionWhereInput[]
+    OR?: EmailActionWhereInput[]
+    NOT?: EmailActionWhereInput | EmailActionWhereInput[]
+    id?: StringFilter<"EmailAction"> | string
+    content?: StringFilter<"EmailAction"> | string
+    actionId?: StringFilter<"EmailAction"> | string
+    action?: XOR<ActionScalarRelationFilter, ActionWhereInput>
+  }
+
+  export type EmailActionOrderByWithRelationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    actionId?: SortOrder
+    action?: ActionOrderByWithRelationInput
+  }
+
+  export type EmailActionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    actionId?: string
+    AND?: EmailActionWhereInput | EmailActionWhereInput[]
+    OR?: EmailActionWhereInput[]
+    NOT?: EmailActionWhereInput | EmailActionWhereInput[]
+    content?: StringFilter<"EmailAction"> | string
+    action?: XOR<ActionScalarRelationFilter, ActionWhereInput>
+  }, "id" | "actionId">
+
+  export type EmailActionOrderByWithAggregationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    actionId?: SortOrder
+    _count?: EmailActionCountOrderByAggregateInput
+    _max?: EmailActionMaxOrderByAggregateInput
+    _min?: EmailActionMinOrderByAggregateInput
+  }
+
+  export type EmailActionScalarWhereWithAggregatesInput = {
+    AND?: EmailActionScalarWhereWithAggregatesInput | EmailActionScalarWhereWithAggregatesInput[]
+    OR?: EmailActionScalarWhereWithAggregatesInput[]
+    NOT?: EmailActionScalarWhereWithAggregatesInput | EmailActionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EmailAction"> | string
+    content?: StringWithAggregatesFilter<"EmailAction"> | string
+    actionId?: StringWithAggregatesFilter<"EmailAction"> | string
+  }
+
+  export type TelegramActionWhereInput = {
+    AND?: TelegramActionWhereInput | TelegramActionWhereInput[]
+    OR?: TelegramActionWhereInput[]
+    NOT?: TelegramActionWhereInput | TelegramActionWhereInput[]
+    id?: StringFilter<"TelegramAction"> | string
+    chatId?: StringFilter<"TelegramAction"> | string
+    actionId?: StringFilter<"TelegramAction"> | string
+    action?: XOR<ActionScalarRelationFilter, ActionWhereInput>
+  }
+
+  export type TelegramActionOrderByWithRelationInput = {
+    id?: SortOrder
+    chatId?: SortOrder
+    actionId?: SortOrder
+    action?: ActionOrderByWithRelationInput
+  }
+
+  export type TelegramActionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    actionId?: string
+    AND?: TelegramActionWhereInput | TelegramActionWhereInput[]
+    OR?: TelegramActionWhereInput[]
+    NOT?: TelegramActionWhereInput | TelegramActionWhereInput[]
+    chatId?: StringFilter<"TelegramAction"> | string
+    action?: XOR<ActionScalarRelationFilter, ActionWhereInput>
+  }, "id" | "actionId">
+
+  export type TelegramActionOrderByWithAggregationInput = {
+    id?: SortOrder
+    chatId?: SortOrder
+    actionId?: SortOrder
+    _count?: TelegramActionCountOrderByAggregateInput
+    _max?: TelegramActionMaxOrderByAggregateInput
+    _min?: TelegramActionMinOrderByAggregateInput
+  }
+
+  export type TelegramActionScalarWhereWithAggregatesInput = {
+    AND?: TelegramActionScalarWhereWithAggregatesInput | TelegramActionScalarWhereWithAggregatesInput[]
+    OR?: TelegramActionScalarWhereWithAggregatesInput[]
+    NOT?: TelegramActionScalarWhereWithAggregatesInput | TelegramActionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TelegramAction"> | string
+    chatId?: StringWithAggregatesFilter<"TelegramAction"> | string
+    actionId?: StringWithAggregatesFilter<"TelegramAction"> | string
+  }
+
+  export type WebhookActionWhereInput = {
+    AND?: WebhookActionWhereInput | WebhookActionWhereInput[]
+    OR?: WebhookActionWhereInput[]
+    NOT?: WebhookActionWhereInput | WebhookActionWhereInput[]
+    id?: StringFilter<"WebhookAction"> | string
+    url?: StringFilter<"WebhookAction"> | string
+    payload?: StringFilter<"WebhookAction"> | string
+    actionId?: StringFilter<"WebhookAction"> | string
+    action?: XOR<ActionScalarRelationFilter, ActionWhereInput>
+  }
+
+  export type WebhookActionOrderByWithRelationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    payload?: SortOrder
+    actionId?: SortOrder
+    action?: ActionOrderByWithRelationInput
+  }
+
+  export type WebhookActionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    actionId?: string
+    AND?: WebhookActionWhereInput | WebhookActionWhereInput[]
+    OR?: WebhookActionWhereInput[]
+    NOT?: WebhookActionWhereInput | WebhookActionWhereInput[]
+    url?: StringFilter<"WebhookAction"> | string
+    payload?: StringFilter<"WebhookAction"> | string
+    action?: XOR<ActionScalarRelationFilter, ActionWhereInput>
+  }, "id" | "actionId">
+
+  export type WebhookActionOrderByWithAggregationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    payload?: SortOrder
+    actionId?: SortOrder
+    _count?: WebhookActionCountOrderByAggregateInput
+    _max?: WebhookActionMaxOrderByAggregateInput
+    _min?: WebhookActionMinOrderByAggregateInput
+  }
+
+  export type WebhookActionScalarWhereWithAggregatesInput = {
+    AND?: WebhookActionScalarWhereWithAggregatesInput | WebhookActionScalarWhereWithAggregatesInput[]
+    OR?: WebhookActionScalarWhereWithAggregatesInput[]
+    NOT?: WebhookActionScalarWhereWithAggregatesInput | WebhookActionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WebhookAction"> | string
+    url?: StringWithAggregatesFilter<"WebhookAction"> | string
+    payload?: StringWithAggregatesFilter<"WebhookAction"> | string
+    actionId?: StringWithAggregatesFilter<"WebhookAction"> | string
+  }
+
   export type UserCreateInput = {
     id: string
     username: string
@@ -8681,6 +15080,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
+    rules?: RuleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -8693,6 +15093,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    rules?: RuleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -8705,6 +15106,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
+    rules?: RuleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -8717,6 +15119,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    rules?: RuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -9092,6 +15495,297 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RuleCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active: boolean
+    attempts: number
+    actions?: ActionCreateNestedManyWithoutRuleInput
+    User?: UserCreateNestedOneWithoutRulesInput
+  }
+
+  export type RuleUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active: boolean
+    attempts: number
+    userId?: string | null
+    actions?: ActionUncheckedCreateNestedManyWithoutRuleInput
+  }
+
+  export type RuleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    attempts?: IntFieldUpdateOperationsInput | number
+    actions?: ActionUpdateManyWithoutRuleNestedInput
+    User?: UserUpdateOneWithoutRulesNestedInput
+  }
+
+  export type RuleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    attempts?: IntFieldUpdateOperationsInput | number
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    actions?: ActionUncheckedUpdateManyWithoutRuleNestedInput
+  }
+
+  export type RuleCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active: boolean
+    attempts: number
+    userId?: string | null
+  }
+
+  export type RuleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    attempts?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type RuleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    attempts?: IntFieldUpdateOperationsInput | number
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ActionCreateInput = {
+    id?: string
+    name: string
+    type: $Enums.ActionType
+    active: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Rule?: RuleCreateNestedOneWithoutActionsInput
+    emailAction?: EmailActionCreateNestedOneWithoutActionInput
+    telegramAction?: TelegramActionCreateNestedOneWithoutActionInput
+    webhookAction?: WebhookActionCreateNestedOneWithoutActionInput
+  }
+
+  export type ActionUncheckedCreateInput = {
+    id?: string
+    name: string
+    type: $Enums.ActionType
+    active: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ruleId?: string | null
+    emailAction?: EmailActionUncheckedCreateNestedOneWithoutActionInput
+    telegramAction?: TelegramActionUncheckedCreateNestedOneWithoutActionInput
+    webhookAction?: WebhookActionUncheckedCreateNestedOneWithoutActionInput
+  }
+
+  export type ActionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Rule?: RuleUpdateOneWithoutActionsNestedInput
+    emailAction?: EmailActionUpdateOneWithoutActionNestedInput
+    telegramAction?: TelegramActionUpdateOneWithoutActionNestedInput
+    webhookAction?: WebhookActionUpdateOneWithoutActionNestedInput
+  }
+
+  export type ActionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ruleId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailAction?: EmailActionUncheckedUpdateOneWithoutActionNestedInput
+    telegramAction?: TelegramActionUncheckedUpdateOneWithoutActionNestedInput
+    webhookAction?: WebhookActionUncheckedUpdateOneWithoutActionNestedInput
+  }
+
+  export type ActionCreateManyInput = {
+    id?: string
+    name: string
+    type: $Enums.ActionType
+    active: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ruleId?: string | null
+  }
+
+  export type ActionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ActionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ruleId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EmailActionCreateInput = {
+    id?: string
+    content: string
+    action: ActionCreateNestedOneWithoutEmailActionInput
+  }
+
+  export type EmailActionUncheckedCreateInput = {
+    id?: string
+    content: string
+    actionId: string
+  }
+
+  export type EmailActionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    action?: ActionUpdateOneRequiredWithoutEmailActionNestedInput
+  }
+
+  export type EmailActionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    actionId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EmailActionCreateManyInput = {
+    id?: string
+    content: string
+    actionId: string
+  }
+
+  export type EmailActionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EmailActionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    actionId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TelegramActionCreateInput = {
+    id?: string
+    chatId: string
+    action: ActionCreateNestedOneWithoutTelegramActionInput
+  }
+
+  export type TelegramActionUncheckedCreateInput = {
+    id?: string
+    chatId: string
+    actionId: string
+  }
+
+  export type TelegramActionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chatId?: StringFieldUpdateOperationsInput | string
+    action?: ActionUpdateOneRequiredWithoutTelegramActionNestedInput
+  }
+
+  export type TelegramActionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chatId?: StringFieldUpdateOperationsInput | string
+    actionId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TelegramActionCreateManyInput = {
+    id?: string
+    chatId: string
+    actionId: string
+  }
+
+  export type TelegramActionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chatId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TelegramActionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chatId?: StringFieldUpdateOperationsInput | string
+    actionId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type WebhookActionCreateInput = {
+    id?: string
+    url: string
+    payload: string
+    action: ActionCreateNestedOneWithoutWebhookActionInput
+  }
+
+  export type WebhookActionUncheckedCreateInput = {
+    id?: string
+    url: string
+    payload: string
+    actionId: string
+  }
+
+  export type WebhookActionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    payload?: StringFieldUpdateOperationsInput | string
+    action?: ActionUpdateOneRequiredWithoutWebhookActionNestedInput
+  }
+
+  export type WebhookActionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    payload?: StringFieldUpdateOperationsInput | string
+    actionId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type WebhookActionCreateManyInput = {
+    id?: string
+    url: string
+    payload: string
+    actionId: string
+  }
+
+  export type WebhookActionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    payload?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type WebhookActionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    payload?: StringFieldUpdateOperationsInput | string
+    actionId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -9130,11 +15824,21 @@ export namespace Prisma {
     none?: ProjectWhereInput
   }
 
+  export type RuleListRelationFilter = {
+    every?: RuleWhereInput
+    some?: RuleWhereInput
+    none?: RuleWhereInput
+  }
+
   export type ApiKeyOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type ProjectOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RuleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9428,6 +16132,269 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type ActionListRelationFilter = {
+    every?: ActionWhereInput
+    some?: ActionWhereInput
+    none?: ActionWhereInput
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type ActionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RuleCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    attempts?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type RuleAvgOrderByAggregateInput = {
+    attempts?: SortOrder
+  }
+
+  export type RuleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    attempts?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type RuleMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    active?: SortOrder
+    attempts?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type RuleSumOrderByAggregateInput = {
+    attempts?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type EnumActionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ActionType | EnumActionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ActionType[] | ListEnumActionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ActionType[] | ListEnumActionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumActionTypeFilter<$PrismaModel> | $Enums.ActionType
+  }
+
+  export type RuleNullableScalarRelationFilter = {
+    is?: RuleWhereInput | null
+    isNot?: RuleWhereInput | null
+  }
+
+  export type EmailActionNullableScalarRelationFilter = {
+    is?: EmailActionWhereInput | null
+    isNot?: EmailActionWhereInput | null
+  }
+
+  export type TelegramActionNullableScalarRelationFilter = {
+    is?: TelegramActionWhereInput | null
+    isNot?: TelegramActionWhereInput | null
+  }
+
+  export type WebhookActionNullableScalarRelationFilter = {
+    is?: WebhookActionWhereInput | null
+    isNot?: WebhookActionWhereInput | null
+  }
+
+  export type ActionCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    ruleId?: SortOrder
+  }
+
+  export type ActionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    ruleId?: SortOrder
+  }
+
+  export type ActionMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    active?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    ruleId?: SortOrder
+  }
+
+  export type EnumActionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ActionType | EnumActionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ActionType[] | ListEnumActionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ActionType[] | ListEnumActionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumActionTypeWithAggregatesFilter<$PrismaModel> | $Enums.ActionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumActionTypeFilter<$PrismaModel>
+    _max?: NestedEnumActionTypeFilter<$PrismaModel>
+  }
+
+  export type ActionScalarRelationFilter = {
+    is?: ActionWhereInput
+    isNot?: ActionWhereInput
+  }
+
+  export type EmailActionCountOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    actionId?: SortOrder
+  }
+
+  export type EmailActionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    actionId?: SortOrder
+  }
+
+  export type EmailActionMinOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    actionId?: SortOrder
+  }
+
+  export type TelegramActionCountOrderByAggregateInput = {
+    id?: SortOrder
+    chatId?: SortOrder
+    actionId?: SortOrder
+  }
+
+  export type TelegramActionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    chatId?: SortOrder
+    actionId?: SortOrder
+  }
+
+  export type TelegramActionMinOrderByAggregateInput = {
+    id?: SortOrder
+    chatId?: SortOrder
+    actionId?: SortOrder
+  }
+
+  export type WebhookActionCountOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    payload?: SortOrder
+    actionId?: SortOrder
+  }
+
+  export type WebhookActionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    payload?: SortOrder
+    actionId?: SortOrder
+  }
+
+  export type WebhookActionMinOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    payload?: SortOrder
+    actionId?: SortOrder
+  }
+
   export type ApiKeyCreateNestedManyWithoutUserInput = {
     create?: XOR<ApiKeyCreateWithoutUserInput, ApiKeyUncheckedCreateWithoutUserInput> | ApiKeyCreateWithoutUserInput[] | ApiKeyUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ApiKeyCreateOrConnectWithoutUserInput | ApiKeyCreateOrConnectWithoutUserInput[]
@@ -9442,6 +16409,13 @@ export namespace Prisma {
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
   }
 
+  export type RuleCreateNestedManyWithoutUserInput = {
+    create?: XOR<RuleCreateWithoutUserInput, RuleUncheckedCreateWithoutUserInput> | RuleCreateWithoutUserInput[] | RuleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RuleCreateOrConnectWithoutUserInput | RuleCreateOrConnectWithoutUserInput[]
+    createMany?: RuleCreateManyUserInputEnvelope
+    connect?: RuleWhereUniqueInput | RuleWhereUniqueInput[]
+  }
+
   export type ApiKeyUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ApiKeyCreateWithoutUserInput, ApiKeyUncheckedCreateWithoutUserInput> | ApiKeyCreateWithoutUserInput[] | ApiKeyUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ApiKeyCreateOrConnectWithoutUserInput | ApiKeyCreateOrConnectWithoutUserInput[]
@@ -9454,6 +16428,13 @@ export namespace Prisma {
     connectOrCreate?: ProjectCreateOrConnectWithoutUserInput | ProjectCreateOrConnectWithoutUserInput[]
     createMany?: ProjectCreateManyUserInputEnvelope
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+  }
+
+  export type RuleUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<RuleCreateWithoutUserInput, RuleUncheckedCreateWithoutUserInput> | RuleCreateWithoutUserInput[] | RuleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RuleCreateOrConnectWithoutUserInput | RuleCreateOrConnectWithoutUserInput[]
+    createMany?: RuleCreateManyUserInputEnvelope
+    connect?: RuleWhereUniqueInput | RuleWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -9492,6 +16473,20 @@ export namespace Prisma {
     deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
   }
 
+  export type RuleUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RuleCreateWithoutUserInput, RuleUncheckedCreateWithoutUserInput> | RuleCreateWithoutUserInput[] | RuleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RuleCreateOrConnectWithoutUserInput | RuleCreateOrConnectWithoutUserInput[]
+    upsert?: RuleUpsertWithWhereUniqueWithoutUserInput | RuleUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RuleCreateManyUserInputEnvelope
+    set?: RuleWhereUniqueInput | RuleWhereUniqueInput[]
+    disconnect?: RuleWhereUniqueInput | RuleWhereUniqueInput[]
+    delete?: RuleWhereUniqueInput | RuleWhereUniqueInput[]
+    connect?: RuleWhereUniqueInput | RuleWhereUniqueInput[]
+    update?: RuleUpdateWithWhereUniqueWithoutUserInput | RuleUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RuleUpdateManyWithWhereWithoutUserInput | RuleUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RuleScalarWhereInput | RuleScalarWhereInput[]
+  }
+
   export type ApiKeyUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ApiKeyCreateWithoutUserInput, ApiKeyUncheckedCreateWithoutUserInput> | ApiKeyCreateWithoutUserInput[] | ApiKeyUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ApiKeyCreateOrConnectWithoutUserInput | ApiKeyCreateOrConnectWithoutUserInput[]
@@ -9518,6 +16513,20 @@ export namespace Prisma {
     update?: ProjectUpdateWithWhereUniqueWithoutUserInput | ProjectUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ProjectUpdateManyWithWhereWithoutUserInput | ProjectUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
+  }
+
+  export type RuleUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RuleCreateWithoutUserInput, RuleUncheckedCreateWithoutUserInput> | RuleCreateWithoutUserInput[] | RuleUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RuleCreateOrConnectWithoutUserInput | RuleCreateOrConnectWithoutUserInput[]
+    upsert?: RuleUpsertWithWhereUniqueWithoutUserInput | RuleUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RuleCreateManyUserInputEnvelope
+    set?: RuleWhereUniqueInput | RuleWhereUniqueInput[]
+    disconnect?: RuleWhereUniqueInput | RuleWhereUniqueInput[]
+    delete?: RuleWhereUniqueInput | RuleWhereUniqueInput[]
+    connect?: RuleWhereUniqueInput | RuleWhereUniqueInput[]
+    update?: RuleUpdateWithWhereUniqueWithoutUserInput | RuleUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RuleUpdateManyWithWhereWithoutUserInput | RuleUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RuleScalarWhereInput | RuleScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutApi_keysInput = {
@@ -9724,6 +16733,238 @@ export namespace Prisma {
     update?: XOR<XOR<DataStreamUpdateToOneWithWhereWithoutDataPointsInput, DataStreamUpdateWithoutDataPointsInput>, DataStreamUncheckedUpdateWithoutDataPointsInput>
   }
 
+  export type ActionCreateNestedManyWithoutRuleInput = {
+    create?: XOR<ActionCreateWithoutRuleInput, ActionUncheckedCreateWithoutRuleInput> | ActionCreateWithoutRuleInput[] | ActionUncheckedCreateWithoutRuleInput[]
+    connectOrCreate?: ActionCreateOrConnectWithoutRuleInput | ActionCreateOrConnectWithoutRuleInput[]
+    createMany?: ActionCreateManyRuleInputEnvelope
+    connect?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+  }
+
+  export type UserCreateNestedOneWithoutRulesInput = {
+    create?: XOR<UserCreateWithoutRulesInput, UserUncheckedCreateWithoutRulesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRulesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ActionUncheckedCreateNestedManyWithoutRuleInput = {
+    create?: XOR<ActionCreateWithoutRuleInput, ActionUncheckedCreateWithoutRuleInput> | ActionCreateWithoutRuleInput[] | ActionUncheckedCreateWithoutRuleInput[]
+    connectOrCreate?: ActionCreateOrConnectWithoutRuleInput | ActionCreateOrConnectWithoutRuleInput[]
+    createMany?: ActionCreateManyRuleInputEnvelope
+    connect?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ActionUpdateManyWithoutRuleNestedInput = {
+    create?: XOR<ActionCreateWithoutRuleInput, ActionUncheckedCreateWithoutRuleInput> | ActionCreateWithoutRuleInput[] | ActionUncheckedCreateWithoutRuleInput[]
+    connectOrCreate?: ActionCreateOrConnectWithoutRuleInput | ActionCreateOrConnectWithoutRuleInput[]
+    upsert?: ActionUpsertWithWhereUniqueWithoutRuleInput | ActionUpsertWithWhereUniqueWithoutRuleInput[]
+    createMany?: ActionCreateManyRuleInputEnvelope
+    set?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+    disconnect?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+    delete?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+    connect?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+    update?: ActionUpdateWithWhereUniqueWithoutRuleInput | ActionUpdateWithWhereUniqueWithoutRuleInput[]
+    updateMany?: ActionUpdateManyWithWhereWithoutRuleInput | ActionUpdateManyWithWhereWithoutRuleInput[]
+    deleteMany?: ActionScalarWhereInput | ActionScalarWhereInput[]
+  }
+
+  export type UserUpdateOneWithoutRulesNestedInput = {
+    create?: XOR<UserCreateWithoutRulesInput, UserUncheckedCreateWithoutRulesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRulesInput
+    upsert?: UserUpsertWithoutRulesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRulesInput, UserUpdateWithoutRulesInput>, UserUncheckedUpdateWithoutRulesInput>
+  }
+
+  export type ActionUncheckedUpdateManyWithoutRuleNestedInput = {
+    create?: XOR<ActionCreateWithoutRuleInput, ActionUncheckedCreateWithoutRuleInput> | ActionCreateWithoutRuleInput[] | ActionUncheckedCreateWithoutRuleInput[]
+    connectOrCreate?: ActionCreateOrConnectWithoutRuleInput | ActionCreateOrConnectWithoutRuleInput[]
+    upsert?: ActionUpsertWithWhereUniqueWithoutRuleInput | ActionUpsertWithWhereUniqueWithoutRuleInput[]
+    createMany?: ActionCreateManyRuleInputEnvelope
+    set?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+    disconnect?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+    delete?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+    connect?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+    update?: ActionUpdateWithWhereUniqueWithoutRuleInput | ActionUpdateWithWhereUniqueWithoutRuleInput[]
+    updateMany?: ActionUpdateManyWithWhereWithoutRuleInput | ActionUpdateManyWithWhereWithoutRuleInput[]
+    deleteMany?: ActionScalarWhereInput | ActionScalarWhereInput[]
+  }
+
+  export type RuleCreateNestedOneWithoutActionsInput = {
+    create?: XOR<RuleCreateWithoutActionsInput, RuleUncheckedCreateWithoutActionsInput>
+    connectOrCreate?: RuleCreateOrConnectWithoutActionsInput
+    connect?: RuleWhereUniqueInput
+  }
+
+  export type EmailActionCreateNestedOneWithoutActionInput = {
+    create?: XOR<EmailActionCreateWithoutActionInput, EmailActionUncheckedCreateWithoutActionInput>
+    connectOrCreate?: EmailActionCreateOrConnectWithoutActionInput
+    connect?: EmailActionWhereUniqueInput
+  }
+
+  export type TelegramActionCreateNestedOneWithoutActionInput = {
+    create?: XOR<TelegramActionCreateWithoutActionInput, TelegramActionUncheckedCreateWithoutActionInput>
+    connectOrCreate?: TelegramActionCreateOrConnectWithoutActionInput
+    connect?: TelegramActionWhereUniqueInput
+  }
+
+  export type WebhookActionCreateNestedOneWithoutActionInput = {
+    create?: XOR<WebhookActionCreateWithoutActionInput, WebhookActionUncheckedCreateWithoutActionInput>
+    connectOrCreate?: WebhookActionCreateOrConnectWithoutActionInput
+    connect?: WebhookActionWhereUniqueInput
+  }
+
+  export type EmailActionUncheckedCreateNestedOneWithoutActionInput = {
+    create?: XOR<EmailActionCreateWithoutActionInput, EmailActionUncheckedCreateWithoutActionInput>
+    connectOrCreate?: EmailActionCreateOrConnectWithoutActionInput
+    connect?: EmailActionWhereUniqueInput
+  }
+
+  export type TelegramActionUncheckedCreateNestedOneWithoutActionInput = {
+    create?: XOR<TelegramActionCreateWithoutActionInput, TelegramActionUncheckedCreateWithoutActionInput>
+    connectOrCreate?: TelegramActionCreateOrConnectWithoutActionInput
+    connect?: TelegramActionWhereUniqueInput
+  }
+
+  export type WebhookActionUncheckedCreateNestedOneWithoutActionInput = {
+    create?: XOR<WebhookActionCreateWithoutActionInput, WebhookActionUncheckedCreateWithoutActionInput>
+    connectOrCreate?: WebhookActionCreateOrConnectWithoutActionInput
+    connect?: WebhookActionWhereUniqueInput
+  }
+
+  export type EnumActionTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ActionType
+  }
+
+  export type RuleUpdateOneWithoutActionsNestedInput = {
+    create?: XOR<RuleCreateWithoutActionsInput, RuleUncheckedCreateWithoutActionsInput>
+    connectOrCreate?: RuleCreateOrConnectWithoutActionsInput
+    upsert?: RuleUpsertWithoutActionsInput
+    disconnect?: RuleWhereInput | boolean
+    delete?: RuleWhereInput | boolean
+    connect?: RuleWhereUniqueInput
+    update?: XOR<XOR<RuleUpdateToOneWithWhereWithoutActionsInput, RuleUpdateWithoutActionsInput>, RuleUncheckedUpdateWithoutActionsInput>
+  }
+
+  export type EmailActionUpdateOneWithoutActionNestedInput = {
+    create?: XOR<EmailActionCreateWithoutActionInput, EmailActionUncheckedCreateWithoutActionInput>
+    connectOrCreate?: EmailActionCreateOrConnectWithoutActionInput
+    upsert?: EmailActionUpsertWithoutActionInput
+    disconnect?: EmailActionWhereInput | boolean
+    delete?: EmailActionWhereInput | boolean
+    connect?: EmailActionWhereUniqueInput
+    update?: XOR<XOR<EmailActionUpdateToOneWithWhereWithoutActionInput, EmailActionUpdateWithoutActionInput>, EmailActionUncheckedUpdateWithoutActionInput>
+  }
+
+  export type TelegramActionUpdateOneWithoutActionNestedInput = {
+    create?: XOR<TelegramActionCreateWithoutActionInput, TelegramActionUncheckedCreateWithoutActionInput>
+    connectOrCreate?: TelegramActionCreateOrConnectWithoutActionInput
+    upsert?: TelegramActionUpsertWithoutActionInput
+    disconnect?: TelegramActionWhereInput | boolean
+    delete?: TelegramActionWhereInput | boolean
+    connect?: TelegramActionWhereUniqueInput
+    update?: XOR<XOR<TelegramActionUpdateToOneWithWhereWithoutActionInput, TelegramActionUpdateWithoutActionInput>, TelegramActionUncheckedUpdateWithoutActionInput>
+  }
+
+  export type WebhookActionUpdateOneWithoutActionNestedInput = {
+    create?: XOR<WebhookActionCreateWithoutActionInput, WebhookActionUncheckedCreateWithoutActionInput>
+    connectOrCreate?: WebhookActionCreateOrConnectWithoutActionInput
+    upsert?: WebhookActionUpsertWithoutActionInput
+    disconnect?: WebhookActionWhereInput | boolean
+    delete?: WebhookActionWhereInput | boolean
+    connect?: WebhookActionWhereUniqueInput
+    update?: XOR<XOR<WebhookActionUpdateToOneWithWhereWithoutActionInput, WebhookActionUpdateWithoutActionInput>, WebhookActionUncheckedUpdateWithoutActionInput>
+  }
+
+  export type EmailActionUncheckedUpdateOneWithoutActionNestedInput = {
+    create?: XOR<EmailActionCreateWithoutActionInput, EmailActionUncheckedCreateWithoutActionInput>
+    connectOrCreate?: EmailActionCreateOrConnectWithoutActionInput
+    upsert?: EmailActionUpsertWithoutActionInput
+    disconnect?: EmailActionWhereInput | boolean
+    delete?: EmailActionWhereInput | boolean
+    connect?: EmailActionWhereUniqueInput
+    update?: XOR<XOR<EmailActionUpdateToOneWithWhereWithoutActionInput, EmailActionUpdateWithoutActionInput>, EmailActionUncheckedUpdateWithoutActionInput>
+  }
+
+  export type TelegramActionUncheckedUpdateOneWithoutActionNestedInput = {
+    create?: XOR<TelegramActionCreateWithoutActionInput, TelegramActionUncheckedCreateWithoutActionInput>
+    connectOrCreate?: TelegramActionCreateOrConnectWithoutActionInput
+    upsert?: TelegramActionUpsertWithoutActionInput
+    disconnect?: TelegramActionWhereInput | boolean
+    delete?: TelegramActionWhereInput | boolean
+    connect?: TelegramActionWhereUniqueInput
+    update?: XOR<XOR<TelegramActionUpdateToOneWithWhereWithoutActionInput, TelegramActionUpdateWithoutActionInput>, TelegramActionUncheckedUpdateWithoutActionInput>
+  }
+
+  export type WebhookActionUncheckedUpdateOneWithoutActionNestedInput = {
+    create?: XOR<WebhookActionCreateWithoutActionInput, WebhookActionUncheckedCreateWithoutActionInput>
+    connectOrCreate?: WebhookActionCreateOrConnectWithoutActionInput
+    upsert?: WebhookActionUpsertWithoutActionInput
+    disconnect?: WebhookActionWhereInput | boolean
+    delete?: WebhookActionWhereInput | boolean
+    connect?: WebhookActionWhereUniqueInput
+    update?: XOR<XOR<WebhookActionUpdateToOneWithWhereWithoutActionInput, WebhookActionUpdateWithoutActionInput>, WebhookActionUncheckedUpdateWithoutActionInput>
+  }
+
+  export type ActionCreateNestedOneWithoutEmailActionInput = {
+    create?: XOR<ActionCreateWithoutEmailActionInput, ActionUncheckedCreateWithoutEmailActionInput>
+    connectOrCreate?: ActionCreateOrConnectWithoutEmailActionInput
+    connect?: ActionWhereUniqueInput
+  }
+
+  export type ActionUpdateOneRequiredWithoutEmailActionNestedInput = {
+    create?: XOR<ActionCreateWithoutEmailActionInput, ActionUncheckedCreateWithoutEmailActionInput>
+    connectOrCreate?: ActionCreateOrConnectWithoutEmailActionInput
+    upsert?: ActionUpsertWithoutEmailActionInput
+    connect?: ActionWhereUniqueInput
+    update?: XOR<XOR<ActionUpdateToOneWithWhereWithoutEmailActionInput, ActionUpdateWithoutEmailActionInput>, ActionUncheckedUpdateWithoutEmailActionInput>
+  }
+
+  export type ActionCreateNestedOneWithoutTelegramActionInput = {
+    create?: XOR<ActionCreateWithoutTelegramActionInput, ActionUncheckedCreateWithoutTelegramActionInput>
+    connectOrCreate?: ActionCreateOrConnectWithoutTelegramActionInput
+    connect?: ActionWhereUniqueInput
+  }
+
+  export type ActionUpdateOneRequiredWithoutTelegramActionNestedInput = {
+    create?: XOR<ActionCreateWithoutTelegramActionInput, ActionUncheckedCreateWithoutTelegramActionInput>
+    connectOrCreate?: ActionCreateOrConnectWithoutTelegramActionInput
+    upsert?: ActionUpsertWithoutTelegramActionInput
+    connect?: ActionWhereUniqueInput
+    update?: XOR<XOR<ActionUpdateToOneWithWhereWithoutTelegramActionInput, ActionUpdateWithoutTelegramActionInput>, ActionUncheckedUpdateWithoutTelegramActionInput>
+  }
+
+  export type ActionCreateNestedOneWithoutWebhookActionInput = {
+    create?: XOR<ActionCreateWithoutWebhookActionInput, ActionUncheckedCreateWithoutWebhookActionInput>
+    connectOrCreate?: ActionCreateOrConnectWithoutWebhookActionInput
+    connect?: ActionWhereUniqueInput
+  }
+
+  export type ActionUpdateOneRequiredWithoutWebhookActionNestedInput = {
+    create?: XOR<ActionCreateWithoutWebhookActionInput, ActionUncheckedCreateWithoutWebhookActionInput>
+    connectOrCreate?: ActionCreateOrConnectWithoutWebhookActionInput
+    upsert?: ActionUpsertWithoutWebhookActionInput
+    connect?: ActionWhereUniqueInput
+    update?: XOR<XOR<ActionUpdateToOneWithWhereWithoutWebhookActionInput, ActionUpdateWithoutWebhookActionInput>, ActionUncheckedUpdateWithoutWebhookActionInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -9825,6 +17066,105 @@ export namespace Prisma {
     _max?: NestedEnumDeviceTypeFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumActionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ActionType | EnumActionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ActionType[] | ListEnumActionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ActionType[] | ListEnumActionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumActionTypeFilter<$PrismaModel> | $Enums.ActionType
+  }
+
+  export type NestedEnumActionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ActionType | EnumActionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ActionType[] | ListEnumActionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ActionType[] | ListEnumActionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumActionTypeWithAggregatesFilter<$PrismaModel> | $Enums.ActionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumActionTypeFilter<$PrismaModel>
+    _max?: NestedEnumActionTypeFilter<$PrismaModel>
+  }
+
   export type ApiKeyCreateWithoutUserInput = {
     id?: string
     key: string
@@ -9880,6 +17220,38 @@ export namespace Prisma {
 
   export type ProjectCreateManyUserInputEnvelope = {
     data: ProjectCreateManyUserInput | ProjectCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RuleCreateWithoutUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active: boolean
+    attempts: number
+    actions?: ActionCreateNestedManyWithoutRuleInput
+  }
+
+  export type RuleUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active: boolean
+    attempts: number
+    actions?: ActionUncheckedCreateNestedManyWithoutRuleInput
+  }
+
+  export type RuleCreateOrConnectWithoutUserInput = {
+    where: RuleWhereUniqueInput
+    create: XOR<RuleCreateWithoutUserInput, RuleUncheckedCreateWithoutUserInput>
+  }
+
+  export type RuleCreateManyUserInputEnvelope = {
+    data: RuleCreateManyUserInput | RuleCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -9941,6 +17313,36 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Project"> | Date | string
   }
 
+  export type RuleUpsertWithWhereUniqueWithoutUserInput = {
+    where: RuleWhereUniqueInput
+    update: XOR<RuleUpdateWithoutUserInput, RuleUncheckedUpdateWithoutUserInput>
+    create: XOR<RuleCreateWithoutUserInput, RuleUncheckedCreateWithoutUserInput>
+  }
+
+  export type RuleUpdateWithWhereUniqueWithoutUserInput = {
+    where: RuleWhereUniqueInput
+    data: XOR<RuleUpdateWithoutUserInput, RuleUncheckedUpdateWithoutUserInput>
+  }
+
+  export type RuleUpdateManyWithWhereWithoutUserInput = {
+    where: RuleScalarWhereInput
+    data: XOR<RuleUpdateManyMutationInput, RuleUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type RuleScalarWhereInput = {
+    AND?: RuleScalarWhereInput | RuleScalarWhereInput[]
+    OR?: RuleScalarWhereInput[]
+    NOT?: RuleScalarWhereInput | RuleScalarWhereInput[]
+    id?: StringFilter<"Rule"> | string
+    name?: StringFilter<"Rule"> | string
+    description?: StringNullableFilter<"Rule"> | string | null
+    createdAt?: DateTimeFilter<"Rule"> | Date | string
+    updatedAt?: DateTimeFilter<"Rule"> | Date | string
+    active?: BoolFilter<"Rule"> | boolean
+    attempts?: IntFilter<"Rule"> | number
+    userId?: StringNullableFilter<"Rule"> | string | null
+  }
+
   export type UserCreateWithoutApi_keysInput = {
     id: string
     username: string
@@ -9950,6 +17352,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     projects?: ProjectCreateNestedManyWithoutUserInput
+    rules?: RuleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApi_keysInput = {
@@ -9961,6 +17364,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    rules?: RuleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApi_keysInput = {
@@ -9988,6 +17392,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projects?: ProjectUpdateManyWithoutUserNestedInput
+    rules?: RuleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApi_keysInput = {
@@ -9999,6 +17404,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    rules?: RuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutProjectsInput = {
@@ -10010,6 +17416,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    rules?: RuleCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProjectsInput = {
@@ -10021,6 +17428,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    rules?: RuleUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProjectsInput = {
@@ -10080,6 +17488,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    rules?: RuleUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectsInput = {
@@ -10091,6 +17500,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    rules?: RuleUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DeviceUpsertWithWhereUniqueWithoutProjectInput = {
@@ -10394,6 +17804,497 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ActionCreateWithoutRuleInput = {
+    id?: string
+    name: string
+    type: $Enums.ActionType
+    active: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    emailAction?: EmailActionCreateNestedOneWithoutActionInput
+    telegramAction?: TelegramActionCreateNestedOneWithoutActionInput
+    webhookAction?: WebhookActionCreateNestedOneWithoutActionInput
+  }
+
+  export type ActionUncheckedCreateWithoutRuleInput = {
+    id?: string
+    name: string
+    type: $Enums.ActionType
+    active: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    emailAction?: EmailActionUncheckedCreateNestedOneWithoutActionInput
+    telegramAction?: TelegramActionUncheckedCreateNestedOneWithoutActionInput
+    webhookAction?: WebhookActionUncheckedCreateNestedOneWithoutActionInput
+  }
+
+  export type ActionCreateOrConnectWithoutRuleInput = {
+    where: ActionWhereUniqueInput
+    create: XOR<ActionCreateWithoutRuleInput, ActionUncheckedCreateWithoutRuleInput>
+  }
+
+  export type ActionCreateManyRuleInputEnvelope = {
+    data: ActionCreateManyRuleInput | ActionCreateManyRuleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserCreateWithoutRulesInput = {
+    id: string
+    username: string
+    email: string
+    profile: string
+    role?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutRulesInput = {
+    id: string
+    username: string
+    email: string
+    profile: string
+    role?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutRulesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRulesInput, UserUncheckedCreateWithoutRulesInput>
+  }
+
+  export type ActionUpsertWithWhereUniqueWithoutRuleInput = {
+    where: ActionWhereUniqueInput
+    update: XOR<ActionUpdateWithoutRuleInput, ActionUncheckedUpdateWithoutRuleInput>
+    create: XOR<ActionCreateWithoutRuleInput, ActionUncheckedCreateWithoutRuleInput>
+  }
+
+  export type ActionUpdateWithWhereUniqueWithoutRuleInput = {
+    where: ActionWhereUniqueInput
+    data: XOR<ActionUpdateWithoutRuleInput, ActionUncheckedUpdateWithoutRuleInput>
+  }
+
+  export type ActionUpdateManyWithWhereWithoutRuleInput = {
+    where: ActionScalarWhereInput
+    data: XOR<ActionUpdateManyMutationInput, ActionUncheckedUpdateManyWithoutRuleInput>
+  }
+
+  export type ActionScalarWhereInput = {
+    AND?: ActionScalarWhereInput | ActionScalarWhereInput[]
+    OR?: ActionScalarWhereInput[]
+    NOT?: ActionScalarWhereInput | ActionScalarWhereInput[]
+    id?: StringFilter<"Action"> | string
+    name?: StringFilter<"Action"> | string
+    type?: EnumActionTypeFilter<"Action"> | $Enums.ActionType
+    active?: BoolFilter<"Action"> | boolean
+    createdAt?: DateTimeFilter<"Action"> | Date | string
+    updatedAt?: DateTimeFilter<"Action"> | Date | string
+    ruleId?: StringNullableFilter<"Action"> | string | null
+  }
+
+  export type UserUpsertWithoutRulesInput = {
+    update: XOR<UserUpdateWithoutRulesInput, UserUncheckedUpdateWithoutRulesInput>
+    create: XOR<UserCreateWithoutRulesInput, UserUncheckedCreateWithoutRulesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRulesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRulesInput, UserUncheckedUpdateWithoutRulesInput>
+  }
+
+  export type UserUpdateWithoutRulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    profile?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    profile?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type RuleCreateWithoutActionsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active: boolean
+    attempts: number
+    User?: UserCreateNestedOneWithoutRulesInput
+  }
+
+  export type RuleUncheckedCreateWithoutActionsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active: boolean
+    attempts: number
+    userId?: string | null
+  }
+
+  export type RuleCreateOrConnectWithoutActionsInput = {
+    where: RuleWhereUniqueInput
+    create: XOR<RuleCreateWithoutActionsInput, RuleUncheckedCreateWithoutActionsInput>
+  }
+
+  export type EmailActionCreateWithoutActionInput = {
+    id?: string
+    content: string
+  }
+
+  export type EmailActionUncheckedCreateWithoutActionInput = {
+    id?: string
+    content: string
+  }
+
+  export type EmailActionCreateOrConnectWithoutActionInput = {
+    where: EmailActionWhereUniqueInput
+    create: XOR<EmailActionCreateWithoutActionInput, EmailActionUncheckedCreateWithoutActionInput>
+  }
+
+  export type TelegramActionCreateWithoutActionInput = {
+    id?: string
+    chatId: string
+  }
+
+  export type TelegramActionUncheckedCreateWithoutActionInput = {
+    id?: string
+    chatId: string
+  }
+
+  export type TelegramActionCreateOrConnectWithoutActionInput = {
+    where: TelegramActionWhereUniqueInput
+    create: XOR<TelegramActionCreateWithoutActionInput, TelegramActionUncheckedCreateWithoutActionInput>
+  }
+
+  export type WebhookActionCreateWithoutActionInput = {
+    id?: string
+    url: string
+    payload: string
+  }
+
+  export type WebhookActionUncheckedCreateWithoutActionInput = {
+    id?: string
+    url: string
+    payload: string
+  }
+
+  export type WebhookActionCreateOrConnectWithoutActionInput = {
+    where: WebhookActionWhereUniqueInput
+    create: XOR<WebhookActionCreateWithoutActionInput, WebhookActionUncheckedCreateWithoutActionInput>
+  }
+
+  export type RuleUpsertWithoutActionsInput = {
+    update: XOR<RuleUpdateWithoutActionsInput, RuleUncheckedUpdateWithoutActionsInput>
+    create: XOR<RuleCreateWithoutActionsInput, RuleUncheckedCreateWithoutActionsInput>
+    where?: RuleWhereInput
+  }
+
+  export type RuleUpdateToOneWithWhereWithoutActionsInput = {
+    where?: RuleWhereInput
+    data: XOR<RuleUpdateWithoutActionsInput, RuleUncheckedUpdateWithoutActionsInput>
+  }
+
+  export type RuleUpdateWithoutActionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    attempts?: IntFieldUpdateOperationsInput | number
+    User?: UserUpdateOneWithoutRulesNestedInput
+  }
+
+  export type RuleUncheckedUpdateWithoutActionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    attempts?: IntFieldUpdateOperationsInput | number
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EmailActionUpsertWithoutActionInput = {
+    update: XOR<EmailActionUpdateWithoutActionInput, EmailActionUncheckedUpdateWithoutActionInput>
+    create: XOR<EmailActionCreateWithoutActionInput, EmailActionUncheckedCreateWithoutActionInput>
+    where?: EmailActionWhereInput
+  }
+
+  export type EmailActionUpdateToOneWithWhereWithoutActionInput = {
+    where?: EmailActionWhereInput
+    data: XOR<EmailActionUpdateWithoutActionInput, EmailActionUncheckedUpdateWithoutActionInput>
+  }
+
+  export type EmailActionUpdateWithoutActionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EmailActionUncheckedUpdateWithoutActionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TelegramActionUpsertWithoutActionInput = {
+    update: XOR<TelegramActionUpdateWithoutActionInput, TelegramActionUncheckedUpdateWithoutActionInput>
+    create: XOR<TelegramActionCreateWithoutActionInput, TelegramActionUncheckedCreateWithoutActionInput>
+    where?: TelegramActionWhereInput
+  }
+
+  export type TelegramActionUpdateToOneWithWhereWithoutActionInput = {
+    where?: TelegramActionWhereInput
+    data: XOR<TelegramActionUpdateWithoutActionInput, TelegramActionUncheckedUpdateWithoutActionInput>
+  }
+
+  export type TelegramActionUpdateWithoutActionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chatId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TelegramActionUncheckedUpdateWithoutActionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chatId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type WebhookActionUpsertWithoutActionInput = {
+    update: XOR<WebhookActionUpdateWithoutActionInput, WebhookActionUncheckedUpdateWithoutActionInput>
+    create: XOR<WebhookActionCreateWithoutActionInput, WebhookActionUncheckedCreateWithoutActionInput>
+    where?: WebhookActionWhereInput
+  }
+
+  export type WebhookActionUpdateToOneWithWhereWithoutActionInput = {
+    where?: WebhookActionWhereInput
+    data: XOR<WebhookActionUpdateWithoutActionInput, WebhookActionUncheckedUpdateWithoutActionInput>
+  }
+
+  export type WebhookActionUpdateWithoutActionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    payload?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type WebhookActionUncheckedUpdateWithoutActionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    payload?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ActionCreateWithoutEmailActionInput = {
+    id?: string
+    name: string
+    type: $Enums.ActionType
+    active: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Rule?: RuleCreateNestedOneWithoutActionsInput
+    telegramAction?: TelegramActionCreateNestedOneWithoutActionInput
+    webhookAction?: WebhookActionCreateNestedOneWithoutActionInput
+  }
+
+  export type ActionUncheckedCreateWithoutEmailActionInput = {
+    id?: string
+    name: string
+    type: $Enums.ActionType
+    active: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ruleId?: string | null
+    telegramAction?: TelegramActionUncheckedCreateNestedOneWithoutActionInput
+    webhookAction?: WebhookActionUncheckedCreateNestedOneWithoutActionInput
+  }
+
+  export type ActionCreateOrConnectWithoutEmailActionInput = {
+    where: ActionWhereUniqueInput
+    create: XOR<ActionCreateWithoutEmailActionInput, ActionUncheckedCreateWithoutEmailActionInput>
+  }
+
+  export type ActionUpsertWithoutEmailActionInput = {
+    update: XOR<ActionUpdateWithoutEmailActionInput, ActionUncheckedUpdateWithoutEmailActionInput>
+    create: XOR<ActionCreateWithoutEmailActionInput, ActionUncheckedCreateWithoutEmailActionInput>
+    where?: ActionWhereInput
+  }
+
+  export type ActionUpdateToOneWithWhereWithoutEmailActionInput = {
+    where?: ActionWhereInput
+    data: XOR<ActionUpdateWithoutEmailActionInput, ActionUncheckedUpdateWithoutEmailActionInput>
+  }
+
+  export type ActionUpdateWithoutEmailActionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Rule?: RuleUpdateOneWithoutActionsNestedInput
+    telegramAction?: TelegramActionUpdateOneWithoutActionNestedInput
+    webhookAction?: WebhookActionUpdateOneWithoutActionNestedInput
+  }
+
+  export type ActionUncheckedUpdateWithoutEmailActionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ruleId?: NullableStringFieldUpdateOperationsInput | string | null
+    telegramAction?: TelegramActionUncheckedUpdateOneWithoutActionNestedInput
+    webhookAction?: WebhookActionUncheckedUpdateOneWithoutActionNestedInput
+  }
+
+  export type ActionCreateWithoutTelegramActionInput = {
+    id?: string
+    name: string
+    type: $Enums.ActionType
+    active: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Rule?: RuleCreateNestedOneWithoutActionsInput
+    emailAction?: EmailActionCreateNestedOneWithoutActionInput
+    webhookAction?: WebhookActionCreateNestedOneWithoutActionInput
+  }
+
+  export type ActionUncheckedCreateWithoutTelegramActionInput = {
+    id?: string
+    name: string
+    type: $Enums.ActionType
+    active: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ruleId?: string | null
+    emailAction?: EmailActionUncheckedCreateNestedOneWithoutActionInput
+    webhookAction?: WebhookActionUncheckedCreateNestedOneWithoutActionInput
+  }
+
+  export type ActionCreateOrConnectWithoutTelegramActionInput = {
+    where: ActionWhereUniqueInput
+    create: XOR<ActionCreateWithoutTelegramActionInput, ActionUncheckedCreateWithoutTelegramActionInput>
+  }
+
+  export type ActionUpsertWithoutTelegramActionInput = {
+    update: XOR<ActionUpdateWithoutTelegramActionInput, ActionUncheckedUpdateWithoutTelegramActionInput>
+    create: XOR<ActionCreateWithoutTelegramActionInput, ActionUncheckedCreateWithoutTelegramActionInput>
+    where?: ActionWhereInput
+  }
+
+  export type ActionUpdateToOneWithWhereWithoutTelegramActionInput = {
+    where?: ActionWhereInput
+    data: XOR<ActionUpdateWithoutTelegramActionInput, ActionUncheckedUpdateWithoutTelegramActionInput>
+  }
+
+  export type ActionUpdateWithoutTelegramActionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Rule?: RuleUpdateOneWithoutActionsNestedInput
+    emailAction?: EmailActionUpdateOneWithoutActionNestedInput
+    webhookAction?: WebhookActionUpdateOneWithoutActionNestedInput
+  }
+
+  export type ActionUncheckedUpdateWithoutTelegramActionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ruleId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailAction?: EmailActionUncheckedUpdateOneWithoutActionNestedInput
+    webhookAction?: WebhookActionUncheckedUpdateOneWithoutActionNestedInput
+  }
+
+  export type ActionCreateWithoutWebhookActionInput = {
+    id?: string
+    name: string
+    type: $Enums.ActionType
+    active: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Rule?: RuleCreateNestedOneWithoutActionsInput
+    emailAction?: EmailActionCreateNestedOneWithoutActionInput
+    telegramAction?: TelegramActionCreateNestedOneWithoutActionInput
+  }
+
+  export type ActionUncheckedCreateWithoutWebhookActionInput = {
+    id?: string
+    name: string
+    type: $Enums.ActionType
+    active: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ruleId?: string | null
+    emailAction?: EmailActionUncheckedCreateNestedOneWithoutActionInput
+    telegramAction?: TelegramActionUncheckedCreateNestedOneWithoutActionInput
+  }
+
+  export type ActionCreateOrConnectWithoutWebhookActionInput = {
+    where: ActionWhereUniqueInput
+    create: XOR<ActionCreateWithoutWebhookActionInput, ActionUncheckedCreateWithoutWebhookActionInput>
+  }
+
+  export type ActionUpsertWithoutWebhookActionInput = {
+    update: XOR<ActionUpdateWithoutWebhookActionInput, ActionUncheckedUpdateWithoutWebhookActionInput>
+    create: XOR<ActionCreateWithoutWebhookActionInput, ActionUncheckedCreateWithoutWebhookActionInput>
+    where?: ActionWhereInput
+  }
+
+  export type ActionUpdateToOneWithWhereWithoutWebhookActionInput = {
+    where?: ActionWhereInput
+    data: XOR<ActionUpdateWithoutWebhookActionInput, ActionUncheckedUpdateWithoutWebhookActionInput>
+  }
+
+  export type ActionUpdateWithoutWebhookActionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Rule?: RuleUpdateOneWithoutActionsNestedInput
+    emailAction?: EmailActionUpdateOneWithoutActionNestedInput
+    telegramAction?: TelegramActionUpdateOneWithoutActionNestedInput
+  }
+
+  export type ActionUncheckedUpdateWithoutWebhookActionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ruleId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailAction?: EmailActionUncheckedUpdateOneWithoutActionNestedInput
+    telegramAction?: TelegramActionUncheckedUpdateOneWithoutActionNestedInput
+  }
+
   export type ApiKeyCreateManyUserInput = {
     id?: string
     key: string
@@ -10410,6 +18311,16 @@ export namespace Prisma {
     description?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type RuleCreateManyUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    active: boolean
+    attempts: number
   }
 
   export type ApiKeyUpdateWithoutUserInput = {
@@ -10466,6 +18377,38 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RuleUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    attempts?: IntFieldUpdateOperationsInput | number
+    actions?: ActionUpdateManyWithoutRuleNestedInput
+  }
+
+  export type RuleUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    attempts?: IntFieldUpdateOperationsInput | number
+    actions?: ActionUncheckedUpdateManyWithoutRuleNestedInput
+  }
+
+  export type RuleUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    attempts?: IntFieldUpdateOperationsInput | number
   }
 
   export type DeviceCreateManyProjectInput = {
@@ -10570,6 +18513,48 @@ export namespace Prisma {
     value?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ActionCreateManyRuleInput = {
+    id?: string
+    name: string
+    type: $Enums.ActionType
+    active: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ActionUpdateWithoutRuleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailAction?: EmailActionUpdateOneWithoutActionNestedInput
+    telegramAction?: TelegramActionUpdateOneWithoutActionNestedInput
+    webhookAction?: WebhookActionUpdateOneWithoutActionNestedInput
+  }
+
+  export type ActionUncheckedUpdateWithoutRuleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailAction?: EmailActionUncheckedUpdateOneWithoutActionNestedInput
+    telegramAction?: TelegramActionUncheckedUpdateOneWithoutActionNestedInput
+    webhookAction?: WebhookActionUncheckedUpdateOneWithoutActionNestedInput
+  }
+
+  export type ActionUncheckedUpdateManyWithoutRuleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

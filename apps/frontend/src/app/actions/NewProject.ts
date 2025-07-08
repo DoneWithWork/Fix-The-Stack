@@ -31,6 +31,7 @@ export async function NewProjectAction(prevState: unknown, formData: FormData) {
     })
     if (newProject) {
         revalidateTag(`projects:${user.id}`);
+        revalidateTag(`project:${user.id}:${newProject.id}`);
         redirect(`/dashboard/projects/${newProject.id}`)
     }
     else {

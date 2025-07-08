@@ -42,11 +42,34 @@ export async function GetDevices(userId: string) {
     })
     return device
 }
+export async function GetDevicesWithDataStream(userId: string) {
+    const device = await db.device.findMany({
+        where: {
+            Project: {
+                userId: userId
+            }
+        },
+        include: {
+            dataStreams: true
+
+
+        }
+    })
+    return device
+}
 export async function getCachedDevices(userId: string) {
     console.log("Devices")
     return unstable_cache(async () => GetDevices(userId), ["devices", userId], {
         revalidate: false,
         tags: [`devices:${userId}`]
+    }
+    )()
+}
+export async function getCachedDevicesIncludeDataStream(userId: string) {
+    console.log("Devices")
+    return unstable_cache(async () => GetDevicesWithDataStream(userId), ["devices_with_datastream", userId], {
+        revalidate: false,
+        tags: [`devices_with_datastream:${userId}`]
     }
     )()
 }

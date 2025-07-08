@@ -178,6 +178,46 @@ exports.Prisma.DataPointScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.RuleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  active: 'active',
+  attempts: 'attempts',
+  userId: 'userId'
+};
+
+exports.Prisma.ActionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  active: 'active',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  ruleId: 'ruleId'
+};
+
+exports.Prisma.EmailActionScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  actionId: 'actionId'
+};
+
+exports.Prisma.TelegramActionScalarFieldEnum = {
+  id: 'id',
+  chatId: 'chatId',
+  actionId: 'actionId'
+};
+
+exports.Prisma.WebhookActionScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  payload: 'payload',
+  actionId: 'actionId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -186,6 +226,11 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 exports.ApiKeyType = exports.$Enums.ApiKeyType = {
   READ: 'READ',
@@ -199,13 +244,24 @@ exports.DeviceType = exports.$Enums.DeviceType = {
   HIBISCUS_SENSE: 'HIBISCUS_SENSE'
 };
 
+exports.ActionType = exports.$Enums.ActionType = {
+  EMAIL: 'EMAIL',
+  TELEGRAM: 'TELEGRAM',
+  WEBHOOK: 'WEBHOOK'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   ApiKey: 'ApiKey',
   Project: 'Project',
   Device: 'Device',
   DataStream: 'DataStream',
-  DataPoint: 'DataPoint'
+  DataPoint: 'DataPoint',
+  Rule: 'Rule',
+  Action: 'Action',
+  EmailAction: 'EmailAction',
+  TelegramAction: 'TelegramAction',
+  WebhookAction: 'WebhookAction'
 };
 
 /**

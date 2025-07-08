@@ -18,6 +18,8 @@ model User {
   projects  Project[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now()) @updatedAt
+
+  rules Rule[]
 }
 
 enum ApiKeyType {
@@ -98,4 +100,66 @@ model DataPoint {
   createdAt    DateTime   @default(now())
 
   @@index([dataStreamId])
+}
+
+model Rule {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  active    Boolean
+  attempts  Int
+  actions   Action[]
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+}
+
+model Action {
+  id        String     @id @default(cuid())
+  name      String
+  type      ActionType
+  active    Boolean
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  ruleId    String?
+  Rule      Rule?      @relation(fields: [ruleId], references: [id])
+
+  emailAction    EmailAction?
+  telegramAction TelegramAction?
+  webhookAction  WebhookAction?
+}
+
+model EmailAction {
+  id       String @id @default(cuid())
+  content  String
+  action   Action @relation(fields: [actionId], references: [id])
+  actionId String @unique
+}
+
+model TelegramAction {
+  id       String @id @default(cuid())
+  chatId   String
+  action   Action @relation(fields: [actionId], references: [id])
+  actionId String @unique
+}
+
+model WebhookAction {
+  id       String @id @default(cuid())
+  url      String
+  payload  String
+  action   Action @relation(fields: [actionId], references: [id])
+  actionId String @unique
+}
+
+enum ActionType {
+  EMAIL
+  TELEGRAM
+  WEBHOOK
+}
+
+enum LogicalOperator {
+  AND
+  OR
 }
