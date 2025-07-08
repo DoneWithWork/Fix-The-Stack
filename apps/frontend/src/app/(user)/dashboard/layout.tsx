@@ -1,7 +1,10 @@
 import { AppSidebar } from "@/components/AppSideBar";
+import CookieLayout from "@/components/CookieLayout";
+import { LoadingCom } from "@/components/Loader";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { checkRole } from "@/lib/roles";
 import { cookies } from "next/headers";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 
 export default async function UserDashboardLayout({
   children,
@@ -9,13 +12,20 @@ export default async function UserDashboardLayout({
   children: ReactNode;
 }) {
   const cookieStore = await cookies();
+  const iseducator = await checkRole("educator");
+  const educatorCookie = cookieStore.get("educator")?.value === "true";
+
   const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
   return (
     <SidebarProvider
       defaultOpen={defaultOpen}
       className="flex flex-row min-h-screen"
     >
-      <AppSidebar />
+      <Suspense fallback={<LoadingCom />}>
+        <CookieLayout>
+          <AppSidebar iseducator={iseducator} educatorCookie={educatorCookie} />
+        </CookieLayout>
+      </Suspense>
 
       <main className="flex-1 h-screen overflow-auto">{children}</main>
     </SidebarProvider>
