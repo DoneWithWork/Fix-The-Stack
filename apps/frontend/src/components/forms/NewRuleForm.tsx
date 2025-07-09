@@ -9,15 +9,9 @@ import {
 } from "@/components/ui/form";
 import SelectSearch from "react-select-search";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { NewRuleSchema } from "@/lib/schema";
 import {
+  ActionWithRelations,
   ConditionNode,
   DeviceWithStream,
   flattenDevices,
@@ -38,11 +32,20 @@ import {
   CreateDefaultGroupTree,
   deleteCondition,
 } from "./NewRuleComponents/functions";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 export default function NewRuleForm({
   devices,
+  actions,
 }: {
   devices: DeviceWithStream[];
+  actions: ActionWithRelations[];
 }) {
   const pending = false;
   const form = useForm<z.infer<typeof NewRuleSchema>>({
@@ -50,6 +53,7 @@ export default function NewRuleForm({
     defaultValues: {
       name: "",
       description: "",
+      actionId: "",
     },
   });
   const flat = devices.flatMap((device) =>
@@ -70,10 +74,11 @@ export default function NewRuleForm({
   const onAddCondition = (id: string) => {
     addCondition({ id, setTree, tree });
   };
+  console.log(actions);
   return (
     <div>
       <Form {...form}>
-        <form className="space-y-8 max-w-5xl mx-auto mt-5 ">
+        <form className="space-y-8 max-w-5xl w-full px-2 mx-auto mt-5 ">
           <FormField
             control={form.control}
             name="name"
@@ -102,7 +107,37 @@ export default function NewRuleForm({
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="actionId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Action</FormLabel>
+                <FormControl>
+                  <Select
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder={"Select an Action"} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {actions.map((action) => {
+                        return (
+                          <SelectItem value={action.id} key={action.id}>
+                            {action.name}
+                          </SelectItem>
+                        );
+                      })}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
 
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <div>
             <RuleGroup
               onDeleteCondition={OnDeleteCondition}
@@ -132,7 +167,7 @@ function Condition({
   devices: flattenDevices[];
 }) {
   return (
-    <div className="flex flex-row items-center gap-2 justify-between  rounded-xl my-2 px-2 py-3">
+    <div className="flex flex-row flex-wrap items-center gap-2 justify-between  rounded-xl my-2 px-2 py-3">
       <div className="flex-1">
         <Label className="mb-2 ml-1" htmlFor={`field-${node.id}`}>
           DataStream

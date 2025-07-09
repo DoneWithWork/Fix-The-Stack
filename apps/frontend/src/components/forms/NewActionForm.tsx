@@ -1,5 +1,5 @@
 "use client";
-import { NewApiKeyAction } from "@/app/actions/NewApiKey";
+import { NewAction } from "@/app/actions/NewAction";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -11,14 +11,20 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { ActionSchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
-import { useActionState, useEffect } from "react";
+import { Info, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Dispatch, SetStateAction, useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { DialogClose } from "../ui/dialog";
-import { Label } from "../ui/label";
 import {
   Select,
   SelectContent,
@@ -28,14 +34,15 @@ import {
 } from "../ui/select";
 import { Textarea } from "../ui/textarea";
 
-const initialState = { errors: {}, success: false };
+const initialState = { errors: {}, success: false, formErrors: "" };
 
-export default function NewActionForm() {
-  const [state, action, pending] = useActionState(
-    NewApiKeyAction,
-    initialState
-  );
-
+export default function NewActionForm({
+  setOpen,
+}: {
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}) {
+  const [state, action, pending] = useActionState(NewAction, initialState);
+  const router = useRouter();
   const form = useForm<z.infer<typeof ActionSchema>>({
     resolver: zodResolver(ActionSchema),
     defaultValues: {
@@ -44,12 +51,16 @@ export default function NewActionForm() {
       retries: 0,
       enabled: true,
       triggerLimit: 1,
+      email_address: "",
+      email_content: "",
+      telegram_chat_id: "",
+      url_webhook: "",
     },
   });
   useEffect(() => {
     if (state?.errors) {
       Object.entries(state.errors).forEach(([fieldName, errors]) => {
-        if (fieldName in ActionSchema.shape) {
+        if (fieldName in ActionSchema.innerType().shape) {
           form.setError(
             fieldName as keyof z.infer<typeof ActionSchema>,
             {
@@ -62,7 +73,15 @@ export default function NewActionForm() {
         }
       });
     }
-  }, [state, form]);
+    if (state.success) {
+      toast("Successfully created new action");
+      setOpen(false);
+      router.refresh();
+    }
+    if (!state.success && Object.keys(state.errors).length > 0) {
+      toast("Failed to create new action");
+    }
+  }, [state, form, router, setOpen]);
   const type = form.watch("type");
   return (
     <Form {...form}>
@@ -111,22 +130,122 @@ export default function NewActionForm() {
         {type === "EMAIL" && (
           <div className="space-y-5 border-2 rounded-xl px-5 py-3">
             <div className="space-y-3">
-              <Label htmlFor="email_address">Receiver email</Label>
-              <Input
-                type="email"
+              <FormField
+                control={form.control}
                 name="email_address"
-                id="email_address"
-                placeholder="Enter email address"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter email..."
+                        {...field}
+                        type="email"
+                        name="email_address"
+                      />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
             </div>
-            <Label htmlFor="email_content">Email Contents</Label>
-            <FormItem>
-              <Textarea
-                id="email_content"
-                placeholder="Enter email content..."
-                className="resize-none max-w-full"
+            <FormField
+              control={form.control}
+              name="email_content"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Contents</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      className="resize-none max-w-full"
+                      placeholder="Enter contents..."
+                      {...field}
+                      name="email_content"
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        )}
+        {type === "TELEGRAM" && (
+          <div className="space-y-5 border-2 rounded-xl px-5 py-3">
+            <div className="space-y-3">
+              <div className="flex flex-row items-center gap-2">
+                <FormLabel htmlFor="telegram_chat_id">Chat Id</FormLabel>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <div className="rounded-full border-2 ">
+                      <Info className="size-4" />
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>The Id of the chat with @fix_the_stack_bot</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <FormField
+                control={form.control}
+                name="telegram_chat_id"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        id="telegram_chat_id"
+                        placeholder="Enter Chat ID..."
+                        {...field}
+                        type="text"
+                        name="telegram_chat_id"
+                      />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </FormItem>
+            </div>
+          </div>
+        )}
+        {type === "WEBHOOK" && (
+          <div className="space-y-5 border-2 rounded-xl px-5 py-3">
+            <div className="space-y-3">
+              <div className="flex flex-row items-center gap-2">
+                <FormLabel htmlFor="url_webhook">URL</FormLabel>
+
+                <Tooltip>
+                  <TooltipTrigger>
+                    <div className="rounded-full border-2 ">
+                      <Info className="size-4" />
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>The url of the webhook</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <FormField
+                control={form.control}
+                name="url_webhook"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        id="url_webhook"
+                        placeholder="Enter url..."
+                        {...field}
+                        type="url"
+                        name="url_webhook"
+                      />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
         )}
         <FormField

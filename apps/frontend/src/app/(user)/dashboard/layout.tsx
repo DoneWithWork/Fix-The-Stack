@@ -28,7 +28,7 @@ export default async function UserDashboardLayout({
         </CookieLayout>
       </Suspense>
 
-      <main className="flex-1 h-screen ">{children}</main>
+      <main className="flex-1 h-screen w-full">{children}</main>
     </SidebarProvider>
   );
 }

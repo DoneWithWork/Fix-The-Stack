@@ -194,13 +194,17 @@ exports.Prisma.ActionScalarFieldEnum = {
   name: 'name',
   type: 'type',
   active: 'active',
+  retries: 'retries',
+  triggerLimit: 'triggerLimit',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  ruleId: 'ruleId'
+  ruleId: 'ruleId',
+  userId: 'userId'
 };
 
 exports.Prisma.EmailActionScalarFieldEnum = {
   id: 'id',
+  receiverEmail: 'receiverEmail',
   content: 'content',
   actionId: 'actionId'
 };

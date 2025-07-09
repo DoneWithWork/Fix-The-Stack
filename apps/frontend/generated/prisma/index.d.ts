@@ -1838,12 +1838,14 @@ export namespace Prisma {
     api_keys: number
     projects: number
     rules: number
+    actions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     api_keys?: boolean | UserCountOutputTypeCountApi_keysArgs
     projects?: boolean | UserCountOutputTypeCountProjectsArgs
     rules?: boolean | UserCountOutputTypeCountRulesArgs
+    actions?: boolean | UserCountOutputTypeCountActionsArgs
   }
 
   // Custom InputTypes
@@ -1876,6 +1878,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountRulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RuleWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountActionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ActionWhereInput
   }
 
 
@@ -2190,6 +2199,7 @@ export namespace Prisma {
     api_keys?: boolean | User$api_keysArgs<ExtArgs>
     projects?: boolean | User$projectsArgs<ExtArgs>
     rules?: boolean | User$rulesArgs<ExtArgs>
+    actions?: boolean | User$actionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2228,6 +2238,7 @@ export namespace Prisma {
     api_keys?: boolean | User$api_keysArgs<ExtArgs>
     projects?: boolean | User$projectsArgs<ExtArgs>
     rules?: boolean | User$rulesArgs<ExtArgs>
+    actions?: boolean | User$actionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2239,6 +2250,7 @@ export namespace Prisma {
       api_keys: Prisma.$ApiKeyPayload<ExtArgs>[]
       projects: Prisma.$ProjectPayload<ExtArgs>[]
       rules: Prisma.$RulePayload<ExtArgs>[]
+      actions: Prisma.$ActionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2645,6 +2657,7 @@ export namespace Prisma {
     api_keys<T extends User$api_keysArgs<ExtArgs> = {}>(args?: Subset<T, User$api_keysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     projects<T extends User$projectsArgs<ExtArgs> = {}>(args?: Subset<T, User$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     rules<T extends User$rulesArgs<ExtArgs> = {}>(args?: Subset<T, User$rulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    actions<T extends User$actionsArgs<ExtArgs> = {}>(args?: Subset<T, User$actionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3138,6 +3151,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: RuleScalarFieldEnum | RuleScalarFieldEnum[]
+  }
+
+  /**
+   * User.actions
+   */
+  export type User$actionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Action
+     */
+    select?: ActionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Action
+     */
+    omit?: ActionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActionInclude<ExtArgs> | null
+    where?: ActionWhereInput
+    orderBy?: ActionOrderByWithRelationInput | ActionOrderByWithRelationInput[]
+    cursor?: ActionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ActionScalarFieldEnum | ActionScalarFieldEnum[]
   }
 
   /**
@@ -9829,8 +9866,20 @@ export namespace Prisma {
 
   export type AggregateAction = {
     _count: ActionCountAggregateOutputType | null
+    _avg: ActionAvgAggregateOutputType | null
+    _sum: ActionSumAggregateOutputType | null
     _min: ActionMinAggregateOutputType | null
     _max: ActionMaxAggregateOutputType | null
+  }
+
+  export type ActionAvgAggregateOutputType = {
+    retries: number | null
+    triggerLimit: number | null
+  }
+
+  export type ActionSumAggregateOutputType = {
+    retries: number | null
+    triggerLimit: number | null
   }
 
   export type ActionMinAggregateOutputType = {
@@ -9838,9 +9887,12 @@ export namespace Prisma {
     name: string | null
     type: $Enums.ActionType | null
     active: boolean | null
+    retries: number | null
+    triggerLimit: number | null
     createdAt: Date | null
     updatedAt: Date | null
     ruleId: string | null
+    userId: string | null
   }
 
   export type ActionMaxAggregateOutputType = {
@@ -9848,9 +9900,12 @@ export namespace Prisma {
     name: string | null
     type: $Enums.ActionType | null
     active: boolean | null
+    retries: number | null
+    triggerLimit: number | null
     createdAt: Date | null
     updatedAt: Date | null
     ruleId: string | null
+    userId: string | null
   }
 
   export type ActionCountAggregateOutputType = {
@@ -9858,21 +9913,37 @@ export namespace Prisma {
     name: number
     type: number
     active: number
+    retries: number
+    triggerLimit: number
     createdAt: number
     updatedAt: number
     ruleId: number
+    userId: number
     _all: number
   }
 
+
+  export type ActionAvgAggregateInputType = {
+    retries?: true
+    triggerLimit?: true
+  }
+
+  export type ActionSumAggregateInputType = {
+    retries?: true
+    triggerLimit?: true
+  }
 
   export type ActionMinAggregateInputType = {
     id?: true
     name?: true
     type?: true
     active?: true
+    retries?: true
+    triggerLimit?: true
     createdAt?: true
     updatedAt?: true
     ruleId?: true
+    userId?: true
   }
 
   export type ActionMaxAggregateInputType = {
@@ -9880,9 +9951,12 @@ export namespace Prisma {
     name?: true
     type?: true
     active?: true
+    retries?: true
+    triggerLimit?: true
     createdAt?: true
     updatedAt?: true
     ruleId?: true
+    userId?: true
   }
 
   export type ActionCountAggregateInputType = {
@@ -9890,9 +9964,12 @@ export namespace Prisma {
     name?: true
     type?: true
     active?: true
+    retries?: true
+    triggerLimit?: true
     createdAt?: true
     updatedAt?: true
     ruleId?: true
+    userId?: true
     _all?: true
   }
 
@@ -9934,6 +10011,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ActionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ActionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ActionMinAggregateInputType
@@ -9964,6 +10053,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ActionCountAggregateInputType | true
+    _avg?: ActionAvgAggregateInputType
+    _sum?: ActionSumAggregateInputType
     _min?: ActionMinAggregateInputType
     _max?: ActionMaxAggregateInputType
   }
@@ -9973,10 +10064,15 @@ export namespace Prisma {
     name: string
     type: $Enums.ActionType
     active: boolean
+    retries: number
+    triggerLimit: number
     createdAt: Date
     updatedAt: Date
     ruleId: string | null
+    userId: string
     _count: ActionCountAggregateOutputType | null
+    _avg: ActionAvgAggregateOutputType | null
+    _sum: ActionSumAggregateOutputType | null
     _min: ActionMinAggregateOutputType | null
     _max: ActionMaxAggregateOutputType | null
   }
@@ -10000,13 +10096,17 @@ export namespace Prisma {
     name?: boolean
     type?: boolean
     active?: boolean
+    retries?: boolean
+    triggerLimit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     ruleId?: boolean
+    userId?: boolean
     Rule?: boolean | Action$RuleArgs<ExtArgs>
     emailAction?: boolean | Action$emailActionArgs<ExtArgs>
     telegramAction?: boolean | Action$telegramActionArgs<ExtArgs>
     webhookAction?: boolean | Action$webhookActionArgs<ExtArgs>
+    User?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["action"]>
 
   export type ActionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10014,10 +10114,14 @@ export namespace Prisma {
     name?: boolean
     type?: boolean
     active?: boolean
+    retries?: boolean
+    triggerLimit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     ruleId?: boolean
+    userId?: boolean
     Rule?: boolean | Action$RuleArgs<ExtArgs>
+    User?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["action"]>
 
   export type ActionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10025,10 +10129,14 @@ export namespace Prisma {
     name?: boolean
     type?: boolean
     active?: boolean
+    retries?: boolean
+    triggerLimit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     ruleId?: boolean
+    userId?: boolean
     Rule?: boolean | Action$RuleArgs<ExtArgs>
+    User?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["action"]>
 
   export type ActionSelectScalar = {
@@ -10036,23 +10144,29 @@ export namespace Prisma {
     name?: boolean
     type?: boolean
     active?: boolean
+    retries?: boolean
+    triggerLimit?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     ruleId?: boolean
+    userId?: boolean
   }
 
-  export type ActionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "active" | "createdAt" | "updatedAt" | "ruleId", ExtArgs["result"]["action"]>
+  export type ActionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "active" | "retries" | "triggerLimit" | "createdAt" | "updatedAt" | "ruleId" | "userId", ExtArgs["result"]["action"]>
   export type ActionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Rule?: boolean | Action$RuleArgs<ExtArgs>
     emailAction?: boolean | Action$emailActionArgs<ExtArgs>
     telegramAction?: boolean | Action$telegramActionArgs<ExtArgs>
     webhookAction?: boolean | Action$webhookActionArgs<ExtArgs>
+    User?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ActionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Rule?: boolean | Action$RuleArgs<ExtArgs>
+    User?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ActionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Rule?: boolean | Action$RuleArgs<ExtArgs>
+    User?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $ActionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10062,15 +10176,19 @@ export namespace Prisma {
       emailAction: Prisma.$EmailActionPayload<ExtArgs> | null
       telegramAction: Prisma.$TelegramActionPayload<ExtArgs> | null
       webhookAction: Prisma.$WebhookActionPayload<ExtArgs> | null
+      User: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       type: $Enums.ActionType
       active: boolean
+      retries: number
+      triggerLimit: number
       createdAt: Date
       updatedAt: Date
       ruleId: string | null
+      userId: string
     }, ExtArgs["result"]["action"]>
     composites: {}
   }
@@ -10469,6 +10587,7 @@ export namespace Prisma {
     emailAction<T extends Action$emailActionArgs<ExtArgs> = {}>(args?: Subset<T, Action$emailActionArgs<ExtArgs>>): Prisma__EmailActionClient<$Result.GetResult<Prisma.$EmailActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     telegramAction<T extends Action$telegramActionArgs<ExtArgs> = {}>(args?: Subset<T, Action$telegramActionArgs<ExtArgs>>): Prisma__TelegramActionClient<$Result.GetResult<Prisma.$TelegramActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     webhookAction<T extends Action$webhookActionArgs<ExtArgs> = {}>(args?: Subset<T, Action$webhookActionArgs<ExtArgs>>): Prisma__WebhookActionClient<$Result.GetResult<Prisma.$WebhookActionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    User<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10502,9 +10621,12 @@ export namespace Prisma {
     readonly name: FieldRef<"Action", 'String'>
     readonly type: FieldRef<"Action", 'ActionType'>
     readonly active: FieldRef<"Action", 'Boolean'>
+    readonly retries: FieldRef<"Action", 'Int'>
+    readonly triggerLimit: FieldRef<"Action", 'Int'>
     readonly createdAt: FieldRef<"Action", 'DateTime'>
     readonly updatedAt: FieldRef<"Action", 'DateTime'>
     readonly ruleId: FieldRef<"Action", 'String'>
+    readonly userId: FieldRef<"Action", 'String'>
   }
     
 
@@ -11007,18 +11129,21 @@ export namespace Prisma {
 
   export type EmailActionMinAggregateOutputType = {
     id: string | null
+    receiverEmail: string | null
     content: string | null
     actionId: string | null
   }
 
   export type EmailActionMaxAggregateOutputType = {
     id: string | null
+    receiverEmail: string | null
     content: string | null
     actionId: string | null
   }
 
   export type EmailActionCountAggregateOutputType = {
     id: number
+    receiverEmail: number
     content: number
     actionId: number
     _all: number
@@ -11027,18 +11152,21 @@ export namespace Prisma {
 
   export type EmailActionMinAggregateInputType = {
     id?: true
+    receiverEmail?: true
     content?: true
     actionId?: true
   }
 
   export type EmailActionMaxAggregateInputType = {
     id?: true
+    receiverEmail?: true
     content?: true
     actionId?: true
   }
 
   export type EmailActionCountAggregateInputType = {
     id?: true
+    receiverEmail?: true
     content?: true
     actionId?: true
     _all?: true
@@ -11118,6 +11246,7 @@ export namespace Prisma {
 
   export type EmailActionGroupByOutputType = {
     id: string
+    receiverEmail: string
     content: string
     actionId: string
     _count: EmailActionCountAggregateOutputType | null
@@ -11141,6 +11270,7 @@ export namespace Prisma {
 
   export type EmailActionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    receiverEmail?: boolean
     content?: boolean
     actionId?: boolean
     action?: boolean | ActionDefaultArgs<ExtArgs>
@@ -11148,6 +11278,7 @@ export namespace Prisma {
 
   export type EmailActionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    receiverEmail?: boolean
     content?: boolean
     actionId?: boolean
     action?: boolean | ActionDefaultArgs<ExtArgs>
@@ -11155,6 +11286,7 @@ export namespace Prisma {
 
   export type EmailActionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    receiverEmail?: boolean
     content?: boolean
     actionId?: boolean
     action?: boolean | ActionDefaultArgs<ExtArgs>
@@ -11162,11 +11294,12 @@ export namespace Prisma {
 
   export type EmailActionSelectScalar = {
     id?: boolean
+    receiverEmail?: boolean
     content?: boolean
     actionId?: boolean
   }
 
-  export type EmailActionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "actionId", ExtArgs["result"]["emailAction"]>
+  export type EmailActionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "receiverEmail" | "content" | "actionId", ExtArgs["result"]["emailAction"]>
   export type EmailActionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     action?: boolean | ActionDefaultArgs<ExtArgs>
   }
@@ -11184,6 +11317,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      receiverEmail: string
       content: string
       actionId: string
     }, ExtArgs["result"]["emailAction"]>
@@ -11611,6 +11745,7 @@ export namespace Prisma {
    */
   interface EmailActionFieldRefs {
     readonly id: FieldRef<"EmailAction", 'String'>
+    readonly receiverEmail: FieldRef<"EmailAction", 'String'>
     readonly content: FieldRef<"EmailAction", 'String'>
     readonly actionId: FieldRef<"EmailAction", 'String'>
   }
@@ -14213,9 +14348,12 @@ export namespace Prisma {
     name: 'name',
     type: 'type',
     active: 'active',
+    retries: 'retries',
+    triggerLimit: 'triggerLimit',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    ruleId: 'ruleId'
+    ruleId: 'ruleId',
+    userId: 'userId'
   };
 
   export type ActionScalarFieldEnum = (typeof ActionScalarFieldEnum)[keyof typeof ActionScalarFieldEnum]
@@ -14223,6 +14361,7 @@ export namespace Prisma {
 
   export const EmailActionScalarFieldEnum: {
     id: 'id',
+    receiverEmail: 'receiverEmail',
     content: 'content',
     actionId: 'actionId'
   };
@@ -14400,6 +14539,7 @@ export namespace Prisma {
     api_keys?: ApiKeyListRelationFilter
     projects?: ProjectListRelationFilter
     rules?: RuleListRelationFilter
+    actions?: ActionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -14413,6 +14553,7 @@ export namespace Prisma {
     api_keys?: ApiKeyOrderByRelationAggregateInput
     projects?: ProjectOrderByRelationAggregateInput
     rules?: RuleOrderByRelationAggregateInput
+    actions?: ActionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -14429,6 +14570,7 @@ export namespace Prisma {
     api_keys?: ApiKeyListRelationFilter
     projects?: ProjectListRelationFilter
     rules?: RuleListRelationFilter
+    actions?: ActionListRelationFilter
   }, "id">
 
   export type UserOrderByWithAggregationInput = {
@@ -14864,13 +15006,17 @@ export namespace Prisma {
     name?: StringFilter<"Action"> | string
     type?: EnumActionTypeFilter<"Action"> | $Enums.ActionType
     active?: BoolFilter<"Action"> | boolean
+    retries?: IntFilter<"Action"> | number
+    triggerLimit?: IntFilter<"Action"> | number
     createdAt?: DateTimeFilter<"Action"> | Date | string
     updatedAt?: DateTimeFilter<"Action"> | Date | string
     ruleId?: StringNullableFilter<"Action"> | string | null
+    userId?: StringFilter<"Action"> | string
     Rule?: XOR<RuleNullableScalarRelationFilter, RuleWhereInput> | null
     emailAction?: XOR<EmailActionNullableScalarRelationFilter, EmailActionWhereInput> | null
     telegramAction?: XOR<TelegramActionNullableScalarRelationFilter, TelegramActionWhereInput> | null
     webhookAction?: XOR<WebhookActionNullableScalarRelationFilter, WebhookActionWhereInput> | null
+    User?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type ActionOrderByWithRelationInput = {
@@ -14878,13 +15024,17 @@ export namespace Prisma {
     name?: SortOrder
     type?: SortOrder
     active?: SortOrder
+    retries?: SortOrder
+    triggerLimit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ruleId?: SortOrderInput | SortOrder
+    userId?: SortOrder
     Rule?: RuleOrderByWithRelationInput
     emailAction?: EmailActionOrderByWithRelationInput
     telegramAction?: TelegramActionOrderByWithRelationInput
     webhookAction?: WebhookActionOrderByWithRelationInput
+    User?: UserOrderByWithRelationInput
   }
 
   export type ActionWhereUniqueInput = Prisma.AtLeast<{
@@ -14895,13 +15045,17 @@ export namespace Prisma {
     name?: StringFilter<"Action"> | string
     type?: EnumActionTypeFilter<"Action"> | $Enums.ActionType
     active?: BoolFilter<"Action"> | boolean
+    retries?: IntFilter<"Action"> | number
+    triggerLimit?: IntFilter<"Action"> | number
     createdAt?: DateTimeFilter<"Action"> | Date | string
     updatedAt?: DateTimeFilter<"Action"> | Date | string
     ruleId?: StringNullableFilter<"Action"> | string | null
+    userId?: StringFilter<"Action"> | string
     Rule?: XOR<RuleNullableScalarRelationFilter, RuleWhereInput> | null
     emailAction?: XOR<EmailActionNullableScalarRelationFilter, EmailActionWhereInput> | null
     telegramAction?: XOR<TelegramActionNullableScalarRelationFilter, TelegramActionWhereInput> | null
     webhookAction?: XOR<WebhookActionNullableScalarRelationFilter, WebhookActionWhereInput> | null
+    User?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type ActionOrderByWithAggregationInput = {
@@ -14909,12 +15063,17 @@ export namespace Prisma {
     name?: SortOrder
     type?: SortOrder
     active?: SortOrder
+    retries?: SortOrder
+    triggerLimit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ruleId?: SortOrderInput | SortOrder
+    userId?: SortOrder
     _count?: ActionCountOrderByAggregateInput
+    _avg?: ActionAvgOrderByAggregateInput
     _max?: ActionMaxOrderByAggregateInput
     _min?: ActionMinOrderByAggregateInput
+    _sum?: ActionSumOrderByAggregateInput
   }
 
   export type ActionScalarWhereWithAggregatesInput = {
@@ -14925,9 +15084,12 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Action"> | string
     type?: EnumActionTypeWithAggregatesFilter<"Action"> | $Enums.ActionType
     active?: BoolWithAggregatesFilter<"Action"> | boolean
+    retries?: IntWithAggregatesFilter<"Action"> | number
+    triggerLimit?: IntWithAggregatesFilter<"Action"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Action"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Action"> | Date | string
     ruleId?: StringNullableWithAggregatesFilter<"Action"> | string | null
+    userId?: StringWithAggregatesFilter<"Action"> | string
   }
 
   export type EmailActionWhereInput = {
@@ -14935,6 +15097,7 @@ export namespace Prisma {
     OR?: EmailActionWhereInput[]
     NOT?: EmailActionWhereInput | EmailActionWhereInput[]
     id?: StringFilter<"EmailAction"> | string
+    receiverEmail?: StringFilter<"EmailAction"> | string
     content?: StringFilter<"EmailAction"> | string
     actionId?: StringFilter<"EmailAction"> | string
     action?: XOR<ActionScalarRelationFilter, ActionWhereInput>
@@ -14942,6 +15105,7 @@ export namespace Prisma {
 
   export type EmailActionOrderByWithRelationInput = {
     id?: SortOrder
+    receiverEmail?: SortOrder
     content?: SortOrder
     actionId?: SortOrder
     action?: ActionOrderByWithRelationInput
@@ -14953,12 +15117,14 @@ export namespace Prisma {
     AND?: EmailActionWhereInput | EmailActionWhereInput[]
     OR?: EmailActionWhereInput[]
     NOT?: EmailActionWhereInput | EmailActionWhereInput[]
+    receiverEmail?: StringFilter<"EmailAction"> | string
     content?: StringFilter<"EmailAction"> | string
     action?: XOR<ActionScalarRelationFilter, ActionWhereInput>
   }, "id" | "actionId">
 
   export type EmailActionOrderByWithAggregationInput = {
     id?: SortOrder
+    receiverEmail?: SortOrder
     content?: SortOrder
     actionId?: SortOrder
     _count?: EmailActionCountOrderByAggregateInput
@@ -14971,6 +15137,7 @@ export namespace Prisma {
     OR?: EmailActionScalarWhereWithAggregatesInput[]
     NOT?: EmailActionScalarWhereWithAggregatesInput | EmailActionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"EmailAction"> | string
+    receiverEmail?: StringWithAggregatesFilter<"EmailAction"> | string
     content?: StringWithAggregatesFilter<"EmailAction"> | string
     actionId?: StringWithAggregatesFilter<"EmailAction"> | string
   }
@@ -15081,6 +15248,7 @@ export namespace Prisma {
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
     rules?: RuleCreateNestedManyWithoutUserInput
+    actions?: ActionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -15094,6 +15262,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     rules?: RuleUncheckedCreateNestedManyWithoutUserInput
+    actions?: ActionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -15107,6 +15276,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
     rules?: RuleUpdateManyWithoutUserNestedInput
+    actions?: ActionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -15120,6 +15290,7 @@ export namespace Prisma {
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     rules?: RuleUncheckedUpdateManyWithoutUserNestedInput
+    actions?: ActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -15580,12 +15751,15 @@ export namespace Prisma {
     name: string
     type: $Enums.ActionType
     active: boolean
+    retries: number
+    triggerLimit: number
     createdAt?: Date | string
     updatedAt?: Date | string
     Rule?: RuleCreateNestedOneWithoutActionsInput
     emailAction?: EmailActionCreateNestedOneWithoutActionInput
     telegramAction?: TelegramActionCreateNestedOneWithoutActionInput
     webhookAction?: WebhookActionCreateNestedOneWithoutActionInput
+    User: UserCreateNestedOneWithoutActionsInput
   }
 
   export type ActionUncheckedCreateInput = {
@@ -15593,9 +15767,12 @@ export namespace Prisma {
     name: string
     type: $Enums.ActionType
     active: boolean
+    retries: number
+    triggerLimit: number
     createdAt?: Date | string
     updatedAt?: Date | string
     ruleId?: string | null
+    userId: string
     emailAction?: EmailActionUncheckedCreateNestedOneWithoutActionInput
     telegramAction?: TelegramActionUncheckedCreateNestedOneWithoutActionInput
     webhookAction?: WebhookActionUncheckedCreateNestedOneWithoutActionInput
@@ -15606,12 +15783,15 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
     active?: BoolFieldUpdateOperationsInput | boolean
+    retries?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Rule?: RuleUpdateOneWithoutActionsNestedInput
     emailAction?: EmailActionUpdateOneWithoutActionNestedInput
     telegramAction?: TelegramActionUpdateOneWithoutActionNestedInput
     webhookAction?: WebhookActionUpdateOneWithoutActionNestedInput
+    User?: UserUpdateOneRequiredWithoutActionsNestedInput
   }
 
   export type ActionUncheckedUpdateInput = {
@@ -15619,9 +15799,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
     active?: BoolFieldUpdateOperationsInput | boolean
+    retries?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ruleId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     emailAction?: EmailActionUncheckedUpdateOneWithoutActionNestedInput
     telegramAction?: TelegramActionUncheckedUpdateOneWithoutActionNestedInput
     webhookAction?: WebhookActionUncheckedUpdateOneWithoutActionNestedInput
@@ -15632,9 +15815,12 @@ export namespace Prisma {
     name: string
     type: $Enums.ActionType
     active: boolean
+    retries: number
+    triggerLimit: number
     createdAt?: Date | string
     updatedAt?: Date | string
     ruleId?: string | null
+    userId: string
   }
 
   export type ActionUpdateManyMutationInput = {
@@ -15642,6 +15828,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
     active?: BoolFieldUpdateOperationsInput | boolean
+    retries?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15651,48 +15839,58 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
     active?: BoolFieldUpdateOperationsInput | boolean
+    retries?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ruleId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type EmailActionCreateInput = {
     id?: string
+    receiverEmail: string
     content: string
     action: ActionCreateNestedOneWithoutEmailActionInput
   }
 
   export type EmailActionUncheckedCreateInput = {
     id?: string
+    receiverEmail: string
     content: string
     actionId: string
   }
 
   export type EmailActionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    receiverEmail?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     action?: ActionUpdateOneRequiredWithoutEmailActionNestedInput
   }
 
   export type EmailActionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    receiverEmail?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     actionId?: StringFieldUpdateOperationsInput | string
   }
 
   export type EmailActionCreateManyInput = {
     id?: string
+    receiverEmail: string
     content: string
     actionId: string
   }
 
   export type EmailActionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    receiverEmail?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
   }
 
   export type EmailActionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    receiverEmail?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     actionId?: StringFieldUpdateOperationsInput | string
   }
@@ -15830,6 +16028,12 @@ export namespace Prisma {
     none?: RuleWhereInput
   }
 
+  export type ActionListRelationFilter = {
+    every?: ActionWhereInput
+    some?: ActionWhereInput
+    none?: ActionWhereInput
+  }
+
   export type ApiKeyOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -15839,6 +16043,10 @@ export namespace Prisma {
   }
 
   export type RuleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ActionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -16163,12 +16371,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type ActionListRelationFilter = {
-    every?: ActionWhereInput
-    some?: ActionWhereInput
-    none?: ActionWhereInput
-  }
-
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
@@ -16177,10 +16379,6 @@ export namespace Prisma {
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
-  }
-
-  export type ActionOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type RuleCountOrderByAggregateInput = {
@@ -16298,9 +16496,17 @@ export namespace Prisma {
     name?: SortOrder
     type?: SortOrder
     active?: SortOrder
+    retries?: SortOrder
+    triggerLimit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ruleId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type ActionAvgOrderByAggregateInput = {
+    retries?: SortOrder
+    triggerLimit?: SortOrder
   }
 
   export type ActionMaxOrderByAggregateInput = {
@@ -16308,9 +16514,12 @@ export namespace Prisma {
     name?: SortOrder
     type?: SortOrder
     active?: SortOrder
+    retries?: SortOrder
+    triggerLimit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ruleId?: SortOrder
+    userId?: SortOrder
   }
 
   export type ActionMinOrderByAggregateInput = {
@@ -16318,9 +16527,17 @@ export namespace Prisma {
     name?: SortOrder
     type?: SortOrder
     active?: SortOrder
+    retries?: SortOrder
+    triggerLimit?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ruleId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type ActionSumOrderByAggregateInput = {
+    retries?: SortOrder
+    triggerLimit?: SortOrder
   }
 
   export type EnumActionTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -16340,18 +16557,21 @@ export namespace Prisma {
 
   export type EmailActionCountOrderByAggregateInput = {
     id?: SortOrder
+    receiverEmail?: SortOrder
     content?: SortOrder
     actionId?: SortOrder
   }
 
   export type EmailActionMaxOrderByAggregateInput = {
     id?: SortOrder
+    receiverEmail?: SortOrder
     content?: SortOrder
     actionId?: SortOrder
   }
 
   export type EmailActionMinOrderByAggregateInput = {
     id?: SortOrder
+    receiverEmail?: SortOrder
     content?: SortOrder
     actionId?: SortOrder
   }
@@ -16416,6 +16636,13 @@ export namespace Prisma {
     connect?: RuleWhereUniqueInput | RuleWhereUniqueInput[]
   }
 
+  export type ActionCreateNestedManyWithoutUserInput = {
+    create?: XOR<ActionCreateWithoutUserInput, ActionUncheckedCreateWithoutUserInput> | ActionCreateWithoutUserInput[] | ActionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ActionCreateOrConnectWithoutUserInput | ActionCreateOrConnectWithoutUserInput[]
+    createMany?: ActionCreateManyUserInputEnvelope
+    connect?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+  }
+
   export type ApiKeyUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ApiKeyCreateWithoutUserInput, ApiKeyUncheckedCreateWithoutUserInput> | ApiKeyCreateWithoutUserInput[] | ApiKeyUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ApiKeyCreateOrConnectWithoutUserInput | ApiKeyCreateOrConnectWithoutUserInput[]
@@ -16435,6 +16662,13 @@ export namespace Prisma {
     connectOrCreate?: RuleCreateOrConnectWithoutUserInput | RuleCreateOrConnectWithoutUserInput[]
     createMany?: RuleCreateManyUserInputEnvelope
     connect?: RuleWhereUniqueInput | RuleWhereUniqueInput[]
+  }
+
+  export type ActionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ActionCreateWithoutUserInput, ActionUncheckedCreateWithoutUserInput> | ActionCreateWithoutUserInput[] | ActionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ActionCreateOrConnectWithoutUserInput | ActionCreateOrConnectWithoutUserInput[]
+    createMany?: ActionCreateManyUserInputEnvelope
+    connect?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -16487,6 +16721,20 @@ export namespace Prisma {
     deleteMany?: RuleScalarWhereInput | RuleScalarWhereInput[]
   }
 
+  export type ActionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ActionCreateWithoutUserInput, ActionUncheckedCreateWithoutUserInput> | ActionCreateWithoutUserInput[] | ActionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ActionCreateOrConnectWithoutUserInput | ActionCreateOrConnectWithoutUserInput[]
+    upsert?: ActionUpsertWithWhereUniqueWithoutUserInput | ActionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ActionCreateManyUserInputEnvelope
+    set?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+    disconnect?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+    delete?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+    connect?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+    update?: ActionUpdateWithWhereUniqueWithoutUserInput | ActionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ActionUpdateManyWithWhereWithoutUserInput | ActionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ActionScalarWhereInput | ActionScalarWhereInput[]
+  }
+
   export type ApiKeyUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ApiKeyCreateWithoutUserInput, ApiKeyUncheckedCreateWithoutUserInput> | ApiKeyCreateWithoutUserInput[] | ApiKeyUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ApiKeyCreateOrConnectWithoutUserInput | ApiKeyCreateOrConnectWithoutUserInput[]
@@ -16527,6 +16775,20 @@ export namespace Prisma {
     update?: RuleUpdateWithWhereUniqueWithoutUserInput | RuleUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: RuleUpdateManyWithWhereWithoutUserInput | RuleUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: RuleScalarWhereInput | RuleScalarWhereInput[]
+  }
+
+  export type ActionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ActionCreateWithoutUserInput, ActionUncheckedCreateWithoutUserInput> | ActionCreateWithoutUserInput[] | ActionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ActionCreateOrConnectWithoutUserInput | ActionCreateOrConnectWithoutUserInput[]
+    upsert?: ActionUpsertWithWhereUniqueWithoutUserInput | ActionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ActionCreateManyUserInputEnvelope
+    set?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+    disconnect?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+    delete?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+    connect?: ActionWhereUniqueInput | ActionWhereUniqueInput[]
+    update?: ActionUpdateWithWhereUniqueWithoutUserInput | ActionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ActionUpdateManyWithWhereWithoutUserInput | ActionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ActionScalarWhereInput | ActionScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutApi_keysInput = {
@@ -16831,6 +17093,12 @@ export namespace Prisma {
     connect?: WebhookActionWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutActionsInput = {
+    create?: XOR<UserCreateWithoutActionsInput, UserUncheckedCreateWithoutActionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutActionsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type EmailActionUncheckedCreateNestedOneWithoutActionInput = {
     create?: XOR<EmailActionCreateWithoutActionInput, EmailActionUncheckedCreateWithoutActionInput>
     connectOrCreate?: EmailActionCreateOrConnectWithoutActionInput
@@ -16891,6 +17159,14 @@ export namespace Prisma {
     delete?: WebhookActionWhereInput | boolean
     connect?: WebhookActionWhereUniqueInput
     update?: XOR<XOR<WebhookActionUpdateToOneWithWhereWithoutActionInput, WebhookActionUpdateWithoutActionInput>, WebhookActionUncheckedUpdateWithoutActionInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutActionsNestedInput = {
+    create?: XOR<UserCreateWithoutActionsInput, UserUncheckedCreateWithoutActionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutActionsInput
+    upsert?: UserUpsertWithoutActionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutActionsInput, UserUpdateWithoutActionsInput>, UserUncheckedUpdateWithoutActionsInput>
   }
 
   export type EmailActionUncheckedUpdateOneWithoutActionNestedInput = {
@@ -17255,6 +17531,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ActionCreateWithoutUserInput = {
+    id?: string
+    name: string
+    type: $Enums.ActionType
+    active: boolean
+    retries: number
+    triggerLimit: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Rule?: RuleCreateNestedOneWithoutActionsInput
+    emailAction?: EmailActionCreateNestedOneWithoutActionInput
+    telegramAction?: TelegramActionCreateNestedOneWithoutActionInput
+    webhookAction?: WebhookActionCreateNestedOneWithoutActionInput
+  }
+
+  export type ActionUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    type: $Enums.ActionType
+    active: boolean
+    retries: number
+    triggerLimit: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ruleId?: string | null
+    emailAction?: EmailActionUncheckedCreateNestedOneWithoutActionInput
+    telegramAction?: TelegramActionUncheckedCreateNestedOneWithoutActionInput
+    webhookAction?: WebhookActionUncheckedCreateNestedOneWithoutActionInput
+  }
+
+  export type ActionCreateOrConnectWithoutUserInput = {
+    where: ActionWhereUniqueInput
+    create: XOR<ActionCreateWithoutUserInput, ActionUncheckedCreateWithoutUserInput>
+  }
+
+  export type ActionCreateManyUserInputEnvelope = {
+    data: ActionCreateManyUserInput | ActionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ApiKeyUpsertWithWhereUniqueWithoutUserInput = {
     where: ApiKeyWhereUniqueInput
     update: XOR<ApiKeyUpdateWithoutUserInput, ApiKeyUncheckedUpdateWithoutUserInput>
@@ -17343,6 +17659,38 @@ export namespace Prisma {
     userId?: StringNullableFilter<"Rule"> | string | null
   }
 
+  export type ActionUpsertWithWhereUniqueWithoutUserInput = {
+    where: ActionWhereUniqueInput
+    update: XOR<ActionUpdateWithoutUserInput, ActionUncheckedUpdateWithoutUserInput>
+    create: XOR<ActionCreateWithoutUserInput, ActionUncheckedCreateWithoutUserInput>
+  }
+
+  export type ActionUpdateWithWhereUniqueWithoutUserInput = {
+    where: ActionWhereUniqueInput
+    data: XOR<ActionUpdateWithoutUserInput, ActionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ActionUpdateManyWithWhereWithoutUserInput = {
+    where: ActionScalarWhereInput
+    data: XOR<ActionUpdateManyMutationInput, ActionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ActionScalarWhereInput = {
+    AND?: ActionScalarWhereInput | ActionScalarWhereInput[]
+    OR?: ActionScalarWhereInput[]
+    NOT?: ActionScalarWhereInput | ActionScalarWhereInput[]
+    id?: StringFilter<"Action"> | string
+    name?: StringFilter<"Action"> | string
+    type?: EnumActionTypeFilter<"Action"> | $Enums.ActionType
+    active?: BoolFilter<"Action"> | boolean
+    retries?: IntFilter<"Action"> | number
+    triggerLimit?: IntFilter<"Action"> | number
+    createdAt?: DateTimeFilter<"Action"> | Date | string
+    updatedAt?: DateTimeFilter<"Action"> | Date | string
+    ruleId?: StringNullableFilter<"Action"> | string | null
+    userId?: StringFilter<"Action"> | string
+  }
+
   export type UserCreateWithoutApi_keysInput = {
     id: string
     username: string
@@ -17353,6 +17701,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     projects?: ProjectCreateNestedManyWithoutUserInput
     rules?: RuleCreateNestedManyWithoutUserInput
+    actions?: ActionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApi_keysInput = {
@@ -17365,6 +17714,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
     rules?: RuleUncheckedCreateNestedManyWithoutUserInput
+    actions?: ActionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApi_keysInput = {
@@ -17393,6 +17743,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projects?: ProjectUpdateManyWithoutUserNestedInput
     rules?: RuleUpdateManyWithoutUserNestedInput
+    actions?: ActionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApi_keysInput = {
@@ -17405,6 +17756,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
     rules?: RuleUncheckedUpdateManyWithoutUserNestedInput
+    actions?: ActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutProjectsInput = {
@@ -17417,6 +17769,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     rules?: RuleCreateNestedManyWithoutUserInput
+    actions?: ActionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProjectsInput = {
@@ -17429,6 +17782,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     rules?: RuleUncheckedCreateNestedManyWithoutUserInput
+    actions?: ActionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProjectsInput = {
@@ -17489,6 +17843,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     rules?: RuleUpdateManyWithoutUserNestedInput
+    actions?: ActionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectsInput = {
@@ -17501,6 +17856,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     rules?: RuleUncheckedUpdateManyWithoutUserNestedInput
+    actions?: ActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DeviceUpsertWithWhereUniqueWithoutProjectInput = {
@@ -17809,11 +18165,14 @@ export namespace Prisma {
     name: string
     type: $Enums.ActionType
     active: boolean
+    retries: number
+    triggerLimit: number
     createdAt?: Date | string
     updatedAt?: Date | string
     emailAction?: EmailActionCreateNestedOneWithoutActionInput
     telegramAction?: TelegramActionCreateNestedOneWithoutActionInput
     webhookAction?: WebhookActionCreateNestedOneWithoutActionInput
+    User: UserCreateNestedOneWithoutActionsInput
   }
 
   export type ActionUncheckedCreateWithoutRuleInput = {
@@ -17821,8 +18180,11 @@ export namespace Prisma {
     name: string
     type: $Enums.ActionType
     active: boolean
+    retries: number
+    triggerLimit: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    userId: string
     emailAction?: EmailActionUncheckedCreateNestedOneWithoutActionInput
     telegramAction?: TelegramActionUncheckedCreateNestedOneWithoutActionInput
     webhookAction?: WebhookActionUncheckedCreateNestedOneWithoutActionInput
@@ -17848,6 +18210,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     api_keys?: ApiKeyCreateNestedManyWithoutUserInput
     projects?: ProjectCreateNestedManyWithoutUserInput
+    actions?: ActionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRulesInput = {
@@ -17860,6 +18223,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
     projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    actions?: ActionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRulesInput = {
@@ -17883,19 +18247,6 @@ export namespace Prisma {
     data: XOR<ActionUpdateManyMutationInput, ActionUncheckedUpdateManyWithoutRuleInput>
   }
 
-  export type ActionScalarWhereInput = {
-    AND?: ActionScalarWhereInput | ActionScalarWhereInput[]
-    OR?: ActionScalarWhereInput[]
-    NOT?: ActionScalarWhereInput | ActionScalarWhereInput[]
-    id?: StringFilter<"Action"> | string
-    name?: StringFilter<"Action"> | string
-    type?: EnumActionTypeFilter<"Action"> | $Enums.ActionType
-    active?: BoolFilter<"Action"> | boolean
-    createdAt?: DateTimeFilter<"Action"> | Date | string
-    updatedAt?: DateTimeFilter<"Action"> | Date | string
-    ruleId?: StringNullableFilter<"Action"> | string | null
-  }
-
   export type UserUpsertWithoutRulesInput = {
     update: XOR<UserUpdateWithoutRulesInput, UserUncheckedUpdateWithoutRulesInput>
     create: XOR<UserCreateWithoutRulesInput, UserUncheckedCreateWithoutRulesInput>
@@ -17917,6 +18268,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
     projects?: ProjectUpdateManyWithoutUserNestedInput
+    actions?: ActionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRulesInput = {
@@ -17929,6 +18281,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
     projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    actions?: ActionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RuleCreateWithoutActionsInput = {
@@ -17960,11 +18313,13 @@ export namespace Prisma {
 
   export type EmailActionCreateWithoutActionInput = {
     id?: string
+    receiverEmail: string
     content: string
   }
 
   export type EmailActionUncheckedCreateWithoutActionInput = {
     id?: string
+    receiverEmail: string
     content: string
   }
 
@@ -18003,6 +18358,37 @@ export namespace Prisma {
   export type WebhookActionCreateOrConnectWithoutActionInput = {
     where: WebhookActionWhereUniqueInput
     create: XOR<WebhookActionCreateWithoutActionInput, WebhookActionUncheckedCreateWithoutActionInput>
+  }
+
+  export type UserCreateWithoutActionsInput = {
+    id: string
+    username: string
+    email: string
+    profile: string
+    role?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    api_keys?: ApiKeyCreateNestedManyWithoutUserInput
+    projects?: ProjectCreateNestedManyWithoutUserInput
+    rules?: RuleCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutActionsInput = {
+    id: string
+    username: string
+    email: string
+    profile: string
+    role?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    api_keys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutUserInput
+    rules?: RuleUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutActionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutActionsInput, UserUncheckedCreateWithoutActionsInput>
   }
 
   export type RuleUpsertWithoutActionsInput = {
@@ -18051,11 +18437,13 @@ export namespace Prisma {
 
   export type EmailActionUpdateWithoutActionInput = {
     id?: StringFieldUpdateOperationsInput | string
+    receiverEmail?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
   }
 
   export type EmailActionUncheckedUpdateWithoutActionInput = {
     id?: StringFieldUpdateOperationsInput | string
+    receiverEmail?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
   }
 
@@ -18103,16 +18491,56 @@ export namespace Prisma {
     payload?: StringFieldUpdateOperationsInput | string
   }
 
+  export type UserUpsertWithoutActionsInput = {
+    update: XOR<UserUpdateWithoutActionsInput, UserUncheckedUpdateWithoutActionsInput>
+    create: XOR<UserCreateWithoutActionsInput, UserUncheckedCreateWithoutActionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutActionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutActionsInput, UserUncheckedUpdateWithoutActionsInput>
+  }
+
+  export type UserUpdateWithoutActionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    profile?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    api_keys?: ApiKeyUpdateManyWithoutUserNestedInput
+    projects?: ProjectUpdateManyWithoutUserNestedInput
+    rules?: RuleUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutActionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    profile?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    api_keys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutUserNestedInput
+    rules?: RuleUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type ActionCreateWithoutEmailActionInput = {
     id?: string
     name: string
     type: $Enums.ActionType
     active: boolean
+    retries: number
+    triggerLimit: number
     createdAt?: Date | string
     updatedAt?: Date | string
     Rule?: RuleCreateNestedOneWithoutActionsInput
     telegramAction?: TelegramActionCreateNestedOneWithoutActionInput
     webhookAction?: WebhookActionCreateNestedOneWithoutActionInput
+    User: UserCreateNestedOneWithoutActionsInput
   }
 
   export type ActionUncheckedCreateWithoutEmailActionInput = {
@@ -18120,9 +18548,12 @@ export namespace Prisma {
     name: string
     type: $Enums.ActionType
     active: boolean
+    retries: number
+    triggerLimit: number
     createdAt?: Date | string
     updatedAt?: Date | string
     ruleId?: string | null
+    userId: string
     telegramAction?: TelegramActionUncheckedCreateNestedOneWithoutActionInput
     webhookAction?: WebhookActionUncheckedCreateNestedOneWithoutActionInput
   }
@@ -18148,11 +18579,14 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
     active?: BoolFieldUpdateOperationsInput | boolean
+    retries?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Rule?: RuleUpdateOneWithoutActionsNestedInput
     telegramAction?: TelegramActionUpdateOneWithoutActionNestedInput
     webhookAction?: WebhookActionUpdateOneWithoutActionNestedInput
+    User?: UserUpdateOneRequiredWithoutActionsNestedInput
   }
 
   export type ActionUncheckedUpdateWithoutEmailActionInput = {
@@ -18160,9 +18594,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
     active?: BoolFieldUpdateOperationsInput | boolean
+    retries?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ruleId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     telegramAction?: TelegramActionUncheckedUpdateOneWithoutActionNestedInput
     webhookAction?: WebhookActionUncheckedUpdateOneWithoutActionNestedInput
   }
@@ -18172,11 +18609,14 @@ export namespace Prisma {
     name: string
     type: $Enums.ActionType
     active: boolean
+    retries: number
+    triggerLimit: number
     createdAt?: Date | string
     updatedAt?: Date | string
     Rule?: RuleCreateNestedOneWithoutActionsInput
     emailAction?: EmailActionCreateNestedOneWithoutActionInput
     webhookAction?: WebhookActionCreateNestedOneWithoutActionInput
+    User: UserCreateNestedOneWithoutActionsInput
   }
 
   export type ActionUncheckedCreateWithoutTelegramActionInput = {
@@ -18184,9 +18624,12 @@ export namespace Prisma {
     name: string
     type: $Enums.ActionType
     active: boolean
+    retries: number
+    triggerLimit: number
     createdAt?: Date | string
     updatedAt?: Date | string
     ruleId?: string | null
+    userId: string
     emailAction?: EmailActionUncheckedCreateNestedOneWithoutActionInput
     webhookAction?: WebhookActionUncheckedCreateNestedOneWithoutActionInput
   }
@@ -18212,11 +18655,14 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
     active?: BoolFieldUpdateOperationsInput | boolean
+    retries?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Rule?: RuleUpdateOneWithoutActionsNestedInput
     emailAction?: EmailActionUpdateOneWithoutActionNestedInput
     webhookAction?: WebhookActionUpdateOneWithoutActionNestedInput
+    User?: UserUpdateOneRequiredWithoutActionsNestedInput
   }
 
   export type ActionUncheckedUpdateWithoutTelegramActionInput = {
@@ -18224,9 +18670,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
     active?: BoolFieldUpdateOperationsInput | boolean
+    retries?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ruleId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     emailAction?: EmailActionUncheckedUpdateOneWithoutActionNestedInput
     webhookAction?: WebhookActionUncheckedUpdateOneWithoutActionNestedInput
   }
@@ -18236,11 +18685,14 @@ export namespace Prisma {
     name: string
     type: $Enums.ActionType
     active: boolean
+    retries: number
+    triggerLimit: number
     createdAt?: Date | string
     updatedAt?: Date | string
     Rule?: RuleCreateNestedOneWithoutActionsInput
     emailAction?: EmailActionCreateNestedOneWithoutActionInput
     telegramAction?: TelegramActionCreateNestedOneWithoutActionInput
+    User: UserCreateNestedOneWithoutActionsInput
   }
 
   export type ActionUncheckedCreateWithoutWebhookActionInput = {
@@ -18248,9 +18700,12 @@ export namespace Prisma {
     name: string
     type: $Enums.ActionType
     active: boolean
+    retries: number
+    triggerLimit: number
     createdAt?: Date | string
     updatedAt?: Date | string
     ruleId?: string | null
+    userId: string
     emailAction?: EmailActionUncheckedCreateNestedOneWithoutActionInput
     telegramAction?: TelegramActionUncheckedCreateNestedOneWithoutActionInput
   }
@@ -18276,11 +18731,14 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
     active?: BoolFieldUpdateOperationsInput | boolean
+    retries?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Rule?: RuleUpdateOneWithoutActionsNestedInput
     emailAction?: EmailActionUpdateOneWithoutActionNestedInput
     telegramAction?: TelegramActionUpdateOneWithoutActionNestedInput
+    User?: UserUpdateOneRequiredWithoutActionsNestedInput
   }
 
   export type ActionUncheckedUpdateWithoutWebhookActionInput = {
@@ -18288,9 +18746,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
     active?: BoolFieldUpdateOperationsInput | boolean
+    retries?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ruleId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
     emailAction?: EmailActionUncheckedUpdateOneWithoutActionNestedInput
     telegramAction?: TelegramActionUncheckedUpdateOneWithoutActionNestedInput
   }
@@ -18321,6 +18782,18 @@ export namespace Prisma {
     updatedAt?: Date | string
     active: boolean
     attempts: number
+  }
+
+  export type ActionCreateManyUserInput = {
+    id?: string
+    name: string
+    type: $Enums.ActionType
+    active: boolean
+    retries: number
+    triggerLimit: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ruleId?: string | null
   }
 
   export type ApiKeyUpdateWithoutUserInput = {
@@ -18409,6 +18882,48 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     active?: BoolFieldUpdateOperationsInput | boolean
     attempts?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ActionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    retries?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Rule?: RuleUpdateOneWithoutActionsNestedInput
+    emailAction?: EmailActionUpdateOneWithoutActionNestedInput
+    telegramAction?: TelegramActionUpdateOneWithoutActionNestedInput
+    webhookAction?: WebhookActionUpdateOneWithoutActionNestedInput
+  }
+
+  export type ActionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    retries?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ruleId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailAction?: EmailActionUncheckedUpdateOneWithoutActionNestedInput
+    telegramAction?: TelegramActionUncheckedUpdateOneWithoutActionNestedInput
+    webhookAction?: WebhookActionUncheckedUpdateOneWithoutActionNestedInput
+  }
+
+  export type ActionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
+    active?: BoolFieldUpdateOperationsInput | boolean
+    retries?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ruleId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DeviceCreateManyProjectInput = {
@@ -18520,8 +19035,11 @@ export namespace Prisma {
     name: string
     type: $Enums.ActionType
     active: boolean
+    retries: number
+    triggerLimit: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    userId: string
   }
 
   export type ActionUpdateWithoutRuleInput = {
@@ -18529,11 +19047,14 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
     active?: BoolFieldUpdateOperationsInput | boolean
+    retries?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailAction?: EmailActionUpdateOneWithoutActionNestedInput
     telegramAction?: TelegramActionUpdateOneWithoutActionNestedInput
     webhookAction?: WebhookActionUpdateOneWithoutActionNestedInput
+    User?: UserUpdateOneRequiredWithoutActionsNestedInput
   }
 
   export type ActionUncheckedUpdateWithoutRuleInput = {
@@ -18541,8 +19062,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
     active?: BoolFieldUpdateOperationsInput | boolean
+    retries?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
     emailAction?: EmailActionUncheckedUpdateOneWithoutActionNestedInput
     telegramAction?: TelegramActionUncheckedUpdateOneWithoutActionNestedInput
     webhookAction?: WebhookActionUncheckedUpdateOneWithoutActionNestedInput
@@ -18553,8 +19077,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: EnumActionTypeFieldUpdateOperationsInput | $Enums.ActionType
     active?: BoolFieldUpdateOperationsInput | boolean
+    retries?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
 

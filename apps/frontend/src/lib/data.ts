@@ -1,7 +1,7 @@
 
 import { unstable_cache } from "next/cache";
 import db from "@/lib/db";
-import { ApiKeyExtend, CachedDeviceType, DevicesByProjectType, ProjectTypeData } from "./types";
+import { ActionWithRelations, ApiKeyExtend, CachedDeviceType, DevicesByProjectType, ProjectTypeData } from "./types";
 import { DataStream } from "@prisma/index";
 
 
@@ -202,6 +202,27 @@ export async function GetUserAdmin(userId: string) {
     })
     return user
 }
+export async function GetActionsForUser(userId: string): Promise<ActionWithRelations[]> {
+    return await db.action.findMany({
+        where: {
+            userId
+        },
+        include: {
+            emailAction: true,
+            telegramAction: true,
+            webhookAction: true
+        }
+    })
+
+
+
+}
+export async function getCachedActions(userId: string) {
+    return unstable_cache(async () => GetActionsForUser(userId), ['actions', userId], {
+        revalidate: false,
+        tags: [`actions:${userId}`]
+    })()
+}
 export async function getCachedUser(userId: string) {
     return unstable_cache(async () => GetUserAdmin(userId), ["user", userId], {
         revalidate: false,
@@ -209,3 +230,4 @@ export async function getCachedUser(userId: string) {
     }
     )()
 }
+

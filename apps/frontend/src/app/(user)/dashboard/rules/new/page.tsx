@@ -1,8 +1,11 @@
 import NewRuleForm from "@/components/forms/NewRuleForm";
 import Header from "@/components/Header";
 import NewActionBtn from "@/components/NewActionBtn";
-import { getCachedDevicesIncludeDataStream } from "@/lib/data";
-import { DeviceWithStream } from "@/lib/types";
+import {
+  getCachedActions,
+  getCachedDevicesIncludeDataStream,
+} from "@/lib/data";
+import { ActionWithRelations, DeviceWithStream } from "@/lib/types";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -12,6 +15,7 @@ export default async function NewRulePage() {
   const devices: DeviceWithStream[] = await getCachedDevicesIncludeDataStream(
     user.id
   );
+  const actions: ActionWithRelations[] = await getCachedActions(user.id);
   return (
     <div className=" px-3 py-4 overflow-hidden min-h-full">
       <div className="flex flex-row justify-between items-center">
@@ -24,7 +28,7 @@ export default async function NewRulePage() {
         <NewActionBtn />
       </div>
 
-      <NewRuleForm devices={devices} />
+      <NewRuleForm devices={devices} actions={actions} />
     </div>
   );
 }

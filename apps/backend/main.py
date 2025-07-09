@@ -1,14 +1,19 @@
 from contextlib import asynccontextmanager
 from typing import Union
 
+from actions.telegram import initBot
 from database.db import db
 from fastapi import FastAPI
 from pydantic import BaseModel
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await db.connect()
+    await initBot()
     yield
     await db.disconnect()
 

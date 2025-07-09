@@ -19,7 +19,8 @@ model User {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now()) @updatedAt
 
-  rules Rule[]
+  rules   Rule[]
+  actions Action[]
 }
 
 enum ApiKeyType {
@@ -112,36 +113,41 @@ model Rule {
   active    Boolean
   attempts  Int
   actions   Action[]
-  User      User?    @relation(fields: [userId], references: [id])
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String?
 }
 
 model Action {
-  id        String     @id @default(cuid())
-  name      String
-  type      ActionType
-  active    Boolean
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  ruleId    String?
-  Rule      Rule?      @relation(fields: [ruleId], references: [id])
+  id           String     @id @default(cuid())
+  name         String
+  type         ActionType
+  active       Boolean
+  retries      Int
+  triggerLimit Int
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  ruleId       String?
+  Rule         Rule?      @relation(fields: [ruleId], references: [id])
 
   emailAction    EmailAction?
   telegramAction TelegramAction?
   webhookAction  WebhookAction?
+  User           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String
 }
 
 model EmailAction {
-  id       String @id @default(cuid())
-  content  String
-  action   Action @relation(fields: [actionId], references: [id])
-  actionId String @unique
+  id            String @id @default(cuid())
+  receiverEmail String
+  content       String
+  action        Action @relation(fields: [actionId], references: [id], onDelete: Cascade)
+  actionId      String @unique
 }
 
 model TelegramAction {
   id       String @id @default(cuid())
   chatId   String
-  action   Action @relation(fields: [actionId], references: [id])
+  action   Action @relation(fields: [actionId], references: [id], onDelete: Cascade)
   actionId String @unique
 }
 
@@ -149,7 +155,7 @@ model WebhookAction {
   id       String @id @default(cuid())
   url      String
   payload  String
-  action   Action @relation(fields: [actionId], references: [id])
+  action   Action @relation(fields: [actionId], references: [id], onDelete: Cascade)
   actionId String @unique
 }
 

@@ -39,6 +39,7 @@ export async function NewDataStreamAction(prevState: unknown, formData: FormData
         }
     })
     if (newDataStream) {
+        revalidateTag(`devices_with_datastream:${user.id}`)
         revalidateTag(`data_stream:${user.id}:${projectId}`)
         redirect(`/dashboard/projects/${projectId}/?tab=data_stream`)
     } else {

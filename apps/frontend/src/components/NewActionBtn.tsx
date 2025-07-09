@@ -1,3 +1,4 @@
+"use client";
 import {
   Dialog,
   DialogContent,
@@ -6,12 +7,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
 import NewActionForm from "./forms/NewActionForm";
+import { Button } from "./ui/button";
+import { useState } from "react";
 export default function NewActionBtn() {
+  const [open, setOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
         <Button variant="outline">
           <Plus className="size-5" />
@@ -24,7 +27,7 @@ export default function NewActionBtn() {
           <DialogDescription>Create a new action</DialogDescription>
         </DialogHeader>
         <div>
-          <NewActionForm />
+          <NewActionForm setOpen={setOpen} />
         </div>
       </DialogContent>
     </Dialog>

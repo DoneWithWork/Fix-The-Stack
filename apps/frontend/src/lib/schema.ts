@@ -15,6 +15,9 @@ export const NewRuleSchema = z.object({
     }).max(300, {
         message: "Maximum of 300 characters"
     }),
+    actionId: z.string().min(1, {
+        message: "Action Id is required"
+    })
 })
 export const ApiKeySchema = z.object({
     name: z.string().min(2, {
@@ -41,9 +44,68 @@ export const ActionSchema = z.object({
         message: "Trigger limit must minimum be 1"
     }).max(5, {
         message: "Maximum on free plan is 5"
-    })
+    }),
 
-})
+    email_address: z.string().email({
+        message: "Not an email!!"
+    }).min(1, {
+        message: "Email required!"
+    }).optional(),
+    email_content: z.string().min(1, {
+        message: "Email content required"
+    }).max(400, {
+        message: "Maximum 400 characters for content"
+    }).optional(),
+
+    telegram_chat_id: z.string().min(1, {
+        message: "Chat Id is required"
+    }).optional(),
+
+    url_webhook: z.string().url({
+        message: "Not a URL!"
+    }).min(1, {
+        message: "Url is required"
+    }).optional(),
+
+}).superRefine((data, ctx) => {
+    switch (data.type) {
+        case "EMAIL":
+            if (!data.email_address || data.email_address.trim() === "") {
+                ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path: ["email_address"],
+                    message: "Email is required when type is EMAIL"
+                });
+            }
+            if (!data.email_content || data.email_content.trim() === "") {
+                ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path: ["email_content"],
+                    message: "Email content required when type is EMAIL"
+                });
+            }
+            break
+        case "TELEGRAM":
+            if (!data.telegram_chat_id || data.telegram_chat_id.trim() === "") {
+                ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path: ["telegram_chat_id"],
+                    message: "Telegram chat ID is required when type is TELEGRAM"
+                });
+            }
+            break;
+        case "WEBHOOK":
+            if (!data.url_webhook || data.url_webhook.trim() === "") {
+                ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    path: ["url_webhook"],
+                    message: "Url is required!"
+                });
+            }
+            break;
+    }
+
+});
 export const DeleteApiKeySchema = z.object({
     id: z.string()
 })

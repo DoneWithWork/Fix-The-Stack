@@ -76,3 +76,10 @@ export type flattenDevices = {
     name: string;
     value: string;
 };
+export type ActionWithRelations = Prisma.ActionGetPayload<{
+    include: {
+        emailAction: true;
+        telegramAction: true;
+        webhookAction: true;
+    };
+}>;
