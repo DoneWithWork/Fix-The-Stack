@@ -85,6 +85,21 @@ export async function GetDevicesByProject({ userId, projectId }: DevicesByProjec
     })
     return devices
 }
+export async function GetRules(userId: string) {
+    return await db.rule.findMany({
+        where: {
+            userId
+        }
+    })
+}
+export async function getCachedRules(userId: string) {
+    return unstable_cache(async () => GetRules(userId), ["rules", userId], {
+        revalidate: false,
+        tags: [`rules:${userId}`]
+    }
+    )()
+}
+
 export async function GetProject({ userId, projectId }: ProjectTypeData) {
     const project = await db.project.findFirst({
         where: {

@@ -25,7 +25,7 @@ import {
   RuleNode,
 } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2, Trash } from "lucide-react";
+import { Info, Loader2, Trash } from "lucide-react";
 import { startTransition, useActionState, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -46,6 +46,8 @@ import {
   CreateDefaultGroupTree,
   deleteCondition,
 } from "./NewRuleComponents/functions";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { useRouter } from "next/navigation";
 const initialState = { errors: {}, success: false };
 
 export default function NewRuleForm({
@@ -62,6 +64,7 @@ export default function NewRuleForm({
       name: "",
       description: "",
       actionId: [],
+      triggerLimit: 1,
     },
   });
   const flat = devices.flatMap((device) =>
@@ -152,6 +155,7 @@ export default function NewRuleForm({
 
     return () => clearTimeout(debounce);
   }, [tree]); // runs every time `tree` changes
+  const router = useRouter();
   const onSubmit = async (values: z.infer<typeof NewRuleSchema>) => {
     const payload = {
       ...values,
@@ -164,9 +168,12 @@ export default function NewRuleForm({
       const formErrors = result.error.flatten().fieldErrors;
 
       for (const [fieldName, errors] of Object.entries(formErrors)) {
-        form.setError(fieldName as "name" | "description" | "actionId", {
-          message: errors.join(", "),
-        });
+        form.setError(
+          fieldName as "name" | "description" | "actionId" | "triggerLimit",
+          {
+            message: errors.join(", "),
+          }
+        );
       }
       console.log(formErrors.ruleTree);
       toast("Validation Errors in rules");
@@ -180,18 +187,25 @@ export default function NewRuleForm({
     formData.set("description", result.data.description || "");
     formData.set("actionId", JSON.stringify(result.data.actionId));
     formData.set("ruleTree", JSON.stringify(result.data.ruleTree));
+    formData.set("triggerLimit", result.data.triggerLimit.toString());
 
     startTransition(() => {
       action(formData);
     });
-    setTree(CreateDefaultGroupTree());
-    localStorage.removeItem("ruleTree");
   };
   useEffect(() => {
     if (state.success) {
       toast("Successfully created New Rule");
+      setTree(CreateDefaultGroupTree());
+      localStorage.removeItem("ruleTree");
+      setTimeout(() => {
+        router.push("/dashboard/rules");
+      }, 1000);
     }
-  }, [state]);
+    if (!state.success && Object.keys(state.errors).length > 0) {
+      toast("Failed to create new Rule!");
+    }
+  }, [state, router]);
   const allActions = actions.map((action) => {
     return {
       label: action.name,
@@ -229,6 +243,36 @@ export default function NewRuleForm({
                 <FormControl>
                   <Input placeholder="Description" {...field} />
                 </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="triggerLimit"
+            render={({ field }) => (
+              <FormItem>
+                <div className="flex flex-row items-center gap-2">
+                  <FormLabel>Trigger Limit</FormLabel>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <div className="rounded-full border-2 ">
+                        <Info className="size-4" />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Takes precedence over trigger limit for Actions</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+                <FormControl>
+                  <Input placeholder="Trigger Limit" {...field} />
+                </FormControl>
+                <FormLabel>
+                  Maximum number of times this Rule can be triggered before
+                  being disabled.
+                </FormLabel>
 
                 <FormMessage />
               </FormItem>
@@ -334,6 +378,9 @@ function Condition({
               primary: "black",
             },
           })}
+          defaultValue={devices.map((device) =>
+            device.value === node.field ? device : null
+          )}
           className="my-react-select-container"
           classNamePrefix="my-react-select"
           noOptionsMessage={() => "No Devices Available"}

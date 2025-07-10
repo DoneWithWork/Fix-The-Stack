@@ -8693,11 +8693,11 @@ export namespace Prisma {
   }
 
   export type RuleAvgAggregateOutputType = {
-    attempts: number | null
+    triggerLimit: number | null
   }
 
   export type RuleSumAggregateOutputType = {
-    attempts: number | null
+    triggerLimit: number | null
   }
 
   export type RuleMinAggregateOutputType = {
@@ -8707,7 +8707,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     active: boolean | null
-    attempts: number | null
+    triggerLimit: number | null
     userId: string | null
   }
 
@@ -8718,7 +8718,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     active: boolean | null
-    attempts: number | null
+    triggerLimit: number | null
     userId: string | null
   }
 
@@ -8729,18 +8729,19 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     active: number
-    attempts: number
+    triggerLimit: number
+    ruleTree: number
     userId: number
     _all: number
   }
 
 
   export type RuleAvgAggregateInputType = {
-    attempts?: true
+    triggerLimit?: true
   }
 
   export type RuleSumAggregateInputType = {
-    attempts?: true
+    triggerLimit?: true
   }
 
   export type RuleMinAggregateInputType = {
@@ -8750,7 +8751,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     active?: true
-    attempts?: true
+    triggerLimit?: true
     userId?: true
   }
 
@@ -8761,7 +8762,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     active?: true
-    attempts?: true
+    triggerLimit?: true
     userId?: true
   }
 
@@ -8772,7 +8773,8 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     active?: true
-    attempts?: true
+    triggerLimit?: true
+    ruleTree?: true
     userId?: true
     _all?: true
   }
@@ -8870,8 +8872,9 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     active: boolean
-    attempts: number
-    userId: string | null
+    triggerLimit: number
+    ruleTree: JsonValue
+    userId: string
     _count: RuleCountAggregateOutputType | null
     _avg: RuleAvgAggregateOutputType | null
     _sum: RuleSumAggregateOutputType | null
@@ -8900,10 +8903,11 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     active?: boolean
-    attempts?: boolean
+    triggerLimit?: boolean
+    ruleTree?: boolean
     userId?: boolean
     actions?: boolean | Rule$actionsArgs<ExtArgs>
-    User?: boolean | Rule$UserArgs<ExtArgs>
+    User?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | RuleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rule"]>
 
@@ -8914,9 +8918,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     active?: boolean
-    attempts?: boolean
+    triggerLimit?: boolean
+    ruleTree?: boolean
     userId?: boolean
-    User?: boolean | Rule$UserArgs<ExtArgs>
+    User?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rule"]>
 
   export type RuleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8926,9 +8931,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     active?: boolean
-    attempts?: boolean
+    triggerLimit?: boolean
+    ruleTree?: boolean
     userId?: boolean
-    User?: boolean | Rule$UserArgs<ExtArgs>
+    User?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["rule"]>
 
   export type RuleSelectScalar = {
@@ -8938,28 +8944,29 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     active?: boolean
-    attempts?: boolean
+    triggerLimit?: boolean
+    ruleTree?: boolean
     userId?: boolean
   }
 
-  export type RuleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt" | "active" | "attempts" | "userId", ExtArgs["result"]["rule"]>
+  export type RuleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt" | "active" | "triggerLimit" | "ruleTree" | "userId", ExtArgs["result"]["rule"]>
   export type RuleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     actions?: boolean | Rule$actionsArgs<ExtArgs>
-    User?: boolean | Rule$UserArgs<ExtArgs>
+    User?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | RuleCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type RuleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    User?: boolean | Rule$UserArgs<ExtArgs>
+    User?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type RuleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    User?: boolean | Rule$UserArgs<ExtArgs>
+    User?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $RulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Rule"
     objects: {
       actions: Prisma.$ActionPayload<ExtArgs>[]
-      User: Prisma.$UserPayload<ExtArgs> | null
+      User: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8968,8 +8975,9 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       active: boolean
-      attempts: number
-      userId: string | null
+      triggerLimit: number
+      ruleTree: Prisma.JsonValue
+      userId: string
     }, ExtArgs["result"]["rule"]>
     composites: {}
   }
@@ -9365,7 +9373,7 @@ export namespace Prisma {
   export interface Prisma__RuleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     actions<T extends Rule$actionsArgs<ExtArgs> = {}>(args?: Subset<T, Rule$actionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    User<T extends Rule$UserArgs<ExtArgs> = {}>(args?: Subset<T, Rule$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    User<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9401,7 +9409,8 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Rule", 'DateTime'>
     readonly updatedAt: FieldRef<"Rule", 'DateTime'>
     readonly active: FieldRef<"Rule", 'Boolean'>
-    readonly attempts: FieldRef<"Rule", 'Int'>
+    readonly triggerLimit: FieldRef<"Rule", 'Int'>
+    readonly ruleTree: FieldRef<"Rule", 'Json'>
     readonly userId: FieldRef<"Rule", 'String'>
   }
     
@@ -9820,25 +9829,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ActionScalarFieldEnum | ActionScalarFieldEnum[]
-  }
-
-  /**
-   * Rule.User
-   */
-  export type Rule$UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
   }
 
   /**
@@ -14336,7 +14326,8 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     active: 'active',
-    attempts: 'attempts',
+    triggerLimit: 'triggerLimit',
+    ruleTree: 'ruleTree',
     userId: 'userId'
   };
 
@@ -14396,12 +14387,28 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   export const NullsOrder: {
@@ -14491,6 +14498,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -14933,10 +14954,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Rule"> | Date | string
     updatedAt?: DateTimeFilter<"Rule"> | Date | string
     active?: BoolFilter<"Rule"> | boolean
-    attempts?: IntFilter<"Rule"> | number
-    userId?: StringNullableFilter<"Rule"> | string | null
+    triggerLimit?: IntFilter<"Rule"> | number
+    ruleTree?: JsonFilter<"Rule">
+    userId?: StringFilter<"Rule"> | string
     actions?: ActionListRelationFilter
-    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    User?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type RuleOrderByWithRelationInput = {
@@ -14946,8 +14968,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     active?: SortOrder
-    attempts?: SortOrder
-    userId?: SortOrderInput | SortOrder
+    triggerLimit?: SortOrder
+    ruleTree?: SortOrder
+    userId?: SortOrder
     actions?: ActionOrderByRelationAggregateInput
     User?: UserOrderByWithRelationInput
   }
@@ -14962,10 +14985,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Rule"> | Date | string
     updatedAt?: DateTimeFilter<"Rule"> | Date | string
     active?: BoolFilter<"Rule"> | boolean
-    attempts?: IntFilter<"Rule"> | number
-    userId?: StringNullableFilter<"Rule"> | string | null
+    triggerLimit?: IntFilter<"Rule"> | number
+    ruleTree?: JsonFilter<"Rule">
+    userId?: StringFilter<"Rule"> | string
     actions?: ActionListRelationFilter
-    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    User?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type RuleOrderByWithAggregationInput = {
@@ -14975,8 +14999,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     active?: SortOrder
-    attempts?: SortOrder
-    userId?: SortOrderInput | SortOrder
+    triggerLimit?: SortOrder
+    ruleTree?: SortOrder
+    userId?: SortOrder
     _count?: RuleCountOrderByAggregateInput
     _avg?: RuleAvgOrderByAggregateInput
     _max?: RuleMaxOrderByAggregateInput
@@ -14994,8 +15019,9 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Rule"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Rule"> | Date | string
     active?: BoolWithAggregatesFilter<"Rule"> | boolean
-    attempts?: IntWithAggregatesFilter<"Rule"> | number
-    userId?: StringNullableWithAggregatesFilter<"Rule"> | string | null
+    triggerLimit?: IntWithAggregatesFilter<"Rule"> | number
+    ruleTree?: JsonWithAggregatesFilter<"Rule">
+    userId?: StringWithAggregatesFilter<"Rule"> | string
   }
 
   export type ActionWhereInput = {
@@ -15672,10 +15698,11 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    active: boolean
-    attempts: number
+    active?: boolean
+    triggerLimit?: number
+    ruleTree: JsonNullValueInput | InputJsonValue
     actions?: ActionCreateNestedManyWithoutRuleInput
-    User?: UserCreateNestedOneWithoutRulesInput
+    User: UserCreateNestedOneWithoutRulesInput
   }
 
   export type RuleUncheckedCreateInput = {
@@ -15684,9 +15711,10 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    active: boolean
-    attempts: number
-    userId?: string | null
+    active?: boolean
+    triggerLimit?: number
+    ruleTree: JsonNullValueInput | InputJsonValue
+    userId: string
     actions?: ActionUncheckedCreateNestedManyWithoutRuleInput
   }
 
@@ -15697,9 +15725,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    attempts?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
+    ruleTree?: JsonNullValueInput | InputJsonValue
     actions?: ActionUpdateManyWithoutRuleNestedInput
-    User?: UserUpdateOneWithoutRulesNestedInput
+    User?: UserUpdateOneRequiredWithoutRulesNestedInput
   }
 
   export type RuleUncheckedUpdateInput = {
@@ -15709,8 +15738,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    attempts?: IntFieldUpdateOperationsInput | number
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    triggerLimit?: IntFieldUpdateOperationsInput | number
+    ruleTree?: JsonNullValueInput | InputJsonValue
+    userId?: StringFieldUpdateOperationsInput | string
     actions?: ActionUncheckedUpdateManyWithoutRuleNestedInput
   }
 
@@ -15720,9 +15750,10 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    active: boolean
-    attempts: number
-    userId?: string | null
+    active?: boolean
+    triggerLimit?: number
+    ruleTree: JsonNullValueInput | InputJsonValue
+    userId: string
   }
 
   export type RuleUpdateManyMutationInput = {
@@ -15732,7 +15763,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    attempts?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
+    ruleTree?: JsonNullValueInput | InputJsonValue
   }
 
   export type RuleUncheckedUpdateManyInput = {
@@ -15742,8 +15774,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    attempts?: IntFieldUpdateOperationsInput | number
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    triggerLimit?: IntFieldUpdateOperationsInput | number
+    ruleTree?: JsonNullValueInput | InputJsonValue
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ActionCreateInput = {
@@ -16370,10 +16403,28 @@ export namespace Prisma {
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
 
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type SortOrderInput = {
@@ -16388,12 +16439,13 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     active?: SortOrder
-    attempts?: SortOrder
+    triggerLimit?: SortOrder
+    ruleTree?: SortOrder
     userId?: SortOrder
   }
 
   export type RuleAvgOrderByAggregateInput = {
-    attempts?: SortOrder
+    triggerLimit?: SortOrder
   }
 
   export type RuleMaxOrderByAggregateInput = {
@@ -16403,7 +16455,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     active?: SortOrder
-    attempts?: SortOrder
+    triggerLimit?: SortOrder
     userId?: SortOrder
   }
 
@@ -16414,12 +16466,12 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     active?: SortOrder
-    attempts?: SortOrder
+    triggerLimit?: SortOrder
     userId?: SortOrder
   }
 
   export type RuleSumOrderByAggregateInput = {
-    attempts?: SortOrder
+    triggerLimit?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -16462,6 +16514,32 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type EnumActionTypeFilter<$PrismaModel = never> = {
@@ -17045,12 +17123,10 @@ export namespace Prisma {
     deleteMany?: ActionScalarWhereInput | ActionScalarWhereInput[]
   }
 
-  export type UserUpdateOneWithoutRulesNestedInput = {
+  export type UserUpdateOneRequiredWithoutRulesNestedInput = {
     create?: XOR<UserCreateWithoutRulesInput, UserUncheckedCreateWithoutRulesInput>
     connectOrCreate?: UserCreateOrConnectWithoutRulesInput
     upsert?: UserUpsertWithoutRulesInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRulesInput, UserUpdateWithoutRulesInput>, UserUncheckedUpdateWithoutRulesInput>
   }
@@ -17423,6 +17499,29 @@ export namespace Prisma {
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
   }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedEnumActionTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.ActionType | EnumActionTypeFieldRefInput<$PrismaModel>
@@ -17505,8 +17604,9 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    active: boolean
-    attempts: number
+    active?: boolean
+    triggerLimit?: number
+    ruleTree: JsonNullValueInput | InputJsonValue
     actions?: ActionCreateNestedManyWithoutRuleInput
   }
 
@@ -17516,8 +17616,9 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    active: boolean
-    attempts: number
+    active?: boolean
+    triggerLimit?: number
+    ruleTree: JsonNullValueInput | InputJsonValue
     actions?: ActionUncheckedCreateNestedManyWithoutRuleInput
   }
 
@@ -17655,8 +17756,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Rule"> | Date | string
     updatedAt?: DateTimeFilter<"Rule"> | Date | string
     active?: BoolFilter<"Rule"> | boolean
-    attempts?: IntFilter<"Rule"> | number
-    userId?: StringNullableFilter<"Rule"> | string | null
+    triggerLimit?: IntFilter<"Rule"> | number
+    ruleTree?: JsonFilter<"Rule">
+    userId?: StringFilter<"Rule"> | string
   }
 
   export type ActionUpsertWithWhereUniqueWithoutUserInput = {
@@ -18290,9 +18392,10 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    active: boolean
-    attempts: number
-    User?: UserCreateNestedOneWithoutRulesInput
+    active?: boolean
+    triggerLimit?: number
+    ruleTree: JsonNullValueInput | InputJsonValue
+    User: UserCreateNestedOneWithoutRulesInput
   }
 
   export type RuleUncheckedCreateWithoutActionsInput = {
@@ -18301,9 +18404,10 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    active: boolean
-    attempts: number
-    userId?: string | null
+    active?: boolean
+    triggerLimit?: number
+    ruleTree: JsonNullValueInput | InputJsonValue
+    userId: string
   }
 
   export type RuleCreateOrConnectWithoutActionsInput = {
@@ -18409,8 +18513,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    attempts?: IntFieldUpdateOperationsInput | number
-    User?: UserUpdateOneWithoutRulesNestedInput
+    triggerLimit?: IntFieldUpdateOperationsInput | number
+    ruleTree?: JsonNullValueInput | InputJsonValue
+    User?: UserUpdateOneRequiredWithoutRulesNestedInput
   }
 
   export type RuleUncheckedUpdateWithoutActionsInput = {
@@ -18420,8 +18525,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    attempts?: IntFieldUpdateOperationsInput | number
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    triggerLimit?: IntFieldUpdateOperationsInput | number
+    ruleTree?: JsonNullValueInput | InputJsonValue
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type EmailActionUpsertWithoutActionInput = {
@@ -18780,8 +18886,9 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    active: boolean
-    attempts: number
+    active?: boolean
+    triggerLimit?: number
+    ruleTree: JsonNullValueInput | InputJsonValue
   }
 
   export type ActionCreateManyUserInput = {
@@ -18859,7 +18966,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    attempts?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
+    ruleTree?: JsonNullValueInput | InputJsonValue
     actions?: ActionUpdateManyWithoutRuleNestedInput
   }
 
@@ -18870,7 +18978,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    attempts?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
+    ruleTree?: JsonNullValueInput | InputJsonValue
     actions?: ActionUncheckedUpdateManyWithoutRuleNestedInput
   }
 
@@ -18881,7 +18990,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     active?: BoolFieldUpdateOperationsInput | boolean
-    attempts?: IntFieldUpdateOperationsInput | number
+    triggerLimit?: IntFieldUpdateOperationsInput | number
+    ruleTree?: JsonNullValueInput | InputJsonValue
   }
 
   export type ActionUpdateWithoutUserInput = {

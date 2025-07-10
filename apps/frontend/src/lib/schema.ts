@@ -16,6 +16,11 @@ export const NewRuleSchema = z.object({
     }).max(300, {
         message: "Maximum of 300 characters"
     }),
+    triggerLimit: z.number().min(1, {
+        message: "Trigger limit must minimum be 1"
+    }).max(5, {
+        message: "Maximum on free plan is 5"
+    }),
     actionId: z.array(z.string().min(1)).min(1, {
         message: "Required to select at least ONE action"
     }),
@@ -187,4 +192,9 @@ export const FullRulePayloadSchema = z.object({
         message: "Required to select at least ONE action"
     }),
     ruleTree: GroupNodeSchema,
+    triggerLimit: z.number().min(1, {
+        message: "Trigger limit must minimum be 1"
+    }).max(5, {
+        message: "Maximum on free plan is 5"
+    }),
 });
