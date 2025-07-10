@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { ConditionNode, GroupNode } from "./types";
 
 export const NewProjectSchema = z.object({
     title: z.string().min(2).max(100),
@@ -15,9 +16,9 @@ export const NewRuleSchema = z.object({
     }).max(300, {
         message: "Maximum of 300 characters"
     }),
-    actionId: z.string().min(1, {
-        message: "Action Id is required"
-    })
+    actionId: z.array(z.string().min(1)).min(1, {
+        message: "Required to select at least ONE action"
+    }),
 })
 export const ApiKeySchema = z.object({
     name: z.string().min(2, {
@@ -151,3 +152,39 @@ export const DeleteDataStreamSchema = z.object({
         message: "Data Stream Id required"
     })
 })
+
+
+// Primitive condition (leaf node)
+export const ConditionNodeSchema = z.object({
+    id: z.string(),
+    type: z.literal("condition"),
+    field: z.string().min(1, "Field is required"),
+    operator: z.enum(["==", ">=", "<=", ">", "<"]),
+    value: z.string().min(1, "Value is required"),
+});
+
+// Group node (can contain conditions or groups)
+export const GroupNodeSchema: z.ZodType<{
+    id: string;
+    type: "group";
+    operator: ("AND" | "OR")[];
+    children: (ConditionNode | GroupNode)[];
+}> = z.lazy(() =>
+    z.object({
+        id: z.string(),
+        type: z.literal("group"),
+        operator: z.array(z.enum(["AND", "OR"])),
+        children: z.array(z.union([ConditionNodeSchema, GroupNodeSchema]))
+            .min(1, "Group must have at least one child"),
+    })
+);
+
+// Wrapper for full payload
+export const FullRulePayloadSchema = z.object({
+    name: z.string().min(1),
+    description: z.string().optional(),
+    actionId: z.array(z.string().min(1)).min(1, {
+        message: "Required to select at least ONE action"
+    }),
+    ruleTree: GroupNodeSchema,
+});

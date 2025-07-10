@@ -60,20 +60,26 @@ export type GroupNode = {
     id: string;
     type: "group";
     children: RuleNode[];
-    operator: Operators;
+    operator: Operators[];
 };
+export type ChangeOperatorType = {
+    id: string, index: number, operator: Operators
+}
 export type RuleNode = GroupNode | ConditionNode;
 
 export type RuleGroupProps = {
     group: GroupNode;
     onAddCondition: (id: string) => void;
     onAddGroup: (id: string) => void;
-    onDeleteCondition: (id: string) => void;
+    onDeleteCondition: (id: string, index: number) => void;
+    // Partial makes all properties optional of the result of Pick
+    // Pick allows to only return certain stated types
+    onUpdateCondition: (id: string, updates: Partial<Pick<ConditionNode, "field" | "operator" | "value">>) => void;
+    onChangeOperator: ({ id, index, operator }: ChangeOperatorType) => void
     devices: flattenDevices[];
 };
 export type flattenDevices = {
-    id: string;
-    name: string;
+    label: string;
     value: string;
 };
 export type ActionWithRelations = Prisma.ActionGetPayload<{
