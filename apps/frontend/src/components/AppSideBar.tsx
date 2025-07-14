@@ -13,7 +13,9 @@ import {
 } from "@/components/ui/sidebar";
 import { Switch } from "@/components/ui/switch";
 import { UserDashboardLinks } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import SignOutBtn from "./SignOutBtn";
@@ -38,7 +40,7 @@ export function AppSidebar({
     educatorCookie || false
   );
   const { open } = useSidebar();
-
+  const pathName = usePathname();
   const changeMode = (checked: boolean) => {
     console.log("Switch toggled:", checked);
 
@@ -54,16 +56,27 @@ export function AppSidebar({
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {UserDashboardLinks.map((project, index) => (
-                <SidebarMenuItem key={index}>
-                  <SidebarMenuButton asChild>
-                    <Link href={`/dashboard${project.href}`}>
-                      <project.icon />
-                      <span>{project.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {UserDashboardLinks.map(({ href, icon: Icon, title }) => {
+                const fullPath = `/dashboard${href}`;
+                const isActive = fullPath === pathName;
+
+                return (
+                  <SidebarMenuItem key={fullPath}>
+                    <SidebarMenuButton asChild>
+                      <Link
+                        href={fullPath}
+                        className={cn({
+                          "bg-input/60": isActive,
+                          "": !isActive,
+                        })}
+                      >
+                        <Icon className="w-5 h-5" />
+                        <span>{title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

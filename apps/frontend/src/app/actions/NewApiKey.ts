@@ -1,6 +1,6 @@
 "use server"
 import { encryptApiKey, generateApiKey } from "@/lib/apikey";
-import db from "@/lib/db";
+import { db } from "@/lib/db";
 import { ApiKeySchema } from "@/lib/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
@@ -23,7 +23,7 @@ export async function NewApiKeyAction(prevState: unknown, formData: FormData) {
     const key = await generateApiKey();
     const encryptedKey = await encryptApiKey(key);
 
-    const NewApiKey = await db.apiKey.create({
+    const NewApiKey = await db(user.id).apiKey.create({
         data: {
             "name": parsed.data.name,
             "userId": user.id,

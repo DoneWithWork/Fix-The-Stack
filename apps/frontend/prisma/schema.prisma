@@ -21,6 +21,7 @@ model User {
 
   rules   Rule[]
   actions Action[]
+  audits  Audit[]
 }
 
 enum ApiKeyType {
@@ -169,4 +170,23 @@ enum ActionType {
 enum LogicalOperator {
   AND
   OR
+}
+
+enum CRUD_Action {
+  CREATE
+  READ
+  UPDATE
+  DELETE
+}
+
+model Audit {
+  id        String      @id @default(cuid())
+  action    CRUD_Action
+  timestamp DateTime    @default(now())
+  User      User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String?
+  message   String?
+  model     String
+  before    Json
+  after     Json
 }

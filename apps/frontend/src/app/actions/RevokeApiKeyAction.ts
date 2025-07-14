@@ -1,6 +1,6 @@
 "use server"
 
-import db from "@/lib/db";
+import { db } from "@/lib/db";
 import { DeleteApiKeySchema } from "@/lib/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
@@ -15,7 +15,7 @@ export async function RevokeApiKeyAction(prevState: unknown, formData: FormData)
     if (!parsed.success) {
         return { errors: parsed.error.flatten().fieldErrors }
     }
-    const deletedKey = await db.apiKey.delete({
+    const deletedKey = await db(user.id).apiKey.delete({
         where: {
             userId: user.id,
             id: parsed.data.id

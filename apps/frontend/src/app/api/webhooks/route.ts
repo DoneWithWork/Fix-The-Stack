@@ -1,4 +1,4 @@
-import db from "@/lib/db";
+import { db } from "@/lib/db";
 import { clerkClient } from '@clerk/nextjs/server'
 import { verifyWebhook } from '@clerk/nextjs/webhooks'
 import { redirect } from 'next/navigation'
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
         console.log('Webhook payload:', evt.data)
 
         if (eventType === "user.created") {
-            const user = await db.user.create({
+            const user = await db(undefined).user.create({
                 data: {
                     "id": evt.data.id,
                     "profile": evt.data.image_url,
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
             }
         }
         else if (eventType === 'user.updated') {
-            const user = await db.user.findFirst({
+            const user = await db(undefined).user.findFirst({
                 where: {
                     id: evt.data.id
                 }
@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
                 console.error("Could not find user to update.")
                 redirect("/")
             }
-            const updatedUser = await db.user.update({
+            const updatedUser = await db(undefined).user.update({
                 where: {
                     id: evt.data.id
                 },

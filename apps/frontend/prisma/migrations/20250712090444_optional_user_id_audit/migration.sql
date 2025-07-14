@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Audit" ALTER COLUMN "userId" DROP NOT NULL;

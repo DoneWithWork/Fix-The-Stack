@@ -1,7 +1,8 @@
 "use server"
 
 import { generateApiKey } from "@/lib/apikey";
-import db from "@/lib/db";
+import { db } from "@/lib/db";
+
 import { DeviceSchema } from "@/lib/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
@@ -23,7 +24,7 @@ export async function NewDeviceActions(prevState: unknown, formData: FormData) {
     }
     const { name, description, deviceType, projectId } = parsed.data
 
-    const Project = await db.project.findFirst({
+    const Project = await db(user.id).project.findFirst({
         where: {
             userId: user.id,
             id: projectId
@@ -32,7 +33,7 @@ export async function NewDeviceActions(prevState: unknown, formData: FormData) {
     if (!Project) return { success: false, errors: {} }
     const key = await generateApiKey();
     const token = `${(Project.title).toLocaleLowerCase().replace(" ", "_")}_device_auth_token_${key}`
-    const newDevice = await db.device.create({
+    const newDevice = await db(user.id).device.create({
         data: {
             name,
             description,

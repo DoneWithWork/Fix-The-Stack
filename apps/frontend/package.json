@@ -40,6 +40,7 @@
     "nprogress": "^0.2.0",
     "react": "^19.1.0",
     "react-cookie": "^8.0.1",
+    "react-diff-viewer": "^3.1.1",
     "react-dom": "^19.1.0",
     "react-grid-layout": "^1.5.2",
     "react-hook-form": "^7.60.0",

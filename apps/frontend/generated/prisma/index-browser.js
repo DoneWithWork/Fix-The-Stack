@@ -223,6 +223,17 @@ exports.Prisma.WebhookActionScalarFieldEnum = {
   actionId: 'actionId'
 };
 
+exports.Prisma.AuditScalarFieldEnum = {
+  id: 'id',
+  action: 'action',
+  timestamp: 'timestamp',
+  userId: 'userId',
+  message: 'message',
+  model: 'model',
+  before: 'before',
+  after: 'after'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -265,6 +276,13 @@ exports.ActionType = exports.$Enums.ActionType = {
   WEBHOOK: 'WEBHOOK'
 };
 
+exports.CRUD_Action = exports.$Enums.CRUD_Action = {
+  CREATE: 'CREATE',
+  READ: 'READ',
+  UPDATE: 'UPDATE',
+  DELETE: 'DELETE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   ApiKey: 'ApiKey',
@@ -276,7 +294,8 @@ exports.Prisma.ModelName = {
   Action: 'Action',
   EmailAction: 'EmailAction',
   TelegramAction: 'TelegramAction',
-  WebhookAction: 'WebhookAction'
+  WebhookAction: 'WebhookAction',
+  Audit: 'Audit'
 };
 
 /**

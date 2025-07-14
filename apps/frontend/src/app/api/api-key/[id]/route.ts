@@ -1,5 +1,5 @@
 import { decryptApiKey } from "@/lib/apikey";
-import db from "@/lib/db";
+import { db } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
@@ -9,7 +9,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
     if (!user) return redirect("/")
     const { id } = await params
 
-    const encryptedKey = await db.apiKey.findFirst({
+    const encryptedKey = await db(user.id).apiKey.findFirst({
         where: {
             id,
             userId: user.id

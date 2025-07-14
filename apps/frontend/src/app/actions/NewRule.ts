@@ -1,6 +1,6 @@
 "use server"
 
-import db from "@/lib/db";
+import { db } from "@/lib/db";
 import { FullRulePayloadSchema } from "@/lib/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
@@ -25,7 +25,7 @@ export async function NewRuleAction(prevState: unknown, formData: FormData) {
     }
     const ruleTree = JSON.parse(formData.get("ruleTree") as string)
     const { name, description, actionId, triggerLimit } = parsed.data
-    const newRule = await db.rule.create({
+    const newRule = await db(user.id).rule.create({
         data: {
             name,
             description,

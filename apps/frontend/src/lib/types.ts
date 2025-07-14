@@ -1,4 +1,4 @@
-import { ApiKey, Prisma } from "@prisma/index";
+import { ApiKey, CRUD_Action, DataPoint, DataStream, Prisma } from "@prisma/index";
 
 
 export type ProjectType = {
@@ -89,3 +89,15 @@ export type ActionWithRelations = Prisma.ActionGetPayload<{
         webhookAction: true;
     };
 }>;
+export const mapping: Record<string, CRUD_Action> = {
+    "findFirst": "READ",
+    "findMany": "READ",
+    "delete": "DELETE",
+    "update": "UPDATE",
+    "create": "CREATE",
+    "createMany": "CREATE",
+
+}
+export type DataPointWithStream = DataPoint & {
+    dataStream: DataStream;
+};

@@ -1,8 +1,12 @@
-import db from "@/lib/db";
+import { db } from "@/lib/db";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 import React from "react";
 
 export default async function UserDashboard() {
-  const users = await db.user.findMany();
+  const user = await currentUser();
+  if (!user) redirect("/");
+  const users = await db(user.id).user.findMany();
   return (
     <div>
       {users.map((user, index) => (

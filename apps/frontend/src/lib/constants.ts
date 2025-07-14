@@ -1,4 +1,4 @@
-import { FolderRoot, LucideIcon, MicrochipIcon, Pickaxe, User, Webhook, Wifi } from "lucide-react";
+import { CheckCircle2, DatabaseZapIcon, FolderRoot, LucideIcon, MicrochipIcon, Pickaxe, User, Webhook, Wifi } from "lucide-react";
 
 type UserDashboardLinkTypes = {
     title: string;
@@ -31,6 +31,16 @@ export const UserDashboardLinks: UserDashboardLinkTypes[] = [
         title: "Rules",
         href: "/rules",
         icon: Pickaxe
+    },
+    {
+        title: "Data Logs",
+        href: "/data-logs",
+        icon: DatabaseZapIcon
+    },
+    {
+        title: "Audit",
+        href: "/audit",
+        icon: CheckCircle2
     }
 ] as const
 

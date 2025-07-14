@@ -1,6 +1,5 @@
 "use server";
-
-import db from "@/lib/db";
+import { db } from "@/lib/db";
 import { ActionSchema } from "@/lib/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
@@ -38,7 +37,7 @@ export async function NewAction(prevState: unknown, formData: FormData) {
         telegram_chat_id,
     } = parsed.data;
 
-    const newAction = await db.action.create({
+    const newAction = await db(user.id).action.create({
         data: {
             name,
             type,
@@ -56,7 +55,7 @@ export async function NewAction(prevState: unknown, formData: FormData) {
     switch (type) {
         case "EMAIL":
             if (!email_address || !email_content) throw new Error("Missing email fields");
-            await db.emailAction.create({
+            await db(user.id).emailAction.create({
                 data: {
                     actionId: newAction.id,
                     receiverEmail: email_address,
@@ -67,7 +66,7 @@ export async function NewAction(prevState: unknown, formData: FormData) {
 
         case "TELEGRAM":
             if (!telegram_chat_id) throw new Error("Missing Telegram chat ID");
-            await db.telegramAction.create({
+            await db(user.id).telegramAction.create({
                 data: {
                     actionId: newAction.id,
                     chatId: telegram_chat_id
@@ -77,7 +76,7 @@ export async function NewAction(prevState: unknown, formData: FormData) {
 
         case "WEBHOOK":
             if (!url_webhook) throw new Error("Missing webhook URL");
-            await db.webhookAction.create({
+            await db(user.id).webhookAction.create({
                 data: {
                     actionId: newAction.id,
                     url: url_webhook,

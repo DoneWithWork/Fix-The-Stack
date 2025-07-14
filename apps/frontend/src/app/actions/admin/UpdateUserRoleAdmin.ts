@@ -1,6 +1,6 @@
 "use server"
 
-import db from "@/lib/db";
+import { db } from "@/lib/db";
 import { checkRole } from "@/lib/roles"
 import { UserRoleSchema } from "@/lib/schema"
 import { clerkClient } from "@clerk/nextjs/server"
@@ -22,14 +22,14 @@ export async function UpdateUserRoleActionAdmin(prevState: unknown, formData: Fo
         return { errors: parsed.error.flatten().fieldErrors, success: false, formError: "" }
     }
     const { userId, role } = parsed.data
-    const user = await db.user.findFirst({
+    const user = await db(userId).user.findFirst({
         where: {
             id: userId
         }
     })
     if (!user) return { errors: {}, success: false, formError: "Failed to find user!" }
     if (user.role === role) return { errors: {}, success: false, formError: "Role did not change" }
-    const updatedUser = await db.user.update({
+    const updatedUser = await db(userId).user.update({
         where: {
             id: userId
         },

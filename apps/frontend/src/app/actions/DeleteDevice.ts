@@ -1,6 +1,6 @@
 "use server"
 
-import db from "@/lib/db";
+import { db } from "@/lib/db";
 import { DeleteDeviceSchema } from "@/lib/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
@@ -16,7 +16,7 @@ export async function DeleteDeviceAction(prevState: unknown, formData: FormData)
     })
     if (!parsed.success) return { errors: parsed.error.flatten().fieldErrors, success: false, formErrors: "" }
     const userId = user.id;
-    const device = await db.device.findFirst({
+    const device = await db(user.id).device.findFirst({
         where: {
             id: parsed.data.deviceId,
             Project: {
@@ -33,7 +33,7 @@ export async function DeleteDeviceAction(prevState: unknown, formData: FormData)
         return { errors: {}, success: false, formErrors: "You must deleted all data streams for this device first." }
 
     }
-    const deletedDevice = await db.device.delete({
+    const deletedDevice = await db(user.id).device.delete({
         where: {
             id: parsed.data.deviceId
         }

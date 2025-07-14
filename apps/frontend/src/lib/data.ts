@@ -1,8 +1,10 @@
 
-import { unstable_cache } from "next/cache";
-import db from "@/lib/db";
-import { ActionWithRelations, ApiKeyExtend, CachedDeviceType, DevicesByProjectType, ProjectTypeData } from "./types";
+
 import { DataStream } from "@prisma/index";
+import { unstable_cache } from "next/cache";
+import { db } from "./db";
+import { ActionWithRelations, ApiKeyExtend, CachedDeviceType, DevicesByProjectType, ProjectTypeData } from "./types";
+
 
 
 
@@ -22,18 +24,18 @@ export async function getCachedDevicesByProject({ userId, projectId }: DevicesBy
 }
 
 export async function GetDevice({ userId, deviceId }: CachedDeviceType) {
-    const device = await db.device.findFirst({
+    const device = await db(userId).device.findFirst({
         where: {
             id: deviceId,
             Project: {
                 userId: userId
             }
         }
-    })
+    },)
     return device
 }
 export async function GetDevices(userId: string) {
-    const device = await db.device.findMany({
+    const device = await db(userId).device.findMany({
         where: {
             Project: {
                 userId: userId
@@ -43,7 +45,7 @@ export async function GetDevices(userId: string) {
     return device
 }
 export async function GetDevicesWithDataStream(userId: string) {
-    const device = await db.device.findMany({
+    const device = await db(userId).device.findMany({
         where: {
             Project: {
                 userId: userId
@@ -75,7 +77,7 @@ export async function getCachedDevicesIncludeDataStream(userId: string) {
 }
 
 export async function GetDevicesByProject({ userId, projectId }: DevicesByProjectType) {
-    const devices = await db.device.findMany({
+    const devices = await db(userId).device.findMany({
         where: {
             Project: {
                 id: projectId,
@@ -86,7 +88,7 @@ export async function GetDevicesByProject({ userId, projectId }: DevicesByProjec
     return devices
 }
 export async function GetRules(userId: string) {
-    return await db.rule.findMany({
+    return await db(userId).rule.findMany({
         where: {
             userId
         }
@@ -101,7 +103,7 @@ export async function getCachedRules(userId: string) {
 }
 
 export async function GetProject({ userId, projectId }: ProjectTypeData) {
-    const project = await db.project.findFirst({
+    const project = await db(userId).project.findFirst({
         where: {
             id: projectId,
             userId: userId
@@ -110,7 +112,7 @@ export async function GetProject({ userId, projectId }: ProjectTypeData) {
     return project
 }
 export async function GetProjects(userId: string) {
-    const projects = await db.project.findMany({
+    const projects = await db(userId).project.findMany({
         where: {
             userId: userId
         }
@@ -135,7 +137,7 @@ export async function getCachedProject({ userId, projectId }: ProjectTypeData) {
     )()
 }
 export async function GetApiKeys(userId: string) {
-    const apiKeys = await db.apiKey.findMany({
+    const apiKeys = await db(userId).apiKey.findMany({
         where: {
             userId: userId
         },
@@ -159,14 +161,14 @@ export async function getCachedApiKeys(userId: string) {
     )()
 }
 export async function GetDataStreams({ userId, projectId }: ProjectTypeData) {
-    const project = await db.project.findFirst({
+    const project = await db(userId).project.findFirst({
         where: {
             userId,
             id: projectId
         }
     })
     if (!project) return []
-    const devices = await db.device.findMany({
+    const devices = await db(userId).device.findMany({
         where: {
             projectId,
         },
@@ -186,23 +188,26 @@ export async function getCachedDataStreamsProject({ userId, projectId }: Project
     }
     )()
 }
-export async function GetAllUsers() {
-    const users = await db.user.findMany()
+export async function GetAllUsers(userId: string) {
+    const users = await db(userId).user.findMany({
+
+    })
     return users;
 }
-export async function getCachedUsers() {
-    return unstable_cache(async () => GetAllUsers(), ["users"], {
+export async function getCachedUsers(userId: string) {
+    return unstable_cache(async () => GetAllUsers(userId), ["users"], {
         revalidate: false,
         tags: [`admin:users`]
     }
     )()
 }
 export async function GetUserAdmin(userId: string) {
-    const user = await db.user.findFirst({
+    const user = await db(userId).user.findFirst({
         where: {
             id: userId
 
         },
+
         include: {
             projects: {
                 include: {
@@ -218,7 +223,7 @@ export async function GetUserAdmin(userId: string) {
     return user
 }
 export async function GetActionsForUser(userId: string): Promise<ActionWithRelations[]> {
-    return await db.action.findMany({
+    return await db(userId).action.findMany({
         where: {
             userId
         },
@@ -245,4 +250,49 @@ export async function getCachedUser(userId: string) {
     }
     )()
 }
+export async function getCachedAudits(userId: string) {
+    return unstable_cache(async () => getAudits(userId), ['audits', userId], {
+        revalidate: 60,
+        tags: [`audits`]
+    })()
+}
+export async function getCachedDataLogs(userId: string) {
+    return unstable_cache(async () => getDataLogs(userId), ['datalogs', userId], {
+        revalidate: 60,
+        tags: [`datalogs:${userId}`]
+    })()
+}
+export async function getAudits(userId: string) {
+    return await db(userId).audit.findMany({
+        where: {
+            userId
+        },
+        include: {
+            User: {
+                select: {
+                    username: true
+                }
+            }
+        }
+    })
+}
+export async function getDataLogs(userId: string) {
+    const dataLogs = await db(userId).dataPoint.findMany({
+        where: {
+            dataStream: {
+                Device: {
+                    Project: {
+                        userId
+                    }
+                }
+            }
+        },
+        include: {
+            dataStream: true
+        }
+    })
 
+
+    return dataLogs || []
+
+}
