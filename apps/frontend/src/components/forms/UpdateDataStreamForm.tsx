@@ -1,6 +1,5 @@
 "use client";
-import { NewDataStreamAction } from "@/app/actions/NewDataStream";
-import { Button } from "@/components/ui/button";
+import { UpdateDataStreamAction } from "@/app/actions/UpdateDataStreamAction";
 import {
   Form,
   FormControl,
@@ -8,55 +7,45 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { initialState } from "@/lib/constants";
-import { DataStreamSchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Device } from "@prisma/index";
+import { DataStream } from "@prisma/index";
+import { Row } from "@tanstack/react-table";
 import { Loader2 } from "lucide-react";
-import { usePathname } from "next/navigation";
 import { Dispatch, SetStateAction, useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
+import z from "zod";
+import { Button } from "../ui/button";
 import { DialogClose } from "../ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-
-export default function NewDataStreamForm({
-  devices,
-  setOpen,
-}: {
-  devices: Device[];
+import { Input } from "../ui/input";
+import { UpdateDataStreamSchema } from "@/lib/schema";
+type UpdateDataStreamFormProps = {
+  row: Row<DataStream>;
   setOpen: Dispatch<SetStateAction<boolean>>;
-}) {
-  const pathName = usePathname();
-  const segments = pathName.split("/");
-  const projectId = segments[segments.length - 1];
+};
+export default function UpdateDataStreamForm({
+  row,
+  setOpen,
+}: UpdateDataStreamFormProps) {
   const [state, action, pending] = useActionState(
-    NewDataStreamAction,
+    UpdateDataStreamAction,
     initialState
   );
 
-  const form = useForm<z.infer<typeof DataStreamSchema>>({
-    resolver: zodResolver(DataStreamSchema),
+  const form = useForm<z.infer<typeof UpdateDataStreamSchema>>({
+    resolver: zodResolver(UpdateDataStreamSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      deviceId: "",
+      title: row.original.title,
+      description: row.original.description,
+      id: row.original.id,
     },
   });
   useEffect(() => {
     if (state?.success) {
       setOpen(false);
       toast(state.message);
-    }
-    if (state?.errorMessage && !state.success) {
+    } else if (state?.errorMessage && !state.success) {
       toast(state.errorMessage);
     }
   }, [state, form, setOpen]);
@@ -68,9 +57,17 @@ export default function NewDataStreamForm({
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel htmlFor="title">Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter name..." {...field} name="title" />
+                <Input
+                  minLength={1}
+                  maxLength={100}
+                  id="title"
+                  type="text"
+                  placeholder="Enter title..."
+                  {...field}
+                  name="title"
+                />
               </FormControl>
 
               {state?.errors?.title && (
@@ -91,10 +88,11 @@ export default function NewDataStreamForm({
                 <Input
                   placeholder="Enter description..."
                   {...field}
+                  id="description"
+                  type="text"
                   name="description"
                 />
               </FormControl>
-
               {state?.errors?.description && (
                 <p id="city-error" className="text-sm text-red-500">
                   {state.errors.description[0]}
@@ -103,42 +101,9 @@ export default function NewDataStreamForm({
             </FormItem>
           )}
         />
-        <Input hidden name="projectId" value={projectId} readOnly />
-        <FormField
-          control={form.control}
-          name="deviceId"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Device</FormLabel>
-              <Select
-                onValueChange={field.onChange}
-                defaultValue={field.value || devices[0]?.id}
-                name="deviceId"
-                disabled={devices.length === 0}
-              >
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a device" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {devices &&
-                    devices.map((device, index) => (
-                      <SelectItem value={device.id} key={index}>
-                        {device.name}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
 
-              {state?.errors?.deviceId && (
-                <p id="city-error" className="text-sm text-red-500">
-                  {state.errors.deviceId[0]}
-                </p>
-              )}
-            </FormItem>
-          )}
-        />
+        <Input type="hidden" value={row.original.id} name="id" readOnly />
+
         <div className="flex flex-row gap-4 items-center">
           <DialogClose asChild>
             <Button type="button" variant="secondary">
@@ -148,10 +113,10 @@ export default function NewDataStreamForm({
           <Button
             disabled={pending}
             type="submit"
-            className="bg-green-400 hover:bg-green-500 text-gray-900"
+            className="bg-yellow-400 hover:bg-yellow-500 text-gray-900"
           >
             {pending && <Loader2 className="animate-spin size-6" />}
-            <span>Create New Data Stream</span>
+            <span className="text-gray-800">Update Device</span>
           </Button>
         </div>
       </form>

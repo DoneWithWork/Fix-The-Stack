@@ -198,3 +198,8 @@ export const FullRulePayloadSchema = z.object({
         message: "Maximum on free plan is 5"
     }),
 });
+export const UpdateDataStreamSchema = DataStreamSchema.pick({ title: true, description: true }).extend({
+    id: z.string().min(1, {
+        message: "Id is required"
+    })
+})

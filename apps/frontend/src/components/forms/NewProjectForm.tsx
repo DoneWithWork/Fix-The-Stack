@@ -7,9 +7,9 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { initialState } from "@/lib/constants";
 import { NewProjectSchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -17,12 +17,7 @@ import { useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-const initialState = { errors: {}, success: false, formErrors: [] };
-type NewProjectActionReturn = {
-  success: boolean;
-  errors: Record<string, string[]>;
-  formErrors: string[];
-};
+
 export default function NewProjectForm() {
   const form = useForm<z.infer<typeof NewProjectSchema>>({
     resolver: zodResolver(NewProjectSchema),
@@ -31,30 +26,19 @@ export default function NewProjectForm() {
       description: "",
     },
   });
-  const [state, action, pending] = useActionState<
-    NewProjectActionReturn,
-    FormData
-  >(NewProjectAction, initialState);
+
+  const [state, action, pending] = useActionState(
+    NewProjectAction,
+    initialState
+  );
   useEffect(() => {
-    if (state?.errors) {
-      Object.entries(state.errors).forEach(([fieldName, errors]) => {
-        if (fieldName in NewProjectSchema.shape) {
-          form.setError(
-            fieldName as keyof z.infer<typeof NewProjectSchema>,
-            {
-              message: errors.join(", "),
-            },
-            {
-              shouldFocus: true,
-            }
-          );
-        }
-      });
+    if (state?.errorMessage && !state.success) {
+      toast(state.errorMessage);
     }
-    if (state?.formErrors && state.formErrors.length > 0) {
-      toast(state.formErrors[0]);
+    if (state?.success) {
+      toast(state.message);
     }
-  }, [state, form]);
+  }, [state]);
   return (
     <Form {...form}>
       <form action={action} className="space-y-8 max-w-4xl mx-auto">
@@ -68,7 +52,11 @@ export default function NewProjectForm() {
                 <Input placeholder="Title" {...field} />
               </FormControl>
 
-              <FormMessage />
+              {state?.errors?.title && (
+                <p id="city-error" className="text-sm text-red-500">
+                  {state.errors.title[0]}
+                </p>
+              )}
             </FormItem>
           )}
         />
@@ -82,7 +70,11 @@ export default function NewProjectForm() {
                 <Input placeholder="Description" {...field} />
               </FormControl>
 
-              <FormMessage />
+              {state?.errors?.description && (
+                <p id="city-error" className="text-sm text-red-500">
+                  {state.errors.description[0]}
+                </p>
+              )}
             </FormItem>
           )}
         />

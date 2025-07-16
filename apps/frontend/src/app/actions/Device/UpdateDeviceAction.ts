@@ -31,7 +31,9 @@ export async function UpdateDeviceAction(prevState: ActionResponse<UpdateDeviceT
         const { name, description, id } = parsed.data;
 
         const project = await db(user.id).project.findFirst({
+
             where: {
+                id,
                 userId: user.id, devices: {
                     some: {
                         id: id

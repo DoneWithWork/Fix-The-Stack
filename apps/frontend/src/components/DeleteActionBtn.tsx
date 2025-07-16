@@ -30,7 +30,7 @@ export default function DeleteActionBtn({
   return (
     <Dialog onOpenChange={() => SetOpen(!open)} open={open}>
       <DialogTrigger asChild>
-        <Button className="bg-red-500 hover:bg-red-600">
+        <Button className="bg-red-500 hover:bg-red-600 cursor-pointer">
           <Trash className="size-4 text-white" />
         </Button>
       </DialogTrigger>

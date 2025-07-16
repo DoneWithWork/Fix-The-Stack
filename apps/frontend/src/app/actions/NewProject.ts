@@ -1,12 +1,14 @@
 "use server"
 
+import { ActionResponse } from "@/lib/constants";
 import { db } from "@/lib/db";
 import { NewProjectSchema } from "@/lib/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
-
-export async function NewProjectAction(prevState: unknown, formData: FormData) {
+import z from "zod";
+type NewProjectSchemaType = z.infer<typeof NewProjectSchema>
+export async function NewProjectAction(prevState: ActionResponse<NewProjectSchemaType>, formData: FormData): Promise<ActionResponse<NewProjectSchemaType>> {
     const user = await currentUser();
 
     if (!user) return redirect("/")
@@ -14,13 +16,13 @@ export async function NewProjectAction(prevState: unknown, formData: FormData) {
         title: formData.get("title"),
         description: formData.get('description')
     })
-    if (!parsed.success) return { success: false, errors: parsed.error.flatten().fieldErrors, formErrors: [''] }
+    if (!parsed.success) return { success: false, errors: parsed.error.flatten().fieldErrors }
     const dbUser = await db(user.id).user.findFirst({
         where: {
             id: user.id
         }
     })
-    if (!dbUser) return { success: false, formErrors: ['Cannot find user'], errors: {} }
+    if (!dbUser) return { success: false, errorMessage: 'Cannot find user', errors: {} }
     const { title, description } = parsed.data
     const newProject = await db(user.id).project.create({
         data: {
@@ -35,7 +37,7 @@ export async function NewProjectAction(prevState: unknown, formData: FormData) {
         redirect(`/dashboard/projects/${newProject.id}`)
     }
     else {
-        return { success: false, formErrors: ['Failed to create project'], errors: {} }
+        return { success: false, errorMessage: 'Failed to create project' }
     }
 
 

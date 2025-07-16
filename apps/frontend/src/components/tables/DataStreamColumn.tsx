@@ -1,16 +1,25 @@
 "use client";
 
 import { DeleteDataStreamAction } from "@/app/actions/DeleteDataStreamAction";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { initialState } from "@/lib/constants";
 import { DataStream } from "@prisma/index";
 import { ColumnDef, Row } from "@tanstack/react-table";
-import { Eye } from "lucide-react";
-import Link from "next/link";
+import { Eye, Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 import DeleteActionBtn from "../DeleteActionBtn";
 import { Button } from "../ui/button";
+import ReadDataStreamForm from "../forms/ReadDataStreamForm";
+import UpdateDataStreamForm from "../forms/UpdateDataStreamForm";
 export const DataStreamColumn: ColumnDef<DataStream>[] = [
   {
     accessorKey: "title",
@@ -31,6 +40,8 @@ export const DataStreamColumn: ColumnDef<DataStream>[] = [
 ];
 function Action({ row }: { row: Row<DataStream> }) {
   const [open, SetOpen] = useState(false);
+  const [openUpdate, setOpenUpdate] = useState(false);
+
   const [state, action, pending] = useActionState(
     DeleteDataStreamAction,
     initialState
@@ -42,7 +53,7 @@ function Action({ row }: { row: Row<DataStream> }) {
     }
 
     if (state?.success) {
-      SetOpen(false); // Close modal immediately
+      SetOpen(false);
       toast("Successfully deleted data stream!");
       router.refresh();
     }
@@ -50,11 +61,38 @@ function Action({ row }: { row: Row<DataStream> }) {
 
   return (
     <div className="flex flex-row items-center gap-3">
-      <Button asChild className="bg-green-500 hover:bg-green-600">
-        <Link href={`/dashboard/devices/datastream`}>
-          <Eye className="size-4 text-white" />
-        </Link>
-      </Button>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="bg-green-500 hover:bg-green-600 cursor-pointer">
+            <Eye className="size-4 text-white" />
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>DataStream: {row.original.title}</DialogTitle>
+            <DialogDescription>View Your DataStream</DialogDescription>
+          </DialogHeader>
+          <div>
+            <ReadDataStreamForm row={row} />
+          </div>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={openUpdate} onOpenChange={setOpenUpdate}>
+        <DialogTrigger asChild>
+          <Button className="bg-yellow-500 hover:bg-yellow-600 cursor-pointer">
+            <Pencil className="size-4 text-white" />
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Update DataStream: {row.original.title}</DialogTitle>
+            <DialogDescription>Update DataStream</DialogDescription>
+          </DialogHeader>
+          <div>
+            <UpdateDataStreamForm row={row} setOpen={setOpenUpdate} />
+          </div>
+        </DialogContent>
+      </Dialog>
       <DeleteActionBtn
         deleteItemName="Data Stream"
         SetOpen={SetOpen}

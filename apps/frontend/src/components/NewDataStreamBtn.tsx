@@ -1,3 +1,4 @@
+"use client";
 import {
   Dialog,
   DialogContent,
@@ -11,14 +12,16 @@ import { extendedDeviceWithProject } from "@/lib/types";
 import { Plus } from "lucide-react";
 import NewDataStreamForm from "./forms/NewDataStreamForm";
 import { Button } from "./ui/button";
+import { useState } from "react";
 
-export default async function NewDataStreamBtn({
+export default function NewDataStreamBtn({
   devices,
 }: {
   devices: extendedDeviceWithProject[];
 }) {
+  const [open, setOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline">
           <Plus className="size-5" />
@@ -33,7 +36,7 @@ export default async function NewDataStreamBtn({
           </DialogDescription>
         </DialogHeader>
         <div>
-          <NewDataStreamForm devices={devices} />
+          <NewDataStreamForm devices={devices} setOpen={setOpen} />
         </div>
       </DialogContent>
     </Dialog>

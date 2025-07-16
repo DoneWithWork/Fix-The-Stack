@@ -1,35 +1,46 @@
 "use server"
 
+import { ActionResponse } from "@/lib/constants";
 import { db } from "@/lib/db";
 import { DataStreamSchema } from "@/lib/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
+import z from "zod";
 
-export async function NewDataStreamAction(prevState: unknown, formData: FormData) {
+type DataStreamSchemaType = z.infer<typeof DataStreamSchema>
+export async function NewDataStreamAction(prevState: ActionResponse<DataStreamSchemaType>, formData: FormData): Promise<ActionResponse<DataStreamSchemaType>> {
     const user = await currentUser();
 
     if (!user) return redirect("/")
-    const parsed = DataStreamSchema.safeParse({
-        title: formData.get("title"),
-        description: formData.get("description"),
-        deviceId: formData.get("deviceId"),
-        projectId: formData.get("projectId"),
-    })
+    const rawData = {
+        title: formData.get("title") as string,
+        description: formData.get("description") as string,
+        deviceId: formData.get("deviceId") as string,
+        projectId: formData.get("projectId") as string,
+    }
+    const parsed = DataStreamSchema.safeParse(rawData)
     if (!parsed.success) {
-        return { errors: parsed.error.flatten().fieldErrors }
+        return { errors: parsed.error.flatten().fieldErrors, success: false, inputs: rawData }
     }
     const { projectId, deviceId, description, title } = parsed.data
     const Device = await db(user.id).device.findFirst({
         where: {
             id: deviceId,
-            Project: {
-                userId: user.id,
-                id: projectId
+
+        },
+        include: {
+            dataStreams: {
+                select: {
+                    title: true
+                }
             }
         }
     })
-    if (!Device) return { errors: {}, success: false, formErrors: 'Cannot find device!' }
+    if (!Device) return { success: false, errorMessage: "Failed to find device" }
+    const hasRepeatedTitle = Device?.dataStreams.some((dataStream) => dataStream.title === title)
+    if (hasRepeatedTitle) return { success: false, errorMessage: "Cannot have duplicate names!", errors: { title: ["Cannot have duplicate name"] } }
+    if (!Device) return { success: false, errorMessage: 'Cannot find device!' }
     const newDataStream = await db(user.id).dataStream.create({
         data: {
             title,
@@ -41,9 +52,9 @@ export async function NewDataStreamAction(prevState: unknown, formData: FormData
     if (newDataStream) {
         revalidateTag(`devices_with_datastream:${user.id}`)
         revalidateTag(`data_stream:${user.id}:${projectId}`)
-        redirect(`/dashboard/projects/${projectId}/?tab=data_stream`)
+        return { success: true, message: "Created Data Stream successfully" }
     } else {
-        return { success: false, errors: {}, formErrors: "Failed to create data stream" }
+        return { success: false, errorMessage: "Failed to create data stream" }
     }
 
 

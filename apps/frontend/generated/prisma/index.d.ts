@@ -16134,17 +16134,17 @@ export namespace Prisma {
 
   export type DataStreamWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    title?: string
     AND?: DataStreamWhereInput | DataStreamWhereInput[]
     OR?: DataStreamWhereInput[]
     NOT?: DataStreamWhereInput | DataStreamWhereInput[]
     deviceId?: StringFilter<"DataStream"> | string
+    title?: StringFilter<"DataStream"> | string
     description?: StringFilter<"DataStream"> | string
     createdAt?: DateTimeFilter<"DataStream"> | Date | string
     updatedAt?: DateTimeFilter<"DataStream"> | Date | string
     Device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
     dataPoints?: DataPointListRelationFilter
-  }, "id" | "title">
+  }, "id">
 
   export type DataStreamOrderByWithAggregationInput = {
     id?: SortOrder
