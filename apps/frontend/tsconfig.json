@@ -25,6 +25,6 @@
       "@prisma/*": ["generated/prisma/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.mjs", "src/pages/docs/page.mdx", "pages/docs/[[...mdxPath]]/page.jsx", "src/content/_meta.global.js"],
   "exclude": ["node_modules"]
 }
