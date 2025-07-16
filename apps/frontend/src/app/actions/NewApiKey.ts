@@ -1,15 +1,17 @@
 "use server"
 import { encryptApiKey, generateApiKey } from "@/lib/apikey";
+import { ActionResponse } from "@/lib/constants";
 import { db } from "@/lib/db";
 import { ApiKeySchema } from "@/lib/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
 
 import { redirect } from "next/navigation";
+import z from "zod";
 
 
-
-export async function NewApiKeyAction(prevState: unknown, formData: FormData) {
+type ApiKeyType = z.infer<typeof ApiKeySchema>
+export async function NewApiKeyAction(prevState: ActionResponse<ApiKeyType>, formData: FormData): Promise<ActionResponse<ApiKeyType>> {
     const user = await currentUser();
     if (!user) return redirect("/")
 
@@ -18,7 +20,7 @@ export async function NewApiKeyAction(prevState: unknown, formData: FormData) {
         type: formData.get("type"),
     })
     if (!parsed.success) {
-        return { errors: parsed.error.flatten().fieldErrors }
+        return { errors: parsed.error.flatten().fieldErrors, success: false }
     }
     const key = await generateApiKey();
     const encryptedKey = await encryptApiKey(key);
@@ -34,10 +36,9 @@ export async function NewApiKeyAction(prevState: unknown, formData: FormData) {
     })
     if (NewApiKey) {
         revalidateTag(`api_keys:${user.id}`)
-        return redirect(`/dashboard/settings?tab=apikeys`)
-
+        return { success: true, message: "Successfully created Api Key" }
     }
-    else redirect('/')
+    else return { success: false, errorMessage: "Failed to create Api Key" }
 
 
 }

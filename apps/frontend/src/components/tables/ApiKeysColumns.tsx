@@ -13,6 +13,7 @@ import { ApiKeyExtend } from "@/lib/types";
 import { useUser } from "@clerk/nextjs";
 import { ColumnDef, Row } from "@tanstack/react-table";
 import { Copy, CopyCheck, Loader2, MoreHorizontal } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -58,11 +59,16 @@ const ActionsCell = ({ row }: { row: Row<ApiKeyExtend> }) => {
     initialState
   );
 
+  const router = useRouter();
   useEffect(() => {
-    if (state?.errors && Object.keys(state.errors).length > 0) {
-      toast("An error occurred revoking the API key!");
+    if (state?.errorMessage && !state?.success) {
+      toast(state?.errorMessage);
     }
-  }, [state]);
+    if (state?.success) {
+      toast(state.message);
+      router.refresh();
+    }
+  }, [state, router]);
   if (!isLoaded || !user) return null;
   const handleCopy = async () => {
     SetCopyPending(true);

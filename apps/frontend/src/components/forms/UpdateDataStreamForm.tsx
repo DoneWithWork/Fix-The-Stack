@@ -7,11 +7,16 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { initialState } from "@/lib/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DataStream } from "@prisma/index";
 import { Row } from "@tanstack/react-table";
-import { Loader2 } from "lucide-react";
+import { CircleAlert, Loader2 } from "lucide-react";
 import { Dispatch, SetStateAction, useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -57,7 +62,22 @@ export default function UpdateDataStreamForm({
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="title">Name</FormLabel>
+              <div className="flex flex-row gap-2">
+                <FormLabel htmlFor="title">Name</FormLabel>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <div className="rounded-full border-2 ">
+                      <CircleAlert className="size-4" />
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>
+                      Changing the name will break existing devices with valid
+                      data points
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
               <FormControl>
                 <Input
                   minLength={1}

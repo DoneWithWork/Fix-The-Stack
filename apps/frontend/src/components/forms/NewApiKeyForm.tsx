@@ -7,14 +7,15 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { initialState } from "@/lib/constants";
 import { ApiKeySchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import { useActionState, useEffect } from "react";
+import { Dispatch, SetStateAction, useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { DialogClose } from "../ui/dialog";
 import {
@@ -25,9 +26,11 @@ import {
   SelectValue,
 } from "../ui/select";
 
-const initialState = { errors: {}, success: false };
-
-export default function NewApiKeyForm() {
+export default function NewApiKeyForm({
+  setOpen,
+}: {
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}) {
   const [state, action, pending] = useActionState(
     NewApiKeyAction,
     initialState
@@ -41,22 +44,14 @@ export default function NewApiKeyForm() {
     },
   });
   useEffect(() => {
-    if (state?.errors) {
-      Object.entries(state.errors).forEach(([fieldName, errors]) => {
-        if (fieldName in ApiKeySchema.shape) {
-          form.setError(
-            fieldName as keyof z.infer<typeof ApiKeySchema>,
-            {
-              message: errors.join(", "),
-            },
-            {
-              shouldFocus: true,
-            }
-          );
-        }
-      });
+    if (state?.errorMessage && !state.success) {
+      toast(state.errorMessage);
     }
-  }, [state, form]);
+    if (state?.success) {
+      setOpen(false);
+      toast(state.message);
+    }
+  }, [state, setOpen]);
   return (
     <Form {...form}>
       <form action={action} className="space-y-8 max-w-4xl mx-auto">
@@ -69,8 +64,11 @@ export default function NewApiKeyForm() {
               <FormControl>
                 <Input placeholder="Enter name..." {...field} name="name" />
               </FormControl>
-
-              <FormMessage />
+              {state?.errors?.name && (
+                <p id="city-error" className="text-sm text-red-500">
+                  {state.errors.name[0]}
+                </p>
+              )}{" "}
             </FormItem>
           )}
         />
@@ -96,7 +94,11 @@ export default function NewApiKeyForm() {
                 </SelectContent>
               </Select>
 
-              <FormMessage />
+              {state?.errors?.type && (
+                <p id="city-error" className="text-sm text-red-500">
+                  {state.errors.type[0]}
+                </p>
+              )}
             </FormItem>
           )}
         />

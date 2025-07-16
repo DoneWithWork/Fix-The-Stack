@@ -21,6 +21,7 @@ import { useCookies } from "react-cookie";
 import SignOutBtn from "./SignOutBtn";
 import SettingsBtn from "./ui/SettingsBtn";
 import { Label } from "./ui/label";
+import DocumentationBtn from "./ui/DocumentationBtn";
 
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 interface CookieValues {
@@ -99,6 +100,7 @@ export function AppSidebar({
               </div>
             </SidebarMenuItem>
           )}
+          <DocumentationBtn />
           <SettingsBtn />
           <SignOutBtn />
           <SidebarTrigger />
