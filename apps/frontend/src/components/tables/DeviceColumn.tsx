@@ -2,21 +2,30 @@
 import { DeleteDeviceAction } from "@/app/actions/DeleteDevice";
 import { Button } from "@/components/ui/button";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { initialState } from "@/lib/constants";
-import { DeleteDeviceSchema } from "@/lib/schema";
-import { Device } from "@prisma/index";
+import { extendedDeviceWithProject } from "@/lib/types";
 import { ColumnDef, Row } from "@tanstack/react-table";
-import { Copy, CopyCheck, Eye } from "lucide-react";
-import Link from "next/link";
+import { Copy, CopyCheck, Eye, Pencil } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 import DeleteActionBtn from "../DeleteActionBtn";
-import { useRouter } from "next/navigation";
-export const DeviceColumn: ColumnDef<Device>[] = [
+import UpdateDeviceForm from "../forms/UpdateDeviceForm";
+import ReadDeviceForm from "../forms/ReadDeviceForm";
+
+export const DeviceColumn: ColumnDef<extendedDeviceWithProject>[] = [
   {
     accessorKey: "name",
     header: "Name",
@@ -49,24 +58,18 @@ export const DeviceColumn: ColumnDef<Device>[] = [
   },
 ];
 
-function Actions({ row }: { row: Row<Device> }) {
+function Actions({ row }: { row: Row<extendedDeviceWithProject> }) {
   const [copied, SetCopied] = useState(false);
   const [open, SetOpen] = useState(false);
+  const [openUpdate, setOpenUpdate] = useState(false);
   const [state, action, pending] = useActionState(
     DeleteDeviceAction,
     initialState
   );
   const router = useRouter();
   useEffect(() => {
-    if (state?.errors) {
-      Object.entries(state.errors).forEach(([fieldName, errors]) => {
-        if (fieldName in DeleteDeviceSchema.shape) {
-          toast(errors.join(", "));
-        }
-      });
-    }
-    if (state?.formErrors) {
-      toast(state?.formErrors);
+    if (state?.errorMessage && !state?.success) {
+      toast(state?.errorMessage);
     }
     if (state?.success) {
       SetOpen(false);
@@ -76,13 +79,38 @@ function Actions({ row }: { row: Row<Device> }) {
   }, [state, router]);
   return (
     <div className="flex flex-row items-center gap-3">
-      <Button asChild className="bg-green-500 hover:bg-green-600">
-        <Link
-          href={`/dashboard/devices/${row.original.projectId}/${row.original.id}`}
-        >
-          <Eye className="size-4 text-white" />
-        </Link>
-      </Button>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="bg-green-500 hover:bg-green-600">
+            <Eye className="size-4 text-white" />
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Device: {row.original.name}</DialogTitle>
+            <DialogDescription>View Your Device</DialogDescription>
+          </DialogHeader>
+          <div>
+            <ReadDeviceForm row={row} />
+          </div>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={openUpdate} onOpenChange={setOpenUpdate}>
+        <DialogTrigger asChild>
+          <Button className="bg-yellow-500 hover:bg-yellow-600">
+            <Pencil className="size-4 text-white" />
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Update Device: {row.original.name}</DialogTitle>
+            <DialogDescription>Update Your Device</DialogDescription>
+          </DialogHeader>
+          <div>
+            <UpdateDeviceForm setOpen={setOpenUpdate} row={row} />
+          </div>
+        </DialogContent>
+      </Dialog>
       <DeleteActionBtn
         SetOpen={SetOpen}
         open={open}

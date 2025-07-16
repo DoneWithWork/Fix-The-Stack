@@ -1,55 +1,80 @@
-"use server"
+"use server";
 
 import { generateApiKey } from "@/lib/apikey";
 import { db } from "@/lib/db";
-
 import { DeviceSchema } from "@/lib/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function NewDeviceActions(prevState: unknown, formData: FormData) {
+import type { ActionResponse, DeviceFormData } from "@/lib/constants";
+import { DeviceType } from "@prisma/index";
+export async function NewDeviceActions(
+    prevState: ActionResponse<DeviceFormData>,
+    formData: FormData
+): Promise<ActionResponse<DeviceFormData>> {
+
     const user = await currentUser();
-
-    if (!user) return redirect("/")
-    const parsed = DeviceSchema.safeParse({
-        name: formData.get("name"),
-        description: formData.get("description"),
-        deviceType: formData.get("deviceType"),
-        projectId: formData.get("projectId")
-
-    })
-    if (!parsed.success) {
-        return { errors: parsed.error.flatten().fieldErrors, success: false }
+    if (!user) redirect("/");
+    const rawData: DeviceFormData = {
+        name: formData.get("name") as string,
+        description: formData.get("description") as string,
+        deviceType: formData.get("deviceType") as DeviceType,
+        projectId: formData.get("projectId") as string,
     }
-    const { name, description, deviceType, projectId } = parsed.data
+    const parsed = DeviceSchema.safeParse(rawData);
 
-    const Project = await db(user.id).project.findFirst({
-        where: {
-            userId: user.id,
-            id: projectId
-        }
-    })
-    if (!Project) return { success: false, errors: {} }
+    if (!parsed.success) {
+        return {
+            success: false,
+            errors: parsed.error.flatten().fieldErrors,
+            errorMessage: "Invalid form data",
+            inputs: rawData
+        };
+    }
+
+    const { name, description, deviceType, projectId } = parsed.data;
+
+    const project = await db(user.id).project.findFirst({
+        where: { userId: user.id, id: projectId },
+    });
+
+    if (!project) {
+        return {
+            success: false,
+            errorMessage: "Project not found or unauthorized",
+            inputs: rawData
+        };
+    }
+
     const key = await generateApiKey();
-    const token = `${(Project.title).toLocaleLowerCase().replace(" ", "_")}_device_auth_token_${key}`
+    const token = `${project.title.toLowerCase().replace(" ", "_")}_device_auth_token_${key}`;
+
     const newDevice = await db(user.id).device.create({
         data: {
             name,
             description,
             deviceType,
             projectId,
-            deviceAuthToken: token
-        }
-    })
+            deviceAuthToken: token,
+        },
+    });
 
     if (newDevice) {
-        revalidateTag(`devices:${user.id}`)
-        revalidateTag(`project_devices:${user.id}:${projectId}`)
-        redirect(`/dashboard/devices/${parsed.data.projectId}/${newDevice.id}`)
+        revalidateTag(`devices:${user.id}`);
+        revalidateTag(`project_devices:${user.id}:${projectId}`);
+        return {
+            success: true,
+            message: "Successfully created new device"
+        }
+    } else {
+        return {
+            success: false,
+            errorMessage: "Unknown error occurred during device creation",
+            inputs: rawData
+        };
     }
-    else {
-        return { success: false, errors: {} }
-    }
+
+
 
 }

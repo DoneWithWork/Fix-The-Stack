@@ -20,7 +20,6 @@ export async function NewRuleAction(prevState: unknown, formData: FormData) {
     const parsed = FullRulePayloadSchema.safeParse(raw)
 
     if (!parsed.success) {
-        console.log(parsed.error.flatten())
         return { success: false, errors: parsed.error.flatten() }
     }
     const ruleTree = JSON.parse(formData.get("ruleTree") as string)

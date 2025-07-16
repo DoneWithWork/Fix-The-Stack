@@ -20,8 +20,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ProjectType } from "@/lib/types";
-import { useRouter } from "next/navigation";
 import { ReactNode, useState } from "react";
 
 interface DataTableProps<TData, TValue> {
@@ -29,7 +27,6 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   filterName?: string;
   CreateBtn?: ReactNode;
-  onClick?: boolean;
 }
 
 export function DataTable<TData, TValue>({
@@ -37,7 +34,6 @@ export function DataTable<TData, TValue>({
   data,
   filterName = "title",
   CreateBtn,
-  onClick = false,
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const table = useReactTable({
@@ -51,7 +47,6 @@ export function DataTable<TData, TValue>({
       columnFilters,
     },
   });
-  const router = useRouter();
   return (
     <div>
       <div className="flex flex-row items-center py-4 justify-between">
@@ -91,13 +86,6 @@ export function DataTable<TData, TValue>({
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
-                  onClick={() => {
-                    const project = row.original as ProjectType;
-                    if (onClick) {
-                      router.push(`/dashboard/projects/${project.id}`);
-                    }
-                  }}
-                  className={`${onClick && "hover:cursor-pointer"}`}
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >

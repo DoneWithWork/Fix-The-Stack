@@ -1,5 +1,6 @@
 "use server"
 
+import type { ActionResponse, DeleteDeviceFormData } from "@/lib/constants";
 import { db } from "@/lib/db";
 import { DeleteDeviceSchema } from "@/lib/schema";
 import { currentUser } from "@clerk/nextjs/server";
@@ -7,42 +8,53 @@ import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { after } from "next/server";
 
-export async function DeleteDeviceAction(prevState: unknown, formData: FormData) {
-    const user = await currentUser();
+export async function DeleteDeviceAction(prevState: ActionResponse<DeleteDeviceFormData>, formData: FormData): Promise<ActionResponse<DeleteDeviceFormData>> {
+    try {
+        const user = await currentUser();
 
-    if (!user) redirect("/")
-    const parsed = DeleteDeviceSchema.safeParse({
-        deviceId: formData.get("deviceId")
-    })
-    if (!parsed.success) return { errors: parsed.error.flatten().fieldErrors, success: false, formErrors: "" }
-    const userId = user.id;
-    const device = await db(user.id).device.findFirst({
-        where: {
-            id: parsed.data.deviceId,
-            Project: {
-                userId
+        if (!user) redirect("/")
+        const parsed = DeleteDeviceSchema.safeParse({
+            deviceId: formData.get("deviceId")
+        })
+        if (!parsed.success) return { errors: parsed.error.flatten().fieldErrors, success: false, errorMessage: "" }
+        const userId = user.id;
+        const device = await db(user.id).device.findFirst({
+            where: {
+                id: parsed.data.deviceId,
+                Project: {
+                    userId
+                }
+            },
+            include: {
+                dataStreams: true
             }
-        },
-        include: {
-            dataStreams: true
+        })
+
+        if (!device) return { errors: {}, success: false, errorMessage: "Failed to delete device" }
+        if (device?.dataStreams.length != null && device.dataStreams.length > 0) {
+            return { errors: {}, success: false, errorMessage: "You must deleted all data streams for this device first." }
+
         }
-    })
+        const deletedDevice = await db(user.id).device.delete({
+            where: {
+                id: parsed.data.deviceId
+            }
+        });
 
-    if (!device) return { errors: {}, success: false, formErrors: "Failed to delete device" }
-    if (device?.dataStreams.length != null && device.dataStreams.length > 0) {
-        return { errors: {}, success: false, formErrors: "You must deleted all data streams for this device first." }
+        if (!deletedDevice) return { errors: {}, success: false, errorMessage: "Failed to delete device" }
+        after(() => {
+            revalidateTag(`project_devices:${userId}:${device.projectId}`)
+            revalidateTag(`devices:${userId}`)
+        })
 
+        return { errors: {}, success: true, errorMessage: "" }
     }
-    const deletedDevice = await db(user.id).device.delete({
-        where: {
-            id: parsed.data.deviceId
+    catch {
+        return {
+            success: false,
+            errorMessage: "Failed to delete device"
         }
-    });
-
-    if (!deletedDevice) return { errors: {}, success: false, formErrors: "Failed to delete device" }
-    after(() => { revalidateTag(`project_devices:${userId}:${device.projectId}`) })
-
-    return { errors: {}, success: true, formErrors: "" }
+    }
 
 
 }

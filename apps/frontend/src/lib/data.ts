@@ -30,6 +30,14 @@ export async function GetDevice({ userId, deviceId }: CachedDeviceType) {
             Project: {
                 userId: userId
             }
+        },
+        include: {
+            Project: {
+                select: {
+                    id: true,
+                    title: true
+                }
+            }
         }
     },)
     return device
@@ -39,6 +47,14 @@ export async function GetDevices(userId: string) {
         where: {
             Project: {
                 userId: userId
+            }
+        },
+        include: {
+            Project: {
+                select: {
+                    id: true,
+                    title: true
+                }
             }
         }
     })
@@ -60,7 +76,6 @@ export async function GetDevicesWithDataStream(userId: string) {
     return device
 }
 export async function getCachedDevices(userId: string) {
-    console.log("Devices")
     return unstable_cache(async () => GetDevices(userId), ["devices", userId], {
         revalidate: false,
         tags: [`devices:${userId}`]
@@ -68,7 +83,6 @@ export async function getCachedDevices(userId: string) {
     )()
 }
 export async function getCachedDevicesIncludeDataStream(userId: string) {
-    console.log("Devices")
     return unstable_cache(async () => GetDevicesWithDataStream(userId), ["devices_with_datastream", userId], {
         revalidate: false,
         tags: [`devices_with_datastream:${userId}`]
@@ -83,8 +97,17 @@ export async function GetDevicesByProject({ userId, projectId }: DevicesByProjec
                 id: projectId,
                 userId: userId
             }
+        },
+        include: {
+            Project: {
+                select: {
+                    id: true,
+                    title: true
+                }
+            }
         }
     })
+
     return devices
 }
 export async function GetRules(userId: string) {
@@ -120,7 +143,6 @@ export async function GetProjects(userId: string) {
     return projects
 }
 export async function getCachedProjects(userId: string) {
-    console.log("Projects")
     return unstable_cache(async () => GetProjects(userId), ["projects", userId], {
         revalidate: false,
         tags: [`projects:${userId}`]
@@ -129,7 +151,6 @@ export async function getCachedProjects(userId: string) {
 }
 
 export async function getCachedProject({ userId, projectId }: ProjectTypeData) {
-    console.log("Project")
     return unstable_cache(async () => GetProject({ userId, projectId }), ["project", userId], {
         revalidate: false,
         tags: [`project:${userId}:${projectId}`]

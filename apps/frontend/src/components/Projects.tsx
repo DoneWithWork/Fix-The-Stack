@@ -21,7 +21,6 @@ export default async function AllProjects() {
             CreateBtn={<NewProjectBtn />}
             columns={ProjectColumn}
             data={projects}
-            onClick={true}
           />
         </div>
       ) : (

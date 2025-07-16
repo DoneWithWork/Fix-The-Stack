@@ -1,4 +1,4 @@
-import { ApiKey, CRUD_Action, DataPoint, DataStream, Prisma } from "@prisma/index";
+import { ApiKey, CRUD_Action, DataPoint, DataStream, Device, Prisma } from "@prisma/index";
 
 
 export type ProjectType = {
@@ -101,3 +101,10 @@ export const mapping: Record<string, CRUD_Action> = {
 export type DataPointWithStream = DataPoint & {
     dataStream: DataStream;
 };
+
+export type extendedDeviceWithProject = {
+    Project: {
+        title: string;
+        id: string;
+    };
+} & Device;

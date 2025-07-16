@@ -7,7 +7,8 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { DataStream, Device } from "@prisma/index";
+import { extendedDeviceWithProject } from "@/lib/types";
+import { DataStream } from "@prisma/index";
 import { Suspense } from "react";
 import Grid from "./Grid";
 import { LoadingCom } from "./Loader";
@@ -23,7 +24,7 @@ export default async function Project({
 }: {
   tab: string;
   dataStreams: DataStream[];
-  devices: Device[];
+  devices: extendedDeviceWithProject[];
 }) {
   return (
     <div className=" h-full flex flex-col max-w-full">

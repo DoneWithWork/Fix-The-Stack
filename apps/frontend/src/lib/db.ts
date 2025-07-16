@@ -22,7 +22,6 @@ export function createDBClient(userId?: string) {
                 console.log(`Query ${model}.${operation} took ${after - before}ms`);
                 const hasBeforeData = ["delete", "update", 'updateMany']
                 const hasAfterData = ["create", "createMany", "update", "updateMany"];
-                console.log(model)
 
                 if (model && model !== "Audit") {
                     const modelDelegate = (prisma)[uncapitalise(model) as modelType] as {
@@ -33,7 +32,6 @@ export function createDBClient(userId?: string) {
                     })
                     const beforeResult = hasBeforeData.includes(operation) ? beforeQuery : {};
                     const afterResult = hasAfterData.includes(operation) ? result : {};
-                    console.log(result)
                     await prisma.audit.create({
                         data: {
                             after: afterResult,

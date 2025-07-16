@@ -6,7 +6,9 @@ import {
   getCachedDataStreamsProject,
   getCachedDevicesByProject,
   getCachedProject,
+  getCachedProjects,
 } from "@/lib/data";
+import { extendedDeviceWithProject } from "@/lib/types";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -32,7 +34,13 @@ export default async function ProjectPage({
     userId,
     projectId: id,
   });
-  const devices = await getCachedDevicesByProject({ userId, projectId: id });
+  const projects = await getCachedProjects(userId);
+
+  const devices: extendedDeviceWithProject[] = await getCachedDevicesByProject({
+    userId,
+    projectId: id,
+  });
+  console.log(devices);
   return (
     <div className="px-3 py-3 flex flex-col h-screen max-w-full">
       <div className="flex flex-row justify-between items-center ">
@@ -41,7 +49,7 @@ export default async function ProjectPage({
           <p className="text-base mb-3 ">{project.description}</p>
         </div>
         <div>
-          <NewDeviceBtn id={project.id} />
+          <NewDeviceBtn id={project.id} projects={projects} />
         </div>
       </div>
       <Suspense fallback={<LoadingCom />}>

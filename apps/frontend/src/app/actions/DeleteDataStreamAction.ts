@@ -14,7 +14,7 @@ export async function DeleteDataStreamAction(prevState: unknown, formData: FormD
     const parsed = DeleteDataStreamSchema.safeParse({
         dataStreamId: formData.get("dataStreamId")
     })
-    if (!parsed.success) return { errors: parsed.error.flatten().fieldErrors, success: false, formErrors: "" }
+    if (!parsed.success) return { errors: parsed.error.flatten().fieldErrors, success: false, errorMessage: "" }
     const userId = user.id;
 
     const dataStream = await db(user.id).dataStream.findFirst({
@@ -37,18 +37,18 @@ export async function DeleteDataStreamAction(prevState: unknown, formData: FormD
 
         }
     })
-    if (!dataStream) return { errors: {}, success: false, formErrors: "Failed to delete data stream" }
-    if (dataStream.dataPoints != null && dataStream.dataPoints.length > 0) return { errors: {}, success: false, formErrors: "You must deleted all data points for this data stream first." }
+    if (!dataStream) return { errors: {}, success: false, errorMessage: "Failed to delete data stream" }
+    if (dataStream.dataPoints != null && dataStream.dataPoints.length > 0) return { errors: {}, success: false, errorMessage: "You must deleted all data points for this data stream first." }
     const deletedStream = await db(user.id).dataStream.delete({
         where: {
             id: parsed.data.dataStreamId
         }
     })
-    if (!deletedStream) return { errors: {}, success: false, formErrors: "Failed to delete data stream" }
+    if (!deletedStream) return { errors: {}, success: false, errorMessage: "Failed to delete data stream" }
     after(() => {
         revalidateTag(`data_stream:${userId}:${dataStream.Device.projectId}`);
     });
-    return { errors: {}, success: true, formErrors: "" }
+    return { errors: {}, success: true, errorMessage: "" }
 
 
 }

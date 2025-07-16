@@ -1,3 +1,4 @@
+"use client";
 import {
   Dialog,
   DialogContent,
@@ -6,21 +7,20 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { getCachedProjects } from "@/lib/data";
-import { auth } from "@clerk/nextjs/server";
+import { Project } from "@prisma/index";
 import { Plus } from "lucide-react";
 import NewDeviceForm from "./forms/NewDeviceForm";
 import { Button } from "./ui/button";
+import { useState } from "react";
 
-export default async function NewDeviceBtn({ id }: { id: string | null }) {
-  const { userId, redirectToSignIn } = await auth();
-  if (!userId) {
-    return redirectToSignIn();
-  }
-
-  const projects = await getCachedProjects(userId);
+type NewDeviceBtnProps = {
+  id: string | null;
+  projects: Project[];
+};
+export default function NewDeviceBtn({ id, projects }: NewDeviceBtnProps) {
+  const [open, setOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline">
           <Plus className="size-5" />
@@ -33,7 +33,7 @@ export default async function NewDeviceBtn({ id }: { id: string | null }) {
           <DialogDescription>Create a new Iot device</DialogDescription>
         </DialogHeader>
         <div>
-          <NewDeviceForm id={id} projects={projects} />
+          <NewDeviceForm setOpen={setOpen} id={id} projects={projects} />
         </div>
       </DialogContent>
     </Dialog>

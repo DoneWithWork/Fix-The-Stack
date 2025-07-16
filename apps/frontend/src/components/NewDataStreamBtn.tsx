@@ -7,15 +7,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+import { extendedDeviceWithProject } from "@/lib/types";
 import { Plus } from "lucide-react";
 import NewDataStreamForm from "./forms/NewDataStreamForm";
 import { Button } from "./ui/button";
-import { Device } from "@prisma/index";
 
 export default async function NewDataStreamBtn({
   devices,
 }: {
-  devices: Device[];
+  devices: extendedDeviceWithProject[];
 }) {
   return (
     <Dialog>

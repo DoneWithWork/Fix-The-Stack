@@ -1,4 +1,6 @@
 import { CheckCircle2, DatabaseZapIcon, FolderRoot, LucideIcon, MicrochipIcon, Pickaxe, User, Webhook, Wifi } from "lucide-react";
+import z from "zod";
+import { DeleteDeviceSchema, DeviceSchema, NewProjectSchema } from "./schema";
 
 type UserDashboardLinkTypes = {
     title: string;
@@ -54,9 +56,29 @@ export const AdminDashboardLinks: UserDashboardLinkTypes[] = [
 
 ] as const
 
-type InitialStateType = {
+
+
+
+
+export type DeviceFormData = z.infer<typeof DeviceSchema>
+export type DeleteDeviceFormData = z.infer<typeof DeleteDeviceSchema>
+export interface ActionResponse<T> {
     success: boolean;
-    formErrors: string;
-    errors: Record<string, string[]>;
+    errorMessage?: string;
+    message?: string;
+    errors?: {
+        [K in keyof T]?: string[]
+    },
+    inputs?: T
 }
-export const initialState: InitialStateType = { success: false, formErrors: "", errors: {} };
+export const initialState = { success: false, errorMessage: "", errors: {} };
+export const UpdateDeviceSchema = DeviceSchema.pick({ name: true, description: true }).extend({
+    id: z.string().min(1, {
+        message: "Id is required"
+    })
+})
+export const UpdatedProjectScehma = NewProjectSchema.pick({ title: true, description: true }).extend({
+    id: z.string().min(1, {
+        message: "Id is required"
+    })
+})

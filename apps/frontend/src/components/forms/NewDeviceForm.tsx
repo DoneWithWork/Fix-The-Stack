@@ -10,12 +10,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { initialState } from "@/lib/constants";
 import { DeviceSchema } from "@/lib/schema";
-import { ProjectType } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Project } from "@prisma/index";
 import { Loader2 } from "lucide-react";
-import { useActionState, useEffect } from "react";
+import { Dispatch, SetStateAction, useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { DialogClose } from "../ui/dialog";
 import {
@@ -25,24 +27,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { toast } from "sonner";
 
-const initialState = { errors: {}, success: false };
-type NewDeviceActionReturn = {
-  success: boolean;
-  errors: Record<string, string[]>;
+type NewDeviceFormProps = {
+  id: string | null;
+  projects: Project[] | null;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 };
 export default function NewDeviceForm({
   id,
   projects,
-}: {
-  id: string | null;
-  projects: ProjectType[] | null;
-}) {
-  const [state, action, pending] = useActionState<
-    NewDeviceActionReturn,
-    FormData
-  >(NewDeviceActions, initialState);
+  setOpen,
+}: NewDeviceFormProps) {
+  const [state, action, pending] = useActionState(
+    NewDeviceActions,
+    initialState
+  );
 
   const form = useForm<z.infer<typeof DeviceSchema>>({
     resolver: zodResolver(DeviceSchema),
@@ -54,44 +53,46 @@ export default function NewDeviceForm({
     },
   });
   useEffect(() => {
-    if (state?.errors) {
-      Object.entries(state.errors).forEach(([fieldName, errors]) => {
-        if (fieldName in DeviceSchema.shape) {
-          form.setError(
-            fieldName as keyof z.infer<typeof DeviceSchema>,
-            {
-              message: errors.join(", "),
-            },
-            {
-              shouldFocus: true,
-            }
-          );
-        } else {
-          toast("Error in creating device. Please retry");
-        }
-      });
+    if (state?.success) {
+      setOpen(false);
+      toast(state.message);
+    } else if (state?.errorMessage && !state.success) {
+      toast(state.errorMessage);
     }
-  }, [state, form]);
+  }, [state, form, setOpen]);
   return (
     <Form {...form}>
       <form action={action} className="space-y-8 max-w-4xl mx-auto">
         <FormField
           control={form.control}
+          defaultValue={state.inputs?.name}
           name="name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter name..." {...field} name="name" />
+                <Input
+                  minLength={1}
+                  maxLength={100}
+                  id="name"
+                  placeholder="Enter name..."
+                  {...field}
+                  name="name"
+                />
               </FormControl>
 
-              <FormMessage />
+              {state?.errors?.name && (
+                <p id="city-error" className="text-sm text-red-500">
+                  {state.errors.name[0]}
+                </p>
+              )}
             </FormItem>
           )}
         />
         <FormField
           control={form.control}
           name="description"
+          defaultValue={state.inputs?.description}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Description</FormLabel>
@@ -102,8 +103,11 @@ export default function NewDeviceForm({
                   name="description"
                 />
               </FormControl>
-
-              <FormMessage />
+              {state?.errors?.description && (
+                <p id="city-error" className="text-sm text-red-500">
+                  {state.errors.description[0]}
+                </p>
+              )}
             </FormItem>
           )}
         />
@@ -135,7 +139,11 @@ export default function NewDeviceForm({
                 </SelectContent>
               </Select>
 
-              <FormMessage />
+              {state?.errors?.deviceType && (
+                <p id="city-error" className="text-sm text-red-500">
+                  {state.errors?.deviceType[0]}
+                </p>
+              )}
             </FormItem>
           )}
         />

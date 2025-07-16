@@ -2,16 +2,15 @@
 
 import { DeleteDataStreamAction } from "@/app/actions/DeleteDataStreamAction";
 import { initialState } from "@/lib/constants";
-import { DeleteDataStreamSchema } from "@/lib/schema";
 import { DataStream } from "@prisma/index";
 import { ColumnDef, Row } from "@tanstack/react-table";
 import { Eye } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 import DeleteActionBtn from "../DeleteActionBtn";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
 export const DataStreamColumn: ColumnDef<DataStream>[] = [
   {
     accessorKey: "title",
@@ -38,16 +37,8 @@ function Action({ row }: { row: Row<DataStream> }) {
   );
   const router = useRouter();
   useEffect(() => {
-    if (state?.errors) {
-      Object.entries(state.errors).forEach(([fieldName, errors]) => {
-        if (fieldName in DeleteDataStreamSchema.shape) {
-          toast(errors.join(", "));
-        }
-      });
-    }
-
-    if (state?.formErrors) {
-      toast(state.formErrors);
+    if (state?.errorMessage) {
+      toast(state.errorMessage);
     }
 
     if (state?.success) {
