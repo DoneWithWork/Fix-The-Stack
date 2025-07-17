@@ -1,6 +1,6 @@
-import AllDevices from "@/components/AllDevices";
-import Header from "@/components/Header";
-import { LoadingCom } from "@/components/Loader";
+import AllDevices from "@/components/device/AllDevices";
+import Header from "@/components/shared/Header";
+import { LoadingCom } from "@/components/shared/Loader";
 import { getCachedDevices, getCachedProjects } from "@/lib/data";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";

@@ -3,8 +3,9 @@ import { getCachedProjects } from "@/lib/data";
 import { auth } from "@clerk/nextjs/server";
 import { Plus } from "lucide-react";
 import Link from "next/link";
-import NewProjectBtn from "./NewProjectBtn";
+import NewProjectBtn from "./project/NewProjectBtn";
 import { DataTable } from "./tables/data-table";
+
 import { ProjectColumn } from "./tables/ProjectColumns";
 
 export default async function AllProjects() {

@@ -1,4 +1,4 @@
-import NewProjectForm from '@/components/forms/NewProjectForm'
+import NewProjectForm from '@/components/project/NewProjectForm'
 import React from 'react'
 
 export default function NewProject() {

@@ -1,5 +1,5 @@
 import { decryptApiKey } from "@/lib/apikey";
-import { db } from "@/lib/db";
+import { db } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";

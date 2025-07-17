@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+import { db } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import React from "react";

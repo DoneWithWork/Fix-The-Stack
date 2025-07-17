@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useWarnIfUnsavedChanges } from "@/hooks/use-prevent-unsaved-transition";
-import { UserRoleSchema } from "@/lib/schema";
+import { UserRoleSchema } from "@/lib/validation";
 import { User } from "@prisma/index";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";

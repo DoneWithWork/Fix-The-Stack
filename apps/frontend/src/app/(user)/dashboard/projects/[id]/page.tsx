@@ -1,7 +1,7 @@
-import Header from "@/components/Header";
-import { LoadingCom } from "@/components/Loader";
 import NewDeviceBtn from "@/components/NewDeviceBtn";
-import Project from "@/components/Project";
+import Project from "@/components/project/ProjectCard";
+import Header from "@/components/shared/Header";
+import { LoadingCom } from "@/components/shared/Loader";
 import {
   getCachedDataStreamsProject,
   getCachedDevicesByProject,
@@ -40,7 +40,6 @@ export default async function ProjectPage({
     userId,
     projectId: id,
   });
-  console.log(devices);
   return (
     <div className="px-3 py-3 flex flex-col h-screen max-w-full">
       <div className="flex flex-row justify-between items-center ">

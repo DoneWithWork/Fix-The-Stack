@@ -128,8 +128,7 @@ model Action {
   triggerLimit Int
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
-  ruleId       String?
-  Rule         Rule?      @relation(fields: [ruleId], references: [id])
+  rules        Rule[]
 
   emailAction    EmailAction?
   telegramAction TelegramAction?

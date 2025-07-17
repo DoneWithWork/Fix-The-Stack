@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/components/shared/Header";
 import { DataTable } from "@/components/tables/data-table";
 import { DataLogsColumn } from "@/components/tables/DataLogsColumn";
 import { getCachedDataLogs } from "@/lib/data";

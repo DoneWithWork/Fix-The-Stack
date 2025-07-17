@@ -1,8 +1,8 @@
 "use server"
 
-import { db } from "@/lib/db";
-import { checkRole } from "@/lib/roles"
-import { UserRoleSchema } from "@/lib/schema"
+import { db } from "@/lib/prisma";
+import { checkRole } from "@/lib/auth"
+import { UserRoleSchema } from "@/lib/validation"
 import { clerkClient } from "@clerk/nextjs/server"
 import { revalidateTag } from "next/cache"
 

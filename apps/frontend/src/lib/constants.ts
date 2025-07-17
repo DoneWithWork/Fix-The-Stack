@@ -1,6 +1,6 @@
 import { CheckCircle2, DatabaseZapIcon, FolderRoot, LucideIcon, MicrochipIcon, Pickaxe, User, Webhook, Wifi } from "lucide-react";
 import z from "zod";
-import { DeleteDeviceSchema, DeviceSchema, NewProjectSchema } from "./schema";
+import { DeleteDeviceSchema, DeviceSchema, NewProjectSchema } from "./validation";
 
 type UserDashboardLinkTypes = {
     title: string;

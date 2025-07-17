@@ -199,7 +199,6 @@ exports.Prisma.ActionScalarFieldEnum = {
   triggerLimit: 'triggerLimit',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  ruleId: 'ruleId',
   userId: 'userId'
 };
 

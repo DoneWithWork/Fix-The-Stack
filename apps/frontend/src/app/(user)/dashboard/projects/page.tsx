@@ -1,6 +1,6 @@
-import Header from "@/components/Header";
+import Header from "@/components/shared/Header";
 import AllProjects from "@/components/Projects";
-import { Loader2Icon } from "lucide-react";
+import { LoadingCom } from "@/components/shared/Loader";
 import { Suspense } from "react";
 
 export default async function Projects() {
@@ -12,14 +12,6 @@ export default async function Projects() {
           <AllProjects />
         </Suspense>
       </div>
-    </div>
-  );
-}
-
-function LoadingCom() {
-  return (
-    <div className="flex-1 flex flex-col justify-center items-center">
-      <Loader2Icon className="animate-spin size-10" />
     </div>
   );
 }

@@ -1,6 +1,6 @@
-import NewRuleForm from "@/components/forms/NewRuleForm";
-import Header from "@/components/Header";
-import NewActionBtn from "@/components/NewActionBtn";
+import NewRuleForm from "@/components/rules/NewRuleForm";
+import Header from "@/components/shared/Header";
+import NewActionBtn from "@/components/actions/NewActionBtn";
 import {
   getCachedActions,
   getCachedDevicesIncludeDataStream,

@@ -1,6 +1,6 @@
 import RoleChange from "@/components/admin/RoleChange";
-import Header from "@/components/Header";
-import { LoadingCom } from "@/components/Loader";
+import Header from "@/components/shared/Header";
+import { LoadingCom } from "@/components/shared/Loader";
 import { Button } from "@/components/ui/button";
 import {
   Card,

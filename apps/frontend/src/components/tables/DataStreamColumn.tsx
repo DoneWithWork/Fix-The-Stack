@@ -16,10 +16,10 @@ import { Eye, Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
-import DeleteActionBtn from "../DeleteActionBtn";
+import DeleteActionBtn from "../shared/utils/DeleteActionBtn";
 import { Button } from "../ui/button";
-import ReadDataStreamForm from "../forms/ReadDataStreamForm";
-import UpdateDataStreamForm from "../forms/UpdateDataStreamForm";
+import ReadDataStreamForm from "../data-streams/ReadDataStreamForm";
+import UpdateDataStreamForm from "../data-streams/UpdateDataStreamForm";
 export const DataStreamColumn: ColumnDef<DataStream>[] = [
   {
     accessorKey: "title",

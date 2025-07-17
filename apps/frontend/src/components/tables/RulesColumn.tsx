@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
-import DeleteActionBtn from "../DeleteActionBtn";
+import DeleteActionBtn from "../shared/utils/DeleteActionBtn";
 import { Button } from "../ui/button";
 export const RulesColumn: ColumnDef<Rule>[] = [
   {

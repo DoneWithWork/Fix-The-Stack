@@ -1,7 +1,7 @@
 "use server"
 
 import { UpdateDeviceSchema, type ActionResponse } from "@/lib/constants";
-import { db } from "@/lib/db";
+import { db } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
@@ -33,7 +33,6 @@ export async function UpdateDeviceAction(prevState: ActionResponse<UpdateDeviceT
         const project = await db(user.id).project.findFirst({
 
             where: {
-                id,
                 userId: user.id, devices: {
                     some: {
                         id: id

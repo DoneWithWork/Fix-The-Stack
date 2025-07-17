@@ -1,8 +1,8 @@
 "use server"
 
 import type { ActionResponse, DeleteDeviceFormData } from "@/lib/constants";
-import { db } from "@/lib/db";
-import { DeleteDeviceSchema } from "@/lib/schema";
+import { db } from "@/lib/prisma";
+import { DeleteDeviceSchema } from "@/lib/validation";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";

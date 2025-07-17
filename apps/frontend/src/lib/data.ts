@@ -2,7 +2,7 @@
 
 import { DataStream } from "@prisma/index";
 import { unstable_cache } from "next/cache";
-import { db } from "./db";
+import { db } from "./prisma";
 import { ActionWithRelations, ApiKeyExtend, CachedDeviceType, DevicesByProjectType, ProjectTypeData } from "./types";
 
 
@@ -151,7 +151,7 @@ export async function getCachedProjects(userId: string) {
 }
 
 export async function getCachedProject({ userId, projectId }: ProjectTypeData) {
-    return unstable_cache(async () => GetProject({ userId, projectId }), ["project", userId], {
+    return unstable_cache(async () => GetProject({ userId, projectId }), ["project", userId, projectId], {
         revalidate: false,
         tags: [`project:${userId}:${projectId}`]
     }

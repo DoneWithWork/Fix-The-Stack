@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/components/shared/Header";
 import { Separator } from "@/components/ui/separator";
 import { getCachedDevice } from "@/lib/data";
 import { currentUser } from "@clerk/nextjs/server";

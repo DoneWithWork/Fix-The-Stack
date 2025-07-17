@@ -1,8 +1,8 @@
 "use server"
 
 import { ActionResponse } from "@/lib/constants";
-import { db } from "@/lib/db";
-import { DeleteApiKeySchema } from "@/lib/schema";
+import { db } from "@/lib/prisma";
+import { DeleteApiKeySchema } from "@/lib/validation";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";

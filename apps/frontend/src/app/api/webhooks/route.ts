@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+import { db } from "@/lib/prisma";
 import { clerkClient } from '@clerk/nextjs/server'
 import { verifyWebhook } from '@clerk/nextjs/webhooks'
 import { redirect } from 'next/navigation'

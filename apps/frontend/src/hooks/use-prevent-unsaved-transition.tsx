@@ -6,7 +6,6 @@ export const useWarnIfUnsavedChanges = (
 ) => {
   useEffect(() => {
     const checkForUnsavedData = (event: Event) => {
-      console.log("changing route");
       if (unsavedChanges) {
         callback();
         // you can use your logic to check any unsaved data

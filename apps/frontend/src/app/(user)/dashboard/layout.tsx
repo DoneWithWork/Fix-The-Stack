@@ -1,8 +1,8 @@
 import { AppSidebar } from "@/components/AppSideBar";
 import CookieLayout from "@/components/CookieLayout";
-import { LoadingCom } from "@/components/Loader";
+import { LoadingCom } from "@/components/shared/Loader";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { checkRole } from "@/lib/roles";
+import { checkRole } from "@/lib/auth";
 import { cookies } from "next/headers";
 import { ReactNode, Suspense } from "react";
 import "react-select-search/style.css";

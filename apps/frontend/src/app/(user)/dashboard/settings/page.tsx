@@ -1,7 +1,7 @@
-import ApiKeys from "@/components/ApiKeys";
+import ApiKeys from "@/components/api-keys/ApiKeys";
 import DeleteAccount from "@/components/DeleteAccount";
-import Header from "@/components/Header";
-import { LoadingCom } from "@/components/Loader";
+import Header from "@/components/shared/Header";
+import { LoadingCom } from "@/components/shared/Loader";
 import {
   Card,
   CardContent,

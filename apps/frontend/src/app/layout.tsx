@@ -1,4 +1,4 @@
-import PageLoader from "@/components/PageLoader";
+import PageLoader from "@/components/shared/utils/PageLoader";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { ClerkProvider } from "@clerk/nextjs";

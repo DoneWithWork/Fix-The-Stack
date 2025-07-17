@@ -1,8 +1,8 @@
 "use server"
 
 import { type ActionResponse } from "@/lib/constants";
-import { db } from "@/lib/db";
-import { UpdateDataStreamSchema } from "@/lib/schema";
+import { db } from "@/lib/prisma";
+import { UpdateDataStreamSchema } from "@/lib/validation";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";

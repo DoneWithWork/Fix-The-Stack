@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Project } from "@prisma/index";
 import { Plus } from "lucide-react";
-import NewDeviceForm from "./forms/NewDeviceForm";
+import NewDeviceForm from "./device/NewDeviceForm";
 import { Button } from "./ui/button";
 import { useState } from "react";
 

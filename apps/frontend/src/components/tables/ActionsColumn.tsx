@@ -1,20 +1,34 @@
 "use client";
 
-import { DeleteDataStreamAction } from "@/app/actions/DeleteDataStreamAction";
+import { DeleteAction } from "@/app/actions/DeleteAction";
 import { initialState } from "@/lib/constants";
-import { Action as ActionType } from "@prisma/index";
+import { ActionWithRelations } from "@/lib/types";
 import { ColumnDef, Row } from "@tanstack/react-table";
-import { Eye } from "lucide-react";
-import Link from "next/link";
+import { Eye, Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
-import DeleteActionBtn from "../DeleteActionBtn";
+import ReadActionForm from "../forms/ReadActionForm";
+import UpdateActionForm from "../forms/UpdateActionForm";
+import DeleteActionBtn from "../shared/utils/DeleteActionBtn";
 import { Button } from "../ui/button";
-export const ActionColumn: ColumnDef<ActionType>[] = [
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+
+export const ActionColumn: ColumnDef<ActionWithRelations>[] = [
   {
     accessorKey: "name",
     header: "Name",
+  },
+  {
+    accessorKey: "type",
+    header: "Type",
   },
   {
     accessorKey: "retries",
@@ -24,6 +38,14 @@ export const ActionColumn: ColumnDef<ActionType>[] = [
     accessorKey: "triggerLimit",
     header: "Trigger Limit",
   },
+
+  {
+    accessorKey: "active",
+    header: "Active",
+    cell: ({ row }) => (
+      <span>{row.original.active === true ? "ACTIVE" : "INACTIVE"}</span>
+    ),
+  },
   {
     id: "actions",
     header: "Actions",
@@ -32,12 +54,10 @@ export const ActionColumn: ColumnDef<ActionType>[] = [
     },
   },
 ];
-function Action({ row }: { row: Row<ActionType> }) {
+function Action({ row }: { row: Row<ActionWithRelations> }) {
   const [open, SetOpen] = useState(false);
-  const [state, action, pending] = useActionState(
-    DeleteDataStreamAction,
-    initialState
-  );
+  const [openUpdate, setOpenUpdate] = useState(false);
+  const [state, action, pending] = useActionState(DeleteAction, initialState);
   const router = useRouter();
   useEffect(() => {
     if (state?.errorMessage) {
@@ -46,24 +66,51 @@ function Action({ row }: { row: Row<ActionType> }) {
 
     if (state?.success) {
       SetOpen(false); // Close modal immediately
-      toast("Successfully deleted data stream!");
+      toast("Successfully deleted action!");
       router.refresh();
     }
   }, [state, router]);
 
   return (
     <div className="flex flex-row items-center gap-3">
-      <Button asChild className="bg-green-500 hover:bg-green-600">
-        <Link href={`/dashboard/devices/datastream`}>
-          <Eye className="size-4 text-white" />
-        </Link>
-      </Button>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="bg-green-500 hover:bg-green-600 cursor-pointer">
+            <Eye className="size-4 text-white" />
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Action: {row.original.name}</DialogTitle>
+            <DialogDescription>View Your Action</DialogDescription>
+          </DialogHeader>
+          <div>
+            <ReadActionForm row={row} />
+          </div>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={openUpdate} onOpenChange={setOpenUpdate}>
+        <DialogTrigger asChild>
+          <Button className="bg-yellow-500 hover:bg-yellow-600 cursor-pointer">
+            <Pencil className="size-4 text-white" />
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Update Action: {row.original.name}</DialogTitle>
+            <DialogDescription>Update Your Action</DialogDescription>
+          </DialogHeader>
+          <div>
+            <UpdateActionForm row={row} setOpen={setOpenUpdate} />
+          </div>
+        </DialogContent>
+      </Dialog>
       <DeleteActionBtn
-        deleteItemName="Data Stream"
+        deleteItemName="Action"
         SetOpen={SetOpen}
         open={open}
         action={action}
-        name="dataStreamId"
+        name="actionId"
         value={row.original.id}
         pending={pending}
       />

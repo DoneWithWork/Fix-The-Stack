@@ -18,8 +18,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
-import DeleteActionBtn from "../DeleteActionBtn";
-import UpdateProjectForm from "../UpdateProjectForm";
+import DeleteActionBtn from "../shared/utils/DeleteActionBtn";
+import UpdateProjectForm from "../project/UpdateProjectForm";
 export const ProjectColumn: ColumnDef<Project>[] = [
   {
     accessorKey: "title",

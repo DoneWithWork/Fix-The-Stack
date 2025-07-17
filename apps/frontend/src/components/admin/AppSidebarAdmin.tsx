@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/sidebar";
 import { AdminDashboardLinks } from "@/lib/constants";
 import Link from "next/link";
-import SignOutBtn from "../SignOutBtn";
+import SignOutBtn from "../shared/utils/SignOutBtn";
 
 export function AppSidebarAdmin() {
   return (

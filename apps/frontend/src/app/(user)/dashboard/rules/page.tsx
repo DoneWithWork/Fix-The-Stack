@@ -1,6 +1,6 @@
-import Header from "@/components/Header";
-import NewActionBtn from "@/components/NewActionBtn";
-import NewRuleBtn from "@/components/NewRuleBtn";
+import Header from "@/components/shared/Header";
+import NewActionBtn from "@/components/actions/NewActionBtn";
+import NewRuleBtn from "@/components/rules/NewRuleBtn";
 import { ActionColumn } from "@/components/tables/ActionsColumn";
 import { DataTable } from "@/components/tables/data-table";
 import { RulesColumn } from "@/components/tables/RulesColumn";

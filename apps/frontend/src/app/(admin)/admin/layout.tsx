@@ -1,6 +1,6 @@
 import { AppSidebarAdmin } from "@/components/admin/AppSidebarAdmin";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { checkRole } from "@/lib/roles";
+import { checkRole } from "@/lib/auth";
 import { currentUser } from "@clerk/nextjs/server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";

@@ -1,8 +1,8 @@
 "use server";
 
 import { generateApiKey } from "@/lib/apikey";
-import { db } from "@/lib/db";
-import { DeviceSchema } from "@/lib/schema";
+import { db } from "@/lib/prisma";
+import { DeviceSchema } from "@/lib/validation";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";

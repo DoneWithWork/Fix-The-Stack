@@ -1,6 +1,6 @@
 'use server'
 
-import { checkRole } from "@/lib/roles"
+import { checkRole } from "@/lib/auth"
 import { clerkClient } from '@clerk/nextjs/server'
 
 export async function setRole(formData: FormData) {

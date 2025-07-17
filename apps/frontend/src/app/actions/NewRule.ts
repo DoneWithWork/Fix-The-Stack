@@ -1,7 +1,7 @@
 "use server"
 
-import { db } from "@/lib/db";
-import { FullRulePayloadSchema } from "@/lib/schema";
+import { db } from "@/lib/prisma";
+import { FullRulePayloadSchema } from "@/lib/validation";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";

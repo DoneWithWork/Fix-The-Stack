@@ -21,9 +21,9 @@ import { Copy, CopyCheck, Eye, Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
-import DeleteActionBtn from "../DeleteActionBtn";
-import UpdateDeviceForm from "../forms/UpdateDeviceForm";
-import ReadDeviceForm from "../forms/ReadDeviceForm";
+import DeleteActionBtn from "../shared/utils/DeleteActionBtn";
+import UpdateDeviceForm from "../device/UpdateDeviceForm";
+import ReadDeviceForm from "../device/ReadDeviceForm";
 
 export const DeviceColumn: ColumnDef<extendedDeviceWithProject>[] = [
   {

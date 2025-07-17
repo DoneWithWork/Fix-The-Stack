@@ -18,7 +18,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
-import SignOutBtn from "./SignOutBtn";
+import SignOutBtn from "./shared/utils/SignOutBtn";
 import SettingsBtn from "./ui/SettingsBtn";
 import { Label } from "./ui/label";
 import DocumentationBtn from "./ui/DocumentationBtn";
@@ -43,8 +43,6 @@ export function AppSidebar({
   const { open } = useSidebar();
   const pathName = usePathname();
   const changeMode = (checked: boolean) => {
-    console.log("Switch toggled:", checked);
-
     setCookie("educator", checked, {
       path: "/",
       maxAge: SIDEBAR_COOKIE_MAX_AGE,

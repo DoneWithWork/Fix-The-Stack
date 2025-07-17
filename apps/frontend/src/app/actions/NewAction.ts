@@ -1,6 +1,6 @@
 "use server";
-import { db } from "@/lib/db";
-import { ActionSchema } from "@/lib/schema";
+import { db } from "@/lib/prisma";
+import { ActionSchema } from "@/lib/validation";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";

@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/components/shared/Header";
 import { AuditColumn } from "@/components/tables/AuditColumn";
 import { DataTable } from "@/components/tables/data-table";
 import { getCachedAudits } from "@/lib/data";

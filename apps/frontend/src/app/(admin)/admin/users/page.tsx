@@ -1,6 +1,6 @@
 import Users from "@/components/admin/Users";
-import Header from "@/components/Header";
-import { LoadingCom } from "@/components/Loader";
+import Header from "@/components/shared/Header";
+import { LoadingCom } from "@/components/shared/Loader";
 import { getCachedUsers } from "@/lib/data";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";

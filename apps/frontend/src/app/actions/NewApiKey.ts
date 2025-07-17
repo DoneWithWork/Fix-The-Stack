@@ -1,8 +1,8 @@
 "use server"
 import { encryptApiKey, generateApiKey } from "@/lib/apikey";
 import { ActionResponse } from "@/lib/constants";
-import { db } from "@/lib/db";
-import { ApiKeySchema } from "@/lib/schema";
+import { db } from "@/lib/prisma";
+import { ApiKeySchema } from "@/lib/validation";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
 
